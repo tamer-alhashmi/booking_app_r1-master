@@ -1,0 +1,1389 @@
+{
+  "hotel": [
+    {
+      "name": "Russell",
+      "reception": "manned",
+      "discount": 10,
+      "description": "This guest house is less than 5 minutes from the Churchill Square shopping center, The Brighton Centre, and the beach. The boutiques of The Lanes and the Brighton Pavilion are within a 15-minute walk, as is Brighton Train Station with direct services to central London and Gatwick Airport.",
+      "city": "Brighton",
+      "address": "19 Russell Square,\n BN1 2EE, United Kingdom",
+      "lat": 50.82323475682846,
+      "lng": -0.1479028554909069,
+      "starRate": "4.0",
+      "roomRate": "45.00",
+      "profilePicture": "assets/images/Russell/Russell_1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ",
+          "pricepernight": "$98",
+          "capacity": "2 Adult",
+          "bedtype": "Double Bed",
+          "image": "/images/accom",
+          "description": "This spacious"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Malvern",
+      "reception": "manned",
+      "discount": 10,
+      "description": "We have a multicultural team that is always available to help. \n We are just a phone call or message away. Please feel free to contact us at any time and we will make it work for you.",
+      "city": "London",
+      "address": "171-173 Malvern Road,\n, NW6 5PY, United Kingdom",
+      "lat": 51.53252042968736,
+      "lng": -0.2014811804305501,
+      "starRate": "3.0",
+      "roomRate": "52.00",
+      "profilePicture": "assets/images/Malvern/Malvern1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Avalon",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "We have a multicultural team always available to help.\n We are just a phone call or a message away. \n Please feel free to contact us at anytime \nand we will make it work for you.",
+      "city": "Brighton",
+      "address": "7 Upper Rock Gardens,\n, BN2 1QE, United Kingdom",
+      "lat": 50.820668402961914,
+      "lng": -0.1302045859898923,
+      "starRate": "4.0",
+      "roomRate": "64.00",
+      "profilePicture": "assets/images/Avalon/Avalon1.jpeg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Wembar",
+      "reception": "manned",
+      "discount": 10,
+      "description": "Centrally Located just a few minutes walk to Earls Court underground station. \n All the rooms benefit from an ensuite bathroom. \n There's loads of cafes and restaurants within 5 minutes walking distance.",
+      "city": "London",
+      "address": "19 Warwick Road,\n, SW5 9UL, United Kingdom",
+      "lat": 51.489085365087504,
+      "lng": -0.19393267118967597,
+      "starRate": "4.0",
+      "roomRate": "47.00",
+      "profilePicture": "assets/images/Wembar/Wember1.png",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "TorPark",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "Tor Park Hotel is an inviting hotel located in a \ntranquil suburban area of picturesque Torquay on the English Riviera. \nOur hotel offers a peaceful retreat for guests looking for a relaxing getaway,\n while also being within easy reach of local attractions and activities. \nAt the Tor Park Hotel, we pride ourselves on providing our guests with a comfortable and welcoming atmosphere. \nAlthough we do not have a bar, \nguests are welcome to bring their own alcohol",
+      "city": "Torquay",
+      "address": "24 Vansittart Road,\n, TQ2 5BW, United Kingdom",
+      "lat": 50.4711790001461,
+      "lng": -3.5419047886356734,
+      "starRate": "3.0",
+      "roomRate": "48.00",
+      "profilePicture": "assets/images/TorPark/TorPark1.jpeg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Richmond",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "Located in Torquay, The Richmond Hotel is near the beach. \nTorquay Golf Club and Dartmouth Steam Railway are worth checking out if an activity is on the agenda, \nwhile those looking for area attractions can visit Paignton Zoo and Babbacombe Model Village and Gardens. \nGreenway House and Garden and Golden Hind are also worth visiting.",
+      "city": "Torquay",
+      "address": "27 Croft Road, TQ2 5UD, United Kingdom",
+      "lat": 50.465849195656645,
+      "lng": -3.5341592636026102,
+      "starRate": "4.0",
+      "roomRate": "49.00",
+      "profilePicture": "assets/images/Richmond/Richmond1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Elmo",
+      "reception": "manned",
+      "discount": 10,
+      "description": "Our friendly Blackpool Hotel is ideally situated just minutes from the promenade, opposite the South Pier and famous local attractions - Blackpool Pleasure Beach and Sandcastle are only a short walk away. All rooms en-suite, lift to all floors. The venue provides guestrooms appointed with multi-channel TV, a flat-screen TV with satellite channels and smoke detectors for a pleasant stay in Blackpool.\n\n",
+      "city": "Blackpool",
+      "address": "20 Station Road,\n, FY4 1BE, United Kingdom",
+      "lat": 53.79574713071256,
+      "lng": -3.0544667777195786,
+      "starRate": "3.0",
+      "roomRate": "39.00",
+      "profilePicture": "assets/images/Elmo/Elmo1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Orlando",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "Hotel Orlando is a small, friendly hotel, in Hammersmith, West London situated within walking distance to Hammersmith underground station, connected with 3 main underground lines, only 15 minutes away from Piccadilly and within easy reach to other tourist attraction and to Heathrow Airport.\n\n",
+      "city": "London",
+      "address": "83 Shepherds Bush Road,\n, W6 7LR, United Kingdom",
+      "lat": 51.49872804448931,
+      "lng": -0.22204238314507194,
+      "starRate": "4.0",
+      "roomRate": "36.00",
+      "profilePicture": "assets/images/Orlando/Orlando1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Holland",
+      "reception": "manned",
+      "discount": 10,
+      "description": "The 120 Holland Road offers accommodation in London’s Kensington district, just a 5-minute walk from Barons Court and West Kensington Tube stations. This property consists of 15 Self contained studios and offers free WiFi throughout.\n\n",
+      "city": "London",
+      "address": "120 Holland Road,\n, W14 8BD, United Kingdom",
+      "lat": 51.50169604895722,
+      "lng": -0.2122767129453266,
+      "starRate": "3.0",
+      "roomRate": "40.50",
+      "profilePicture": "assets/images/Holland/Holland1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Green Gables",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "Accommodations range from simply decorated rooms to low-key apartments. All rooms have en-suite bathrooms, tea and coffee making facilities, and flat-screen TVs. Apartments have full kitchens, living rooms and separate bathrooms.\n\n",
+      "city": "Scarborough",
+      "address": "West Bank,\n , YO12 4DX, United Kingdom",
+      "lat": 54.27354045034154,
+      "lng": -0.4187191753377204,
+      "starRate": "5.0",
+      "roomRate": "51.00",
+      "profilePicture": "assets/images/GreenGables/GreenGables1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Crofton",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "Stay in the heart of Torquay Crofton House Hotel exclusively. Set in an 1850's villa offering guests a choice of 16 suites and rooms, all with flat-screen TV with multiple Free view channels, complimentary tea, coffee, eco-friendly toiletries and Wi-Fi. There is private and street parking. Guests have repeatedly highly rated Crofton House for value and quality of service.\n\n",
+      "city": "Torquay",
+      "address": "17 Croft Road,\n, TQ2 5TZ, United Kingdom",
+      "lat": 50.46688002592821,
+      "lng": -3.5352542607738475,
+      "starRate": "4.0",
+      "roomRate": "47.50",
+      "profilePicture": "assets/images/Crofton/Crofton1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Bonair",
+      "reception": "manned",
+      "discount": 10,
+      "description": "The Hotel Bonair is a friendly family hotel, With accommodation for approximately 70 people making it an ideal choice for families and individuals alike, to whom we offer an outstanding holiday. It is ideally situated on the level on Paignton Sea Front, and is within walking distance to all the local amenities.\n\n",
+      "city": "Torquay",
+      "address": "35 Esplanade Road,\n, TQ4 6BL, United Kingdom",
+      "lat": 50.4390736792781,
+      "lng": -3.5598848582434464,
+      "starRate": "3.0",
+      "roomRate": "39.50",
+      "profilePicture": "assets/images/Bonair/Bonair1.png",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Alumhurst",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "Alumhurst Hotel is located just over 5 minutes’ walk from Blackpool’s seafront, the tower and Central Pier. It offers en suite rooms. Each room at Alumhurst Hotel has modern décor, a TV and tea and coffee-making facilities.\n\n",
+      "city": "Blackpool",
+      "address": "13-15 Charnley Road,\n, FY1 4PE, United Kingdom",
+      "lat": 53.81479112755614,
+      "lng": -3.049684977965839,
+      "starRate": "4.0",
+      "roomRate": "45.00",
+      "profilePicture": "assets/images/Alumhurst/Alumhurst1.png",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "LG",
+      "reception": "unmanned",
+      "discount": 10,
+      "description": "Leinestr gurden Hotel is located just over 5 minutes’ walk from Blackpool’s seafront, the tower and Central Pier. It offers en suite rooms. Each room at Alumhurst Hotel has modern décor, a TV and tea and coffee-making facilities.\n\n",
+      "city": "Blackpool",
+      "address": "13-15 Charnley Road,\n, FY1 4PE, United Kingdom",
+      "lat": 51.514472799601805,
+      "lng": -0.18366101568842072,
+      "starRate": "4.0",
+      "roomRate": "45.00",
+      "profilePicture": "assets/images/LG/LG1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    },
+    {
+      "name": "Marine Parade",
+      "reception": "manned",
+      "discount": 15,
+      "description": "Marine Parade Hotel is located just over 5 minutes’ walk from Blackpool’s seafront, the tower and Central Pier. It offers en suite rooms. Each room at Alumhurst Hotel has modern décor, a TV and tea and coffee-making facilities.\n\n",
+      "city": "Eastbourne",
+      "address": "13-15 Charnley Road,\n, FY1 4PE, United Kingdom",
+      "lat": 50.768447605902196,
+      "lng": 0.29407223134515426,
+      "starRate": "4.0",
+      "roomRate": "45.00",
+      "profilePicture": "assets/images/LG/LG1.jpg",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "Russell_1.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "policies": {
+        "Check-In": "3:00 pm - 11:00 pm",
+        "Check-Out": "11:00 am",
+        "Accommodation": "Bed and Breakfast",
+        "Pet_Policy": "N/A"
+      },
+      "amenities": [
+        "Free WiFi Internet",
+        "Non-smoking",
+        "FreeView TV",
+        "Tea and coffee-making facilities",
+        "Heating",
+        "Wardrobe",
+        "Carpeted floor",
+        "Carbon monoxide detector",
+        "FireExtinguisher",
+        "HighQuality bedding",
+        "Linen Provided",
+        "Lock on bedroom door(s)",
+        "Electric Kettle",
+        "Accessed by staircase",
+        "Room/unit on the ground floor",
+        "Lockbox access",
+        "SmokeDetector",
+        "Rubbish Bin",
+        "Potential for noise",
+        "Shower Only",
+        "Free Toiletries",
+        "Towels",
+        "ToiletPaper and soap",
+        "Hot water"
+      ],
+      "categories": {
+        "DeluxeDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Deluxe Double Room Ensuite",
+          "categorydescreption": "DeluxeDoubleRoomEnsuite has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "15/MSQ, 161/FTSQ"
+        },
+        "FamilyRoomDeluxeEnsuitekitchenette": {
+          "personNumber": 5,
+          "catname": "Family room-Deluxe Ensuite with kitchenette",
+          "categorydescreption": "Family room-Deluxe-Ensuite-with kitchenette, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "25/MSQ, 269/FTSQ"
+        },
+        "TripleRoomDeluxeEnsuite": {
+          "personNumber": 3,
+          "catname": "Triple Room Deluxe Ensuite",
+          "categorydescreption": "Triple room-Deluxe-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV, and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also a Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "20/MSQ, 215/FTSQ"
+        },
+        "StandardDoubleRoomEnsuite": {
+          "personNumber": 2,
+          "catname": "Standard Double Room Ensuite",
+          "categorydescreption": "Enjoy easy access to popular shops and restaurants from this charming & centered place to stay, Very Close To the Beach. Standard-Double room-en-suite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times.…",
+          "roomsize": "11/MSQ, 118/FTSQ"
+        },
+        "TwinRoomStandardEnsuite": {
+          "personNumber": 3,
+          "catname": "Twin Room Standard Ensuite",
+          "categorydescreption": "Standard-Twin room-Ensuite, Has an En-Suite bathroom with towels and toiletries, a TV and tea and coffee facilities. Keys are provided allowing access to the guest house at all times. also, Free WiFi is Available in all rooms and Public Areas.",
+          "roomsize": "13/MSQ, 140/FTSQ"
+        }
+      },
+      "likeDislike": {
+        "likes": 2,
+        "dislikes": 1,
+        "userAction": 3
+      }
+    }
+  ]
+}

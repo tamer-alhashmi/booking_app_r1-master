@@ -1,0 +1,134 @@
+import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/services/nearby_places.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+import 'hotel/detail/policies.dart';
+
+class Hotel extends ChangeNotifier {
+  final NearbyPlaces nearbyPlaces;
+  final List<String> activitiesAndExperiences;
+  final List<String> facilities;
+  final String address;
+  late List<Category> categories;
+  final String city;
+  final String description;
+  final int discount;
+  final String id;
+  final List<String> sliderpics;
+  late bool isFavorite;
+  final double lat;
+  final double lng;
+  final String name;
+  final HotelPolicies policies;
+  final String profilePic;
+  final String reception;
+  final String nightPrice;
+  final String termsAndConditions;
+  final String starRate;
+
+  Hotel({
+    required this.activitiesAndExperiences,
+    required this.id,
+    required this.name,
+    required this.reception,
+    required this.discount,
+    required this.description,
+    required this.city,
+    required this.address,
+    required this.lat,
+    required this.lng,
+    required this.isFavorite,
+    required this.starRate,
+    required this.nightPrice,
+    required this.profilePic,
+    required this.sliderpics,
+    required this.categories,
+    required this.facilities,
+    required this.policies,
+    required this.nearbyPlaces,
+    required this.termsAndConditions,
+  });
+
+  factory Hotel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data();
+    if (data == null) {
+      throw StateError('Document data is null');
+    }
+
+    final Map<String, dynamic> jsonData = data as Map<String, dynamic>;
+    final List<String> sliderPics = (jsonData['sliderpics'] as List<dynamic>?)
+        ?.map((item) => item.toString())
+        .toList() ?? [];
+
+    return Hotel(
+      id: doc.id,
+      name: jsonData['name'] ?? '',
+      termsAndConditions: jsonData['termsAndConditions'] ?? '',
+      address: jsonData['address'] ?? '',
+      reception: jsonData['reception'] ?? '',
+      discount: jsonData['discount'] ?? 0,
+      description: jsonData['description'] ?? '',
+      city: jsonData['city'] ?? '',
+      lat: (jsonData['lat'] as num?)?.toDouble() ?? 0.0,
+      lng: (jsonData['lng'] as num?)?.toDouble() ?? 0.0,
+      starRate: jsonData['starRate'] ?? '',
+      nightPrice: jsonData['roomRate'] ?? '',
+      profilePic: jsonData['profilePic'] ?? '',
+      sliderpics: sliderPics,
+      facilities: List<String>.from(jsonData['facilities'] ?? []),
+      categories: [], // Initialize as empty list
+      activitiesAndExperiences: List<String>.from(jsonData['activitiesAndExperiences'] ?? []),
+      policies: HotelPolicies.fromJson(jsonData['policies'] ?? {}),
+      nearbyPlaces: NearbyPlaces.fromJson(jsonData['nearbyPlaces'] ?? {}),
+      isFavorite: jsonData['isFavorite'] ?? false,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "termsAndConditions": termsAndConditions,
+    "id": id,
+    "address": address,
+    "reception": reception,
+    "discount": discount,
+    "description": description,
+    "lat": lat,
+    "lng": lng,
+    "city": city,
+    "starRate": starRate,
+    "nightPrice": nightPrice,
+    "profilePic": profilePic,
+    "sliderpics": sliderpics,
+    "facilities": facilities,
+    "categories": categories.map((category) => category.toJson()).toList(),
+    "activitiesAndExperiences": activitiesAndExperiences,
+    "isFavorite": isFavorite,
+    "policies": policies.toJson(),
+    "nearbyPlaces": nearbyPlaces.toJson(),
+  };
+}
+
+enum Reception { Manned, Unmanned }
+
+class CategoryService {
+  static Future<List<Category>> fetchCategoriesForHotel(String hotelId) async {
+    List<Category> categories = [];
+
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('category')
+          .get();
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        categories.add(Category.fromFirestore(doc.data() as Map<String, dynamic>, doc.id));
+      }
+    } catch (e) {
+      print("Error fetching categories: $e");
+    }
+
+    return categories;
+  }
+}
