@@ -104,6 +104,12 @@ class HotelService {
     }
   }
 
+
+
+
+
+
+
   static Future<List<Hotel>> searchHotelsByCity(String city) async {
     try {
       final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
