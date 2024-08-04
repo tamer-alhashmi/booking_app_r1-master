@@ -51,37 +51,37 @@ class Hotel extends ChangeNotifier {
   });
 
   factory Hotel.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data();
+    final data = doc.data() as Map<String, dynamic>?;
+
     if (data == null) {
       throw StateError('Document data is null');
     }
 
-    final Map<String, dynamic> jsonData = data as Map<String, dynamic>;
-    final List<String> sliderPics = (jsonData['sliderpics'] as List<dynamic>?)
+    final List<String> sliderPics = (data['sliderpics'] as List<dynamic>?)
         ?.map((item) => item.toString())
         .toList() ?? [];
 
     return Hotel(
       id: doc.id,
-      name: jsonData['name'] ?? '',
-      termsAndConditions: jsonData['termsAndConditions'] ?? '',
-      address: jsonData['address'] ?? '',
-      reception: jsonData['reception'] ?? '',
-      discount: jsonData['discount'] ?? 0,
-      description: jsonData['description'] ?? '',
-      city: jsonData['city'] ?? '',
-      lat: (jsonData['lat'] as num?)?.toDouble() ?? 0.0,
-      lng: (jsonData['lng'] as num?)?.toDouble() ?? 0.0,
-      starRate: jsonData['starRate'] ?? '',
-      nightPrice: jsonData['roomRate'] ?? '',
-      profilePic: jsonData['profilePic'] ?? '',
+      name: data['name'] ?? '',
+      termsAndConditions: data['termsAndConditions'] ?? '',
+      address: data['address'] ?? '',
+      reception: data['reception'] ?? '',
+      discount: data['discount'] ?? 0,
+      description: data['description'] ?? '',
+      city: data['city'] ?? '',
+      lat: (data['lat'] as num?)?.toDouble() ?? 0.0,
+      lng: (data['lng'] as num?)?.toDouble() ?? 0.0,
+      starRate: data['starRate'] ?? '',
+      nightPrice: data['nightPrice'] ?? '',
+      profilePic: data['profilePic'] ?? '',
       sliderpics: sliderPics,
-      facilities: List<String>.from(jsonData['facilities'] ?? []),
+      facilities: List<String>.from(data['facilities'] ?? []),
       categories: [], // Initialize as empty list
-      activitiesAndExperiences: List<String>.from(jsonData['activitiesAndExperiences'] ?? []),
-      policies: HotelPolicies.fromJson(jsonData['policies'] ?? {}),
-      nearbyPlaces: NearbyPlaces.fromJson(jsonData['nearbyPlaces'] ?? {}),
-      isFavorite: jsonData['isFavorite'] ?? false,
+      activitiesAndExperiences: List<String>.from(data['activitiesAndExperiences'] ?? []),
+      policies: HotelPolicies.fromJson(data['policies'] ?? {}),
+      nearbyPlaces: NearbyPlaces.fromJson(data['nearbyPlaces'] ?? {}),
+      isFavorite: data['isFavorite'] ?? false,
     );
   }
 

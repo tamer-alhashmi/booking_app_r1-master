@@ -110,55 +110,79 @@ class HotelsApi {
     }
   }
 
-  static Future<List<Place>> fetchNearbyPlaces({
-    required double latitude,
-    required double longitude,
-    String apiKey =
-        '', // Default to an empty string, which will be replaced by the env variable
-    int radius = 1000,
-    String placeType = 'parking',
-  }) async {
-    // Load the API key from environment variables if not passed as a parameter
-    if (apiKey.isEmpty) {
-      apiKey = dotenv.env['GOOGLE_API_KEY'] ?? '';
-    }
 
-    // Throw an error if the API key is not provided
-    if (apiKey.isEmpty) {
-      throw Exception(
-          'API key is missing. Please provide a valid Google API key.');
-    }
-
-    final url = Uri.parse(
-      'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
-      '?location=$latitude,$longitude'
-      '&radius=$radius'
-      '&type=$placeType'
-      '&key=$apiKey',
-    );
-
+  static Future<List<Place>> fetchNearbyPlacesFromFirestore(String hotelId) async {
     try {
-      final response = await http.get(url);
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('nearby_places')
+          .get();
 
-      if (response.statusCode == 200) {
-        final decodedData = json.decode(response.body);
+      final List<Place> nearbyPlaces = querySnapshot.docs.map((doc) {
+        return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id);
+      }).toList();
 
-        if (decodedData['status'] == 'OK') {
-          final places =
-              (decodedData['results'] as List<dynamic>).map((placeData) {
-            return Place.fromJson(placeData as Map<String, dynamic>);
-          }).toList();
-          return places;
-        } else {
-          throw Exception(
-              'Error fetching nearby places: ${decodedData['status']}');
-        }
-      } else {
-        throw Exception(
-            'Failed to load nearby places. HTTP Status Code: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('An error occurred while fetching nearby places: $e');
+      return nearbyPlaces;
+    } catch (error) {
+      print('Error fetching nearby places: $error');
+      return [];
     }
   }
 }
+
+
+
+
+
+// static Future<List<Place>> fetchNearbyPlaces({
+//   required double latitude,
+//   required double longitude,
+//   String apiKey =
+//       '', // Default to an empty string, which will be replaced by the env variable
+//   int radius = 1000,
+//   String placeType = 'parking',
+// }) async {
+//   // Load the API key from environment variables if not passed as a parameter
+//   if (apiKey.isEmpty) {
+//     apiKey = dotenv.env['GOOGLE_API_KEY'] ?? '';
+//   }
+//
+//   // Throw an error if the API key is not provided
+//   if (apiKey.isEmpty) {
+//     throw Exception(
+//         'API key is missing. Please provide a valid Google API key.');
+//   }
+//
+//   final url = Uri.parse(
+//     'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+//     '?location=$latitude,$longitude'
+//     '&radius=$radius'
+//     '&type=$placeType'
+//     '&key=$apiKey',
+//   );
+//
+//   try {
+//     final response = await http.get(url);
+//
+//     if (response.statusCode == 200) {
+//       final decodedData = json.decode(response.body);
+//
+//       if (decodedData['status'] == 'OK') {
+//         final places =
+//             (decodedData['results'] as List<dynamic>).map((placeData) {
+//           return Place.fromJson(placeData as Map<String, dynamic>,);
+//         }).toList();
+//         return places;
+//       } else {
+//         throw Exception(
+//             'Error fetching nearby places: ${decodedData['status']}');
+//       }
+//     } else {
+//       throw Exception(
+//           'Failed to load nearby places. HTTP Status Code: ${response.statusCode}');
+//     }
+//   } catch (e) {
+//     throw Exception('An error occurred while fetching nearby places: $e');
+//   }
+// }

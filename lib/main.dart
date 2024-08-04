@@ -4,6 +4,7 @@ import 'package:booking_app_r1/model/category/hotel_categories.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
 import 'package:booking_app_r1/services/app/booking_app.dart';
+import 'package:booking_app_r1/services/hotels_apis.dart';
 import 'package:booking_app_r1/services/nearby_places.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,22 +26,9 @@ void main() async {
   // Initialize your AuthService and Hotel instances here
   final AuthService authService = AuthService();
 
-  // Define latitude and longitude for fetching nearby places
-  const double latitude = 0.0; // Replace with actual latitude
-  const double longitude = 0.0; // Replace with actual longitude
-
-  // Fetch nearby places from Firestore asynchronously
-  List<Place> places;
-  try {
-    places = (await NearbyPlaces.fetchNearbyPlacesFromFirestore('hotel_id')) as List<Place>; // Replace 'hotel_id' with actual hotel ID
-  } catch (e) {
-    print('Failed to fetch nearby places: $e');
-    places = []; // Handle error appropriately
-  }
-
-  final NearbyPlaces nearbyPlaces = NearbyPlaces(places: places);
-
+  // Example hotel initialization (replace with actual data as needed)
   final Hotel hotel = Hotel(
+    id: "id",
     name: 'Sample Hotel',
     reception: 'Manned',
     discount: 10,
@@ -51,7 +39,6 @@ void main() async {
     lng: 0.0,
     starRate: '5',
     nightPrice: '100',
-    id: '100',
     profilePic: 'sample_profile_picture.jpg',
     sliderpics: ['image1.jpg', 'image2.jpg'],
     facilities: ['Amenity 1', 'Amenity 2'],
@@ -61,13 +48,35 @@ void main() async {
       accommodationType: '',
       petPolicy: '',
     ),
-    nearbyPlaces: nearbyPlaces, // Assign fetched nearby places here
     activitiesAndExperiences: [],
     isFavorite: false,
-    termsAndConditions: '', categories: [],
+    termsAndConditions: '',
+    categories: [],
+    nearbyPlaces: NearbyPlaces(places: []) ,
+
   );
 
-  const String userId = "";
+  // Define latitude and longitude for fetching nearby places
+  const double latitude = 0.0; // Replace with actual latitude
+  const double longitude = 0.0; // Replace with actual longitude
+
+  // Get the hotel ID from the initialized hotel
+  final String hotelId = hotel.id;
+
+  List<Place> places;
+  try {
+    places = await HotelsApi.fetchNearbyPlacesFromFirestore(hotelId);
+  } catch (e) {
+    print('Failed to fetch nearby places: $e');
+    places = []; // Handle error appropriately
+  }
+
+  // Print the fetched nearby places for verification
+  for (var place in places) {
+    print('Place: ${place.name}, Address: ${place.address}, Lat: ${place.latitude}, Lng: ${place.longitude}');
+  }
+
+  final NearbyPlaces nearbyPlaces = NearbyPlaces(places: places);
 
   runApp(MyApp(
     authService: authService,
@@ -79,7 +88,7 @@ void main() async {
     },
     latitude: latitude,
     longitude: longitude,
-    userId: userId,
+    userId: "", // Replace with actual userId if available
   ));
 }
 
@@ -136,6 +145,7 @@ class MyApp extends StatelessWidget {
                 longitude: longitude,
                 userId: userId, categories: [],
               ),
+
             );
           } else {
             return const CircularProgressIndicator(); // Loading indicator
@@ -152,7 +162,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Update Firebase
+
+
+
+
 // import 'package:booking_app_r1/services/main_firebase_serv/update_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/material.dart';
@@ -160,8 +173,7 @@ class MyApp extends StatelessWidget {
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
 //   await Firebase.initializeApp();
-//   // await updateFacilitiesField();
-//   // await updateActivitiesAndExperiencesField();
+//   // await ensureReviewsSubcollectionForAllHotels(); // Ensure reviews sub-collection for all hotels
 //   runApp(MyApp());
 // }
 //

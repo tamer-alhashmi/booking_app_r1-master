@@ -109,3 +109,43 @@ import '../nearby_places.dart';
 //     await placeDocRef.set(place.toJson());
 //   }
 // }
+
+
+
+// ************************* ReviewsSubcollection start *******************************8
+// Future<void> ensureReviewsSubcollection(String hotelId) async {
+//   try {
+//     final hotelDoc = FirebaseFirestore.instance.collection('hotels').doc(hotelId);
+//     final reviewsCollection = hotelDoc.collection('reviews');
+//     final snapshot = await reviewsCollection.limit(1).get();
+//
+//     if (snapshot.docs.isEmpty) {
+//       await reviewsCollection.add({
+//         'userId': 'initialUser',
+//         'rating': 5.0,
+//         'comment': 'Initial review',
+//         'timestamp': FieldValue.serverTimestamp(),
+//       });
+//       await reviewsCollection.doc(snapshot.docs.first.id).delete();
+//     }
+//   } catch (error) {
+//     print('Error ensuring reviews sub-collection: $error');
+//   }
+// }
+//
+// Future<void> ensureReviewsSubcollectionForAllHotels() async {
+//   try {
+//     final hotelsSnapshot = await FirebaseFirestore.instance.collection('hotels').get();
+//     for (var hotelDoc in hotelsSnapshot.docs) {
+//       await ensureReviewsSubcollection(hotelDoc.id);
+//     }
+//     print('Ensured reviews sub-collection for all hotels.');
+//   } catch (error) {
+//     print('Error ensuring reviews sub-collection for all hotels: $error');
+//   }
+// }
+
+// ************************* ReviewsSubcollection End *******************************8
+
+
+

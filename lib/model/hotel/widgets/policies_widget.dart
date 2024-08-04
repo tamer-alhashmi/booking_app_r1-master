@@ -1,6 +1,7 @@
 // import 'package:flutter/material.dart';
-// import 'package:booking_app_r1/model/hotel/sections/policies.dart';
 //
+// import '../detail/policies.dart';
+// //
 // class PoliciesWidget extends StatelessWidget {
 //   final HotelPolicies policies;
 //

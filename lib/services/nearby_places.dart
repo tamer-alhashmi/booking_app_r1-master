@@ -20,13 +20,13 @@ class Place {
     required this.address,
   });
 
-  factory Place.fromJson(Map<String, dynamic> json) {
+  factory Place.fromJson(Map<String, dynamic> json, String id) {
     return Place(
-      id: json['place_id'] ?? 'Unknown',  // Default ID from JSON response
+      id: id,
       name: json['name'] ?? 'Unknown',
-      address: json['vicinity'] ?? 'No address available',
-      latitude: (json['geometry']['location']['lat'] ?? 0.0).toDouble(),
-      longitude: (json['geometry']['location']['lng'] ?? 0.0).toDouble(),
+      address: json['address'] ?? 'No address available',
+      latitude: (json['latitude'] ?? 0.0).toDouble(),
+      longitude: (json['longitude'] ?? 0.0).toDouble(),
     );
   }
 
@@ -40,6 +40,7 @@ class Place {
 }
 
 
+
 class NearbyPlaces {
   List<Place> places;
 
@@ -48,7 +49,7 @@ class NearbyPlaces {
   factory NearbyPlaces.fromJson(Map<String, dynamic> json) {
     return NearbyPlaces(
       places: (json['places'] as List)
-          .map((place) => Place.fromJson(place as Map<String, dynamic>))
+          .map((place) => Place.fromJson(place as Map<String, dynamic>, place['id']))
           .toList(),
     );
   }
@@ -68,10 +69,7 @@ class NearbyPlaces {
           .get();
 
       final placesList = querySnapshot.docs.map((doc) {
-        return Place.fromJson({
-          ...doc.data() as Map<String, dynamic>,
-          'place_id': doc.id  // Use Firestore document ID as place_id
-        });
+        return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id); // Pass doc.id as id
       }).toList();
 
       return NearbyPlaces(places: placesList);
@@ -81,6 +79,8 @@ class NearbyPlaces {
     return null;
   }
 }
+
+
 
 
 

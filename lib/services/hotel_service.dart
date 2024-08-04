@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../model/category/hotel_categories.dart';
@@ -12,28 +11,22 @@ class HotelService {
   static Future<List<Hotel>> fetchHotels() async {
     try {
       final QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('hotels').get();
+      await FirebaseFirestore.instance.collection('hotels').get();
       final List<Hotel> hotels =
-          await Future.wait(querySnapshot.docs.map((doc) async {
+      await Future.wait(querySnapshot.docs.map((doc) async {
         final Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
 
         if (data == null) {
           throw StateError('Document data is null');
         }
 
-        final List<Place> nearbyPlacesList = await fetchNearbyPlaces(
-          data['lat'] as double? ?? 0.0,
-          data['lng'] as double? ?? 0.0,
-        );
-
-        // await saveNearbyPlacesToFirestore(doc.id, nearbyPlacesList);
+        // Fetch nearby places from Firestore
+        final List<Place> nearbyPlacesList = await fetchNearbyPlacesFromFirestore(doc.id);
         final nearbyPlaces = NearbyPlaces(places: nearbyPlacesList);
-        final List<String> sliderPics =
-            List<String>.from(data['sliderpics'] ?? []);
-        final String profilePicAsset = data['profilePicAsset'] ?? '';
 
-        // Fetch the profile picture URL
-        final String? profilePic = await getImageUrl(profilePicAsset);
+        final List<String> sliderPics =
+        List<String>.from(data['sliderpics'] ?? []);
+        final String profilePicAsset = data['profilePic'] ?? '';
 
         // Fetch categories for the hotel
         final List<Category> categories = await fetchHotelCategories(doc.id);
@@ -51,9 +44,9 @@ class HotelService {
           lng: (data['lng'] as num?)?.toDouble() ?? 0.0,
           starRate: data['starRate'] as String? ?? '',
           nightPrice: data['nightPrice'] as String? ?? '',
-          profilePic: profilePic ?? '',
+          profilePic: profilePicAsset,
           facilities:
-              List<String>.from(data['facilities'] as List<dynamic>? ?? []),
+          List<String>.from(data['facilities'] as List<dynamic>? ?? []),
           policies: HotelPolicies.fromJson(
               data['policies'] as Map<String, dynamic>? ?? {}),
           nearbyPlaces: nearbyPlaces,
@@ -68,21 +61,6 @@ class HotelService {
     } catch (error) {
       print('Error fetching hotels: $error');
       return [];
-    }
-  }
-
-  static Future<String?> getImageUrl(String imageUrl) async {
-    try {
-      print('Fetching URL for: $imageUrl');
-      firebase_storage.FirebaseStorage storage =
-          firebase_storage.FirebaseStorage.instance;
-      firebase_storage.Reference ref = storage.refFromURL(imageUrl);
-      final downloadUrl = await ref.getDownloadURL();
-      print('Download URL: $downloadUrl');
-      return downloadUrl;
-    } catch (e) {
-      print("Error fetching image URL: $e");
-      return null;
     }
   }
 
@@ -104,11 +82,34 @@ class HotelService {
     }
   }
 
+  Future<String?> getImageUrl(String? imagePath) async {
+    try {
+      // Return the asset path directly
+      return imagePath;
+    } catch (e) {
+      print("Error fetching image URL: $e");
+      return null;
+    }
+  }
 
+  static Future<List<Place>> fetchNearbyPlacesFromFirestore(String hotelId) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('nearby_places')
+          .get();
 
+      final List<Place> nearbyPlaces = querySnapshot.docs.map((doc) {
+        return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id);
+      }).toList();
 
-
-
+      return nearbyPlaces;
+    } catch (error) {
+      print('Error fetching nearby places: $error');
+      return [];
+    }
+  }
 
   static Future<List<Hotel>> searchHotelsByCity(String city) async {
     try {
@@ -118,26 +119,20 @@ class HotelService {
           .get();
 
       final List<Hotel> hotels =
-          await Future.wait(querySnapshot.docs.map((doc) async {
+      await Future.wait(querySnapshot.docs.map((doc) async {
         final Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
 
         if (data == null) {
           throw StateError('Document data is null');
         }
 
-        final List<Place> nearbyPlacesList = await fetchNearbyPlaces(
-          data['lat'] as double? ?? 0.0,
-          data['lng'] as double? ?? 0.0,
-        );
-
-        // await saveNearbyPlacesToFirestore(doc.id, nearbyPlacesList);
+        // Fetch nearby places from Firestore
+        final List<Place> nearbyPlacesList = await fetchNearbyPlacesFromFirestore(doc.id);
         final nearbyPlaces = NearbyPlaces(places: nearbyPlacesList);
-        final List<String> sliderPics =
-            List<String>.from(data['sliderpics'] ?? []);
-        final String profilePicAsset = data['profilePicAsset'] ?? '';
 
-        // Fetch the profile picture URL
-        final String? profilePic = await getImageUrl(profilePicAsset);
+        final List<String> sliderPics =
+        List<String>.from(data['sliderpics'] ?? []);
+        final String profilePicAsset = data['profilePic'] ?? '';
 
         // Fetch categories for the hotel
         final List<Category> categories = await fetchHotelCategories(doc.id);
@@ -155,9 +150,9 @@ class HotelService {
           lng: (data['lng'] as num?)?.toDouble() ?? 0.0,
           starRate: data['starRate'] as String? ?? '',
           nightPrice: data['nightPrice'] as String? ?? '',
-          profilePic: profilePic ?? '',
+          profilePic: profilePicAsset,
           facilities:
-              List<String>.from(data['facilities'] as List<dynamic>? ?? []),
+          List<String>.from(data['facilities'] as List<dynamic>? ?? []),
           policies: HotelPolicies.fromJson(
               data['policies'] as Map<String, dynamic>? ?? {}),
           nearbyPlaces: nearbyPlaces,

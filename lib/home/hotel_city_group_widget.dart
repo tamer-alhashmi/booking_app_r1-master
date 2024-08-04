@@ -63,26 +63,14 @@ class HotelGroupWidget extends StatelessWidget {
                       children: [
                         AspectRatio(
                           aspectRatio: 16 / 9,
-                          child: FutureBuilder<String?>(
-                            future: getImageUrl(hotel.profilePic),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const Center(child: CircularProgressIndicator());
-                              } else if (snapshot.hasError || snapshot.data == null) {
-                                return Container(
-                                  color: Colors.grey, // Placeholder color
-                                  child: const Center(child: Text('No Image')),
-                                );
-                              } else {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.network(
-                                    snapshot.data!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              }
-                            },
+                          child: hotel.profilePic.isNotEmpty
+                              ? Image.asset(
+                            hotel.profilePic,
+                            fit: BoxFit.cover,
+                          )
+                              : Image.asset(
+                            'assets/splash/3weby.webp',
+                            fit: BoxFit.cover,
                           ),
                         ),
                         const SizedBox(height: 8.0),

@@ -1,22 +1,25 @@
+import 'package:booking_app_r1/model/hotel/detail/date_selection_widget.dart';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
-import 'package:booking_app_r1/services/all_hotels_map.dart';
+import 'package:booking_app_r1/model/hotel/detail/user_rooms_adoult_child_selected.dart';
+import 'package:booking_app_r1/model/hotel/widgets/hote_reviews_card_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/full_screen_image_page.dart';
 import 'package:booking_app_r1/model/hotel/widgets/icons_widget/reviews_box.dart';
 import 'package:booking_app_r1/model/hotel/widgets/policy_widget.dart';
 import 'package:booking_app_r1/model/hotel/widgets/description.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
-import 'package:booking_app_r1/services/nearby_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../services/hotel_service.dart';
+import '../../amenities.dart';
 import '../widgets/description_widget.dart';
+import '../widgets/icons_widget/scrollup.dart';
 import '../widgets/policies_widget.dart';
 import '../widgets/scrollup_button.dart';
+import 'navigate_tab_bar/hotels_full_description.dart';
 
 class HotelDetail extends StatefulWidget {
   final Hotel hotel;
@@ -38,57 +41,65 @@ class HotelDetail extends StatefulWidget {
 
 class _HotelDetailState extends State<HotelDetail> {
   late PageController _pageController;
-  late Timer _timer;
   int _currentPage = 0;
   int _nights = 0;
   int _userRoomSelected = 1;
   int _userAdultSelected = 1;
   int _userChildrenSelected = 0;
-  List<Category> _categories = [];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (_currentPage < widget.hotel.sliderpics.length - 1) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    });
-    fetchCategories();
-  }
-
-  Future<void> fetchCategories() async {
-    final List<Category> categories =
-        await CategoryService.fetchCategoriesForHotel(widget.hotel.name);
-    setState(() {
-      _categories = categories;
-    });
   }
 
   @override
   void dispose() {
     _pageController.dispose();
-    _timer.cancel();
     super.dispose();
   }
 
-  static Future<String?> getImageUrl(String imagePath) async {
+  // Add the addToFavorites and removeFromFavorites methods
+  bool isFavorite = false;
+  void addToFavorites() async {
     try {
-      firebase_storage.FirebaseStorage storage =
-          firebase_storage.FirebaseStorage.instance;
-      firebase_storage.Reference ref = storage.ref(imagePath);
-      return await ref.getDownloadURL();
+      // Update the hotel's favorite status in Firestore
+      await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(widget.hotel.id)
+          .update({'isFavorite': true});
+
+      setState(() {
+        widget.hotel.isFavorite = true;
+      });
     } catch (e) {
-      print("Error fetching image URL: $e");
-      return null;
+      print('Error adding to favorites: $e');
+    }
+  }
+
+  void removeFromFavorites() async {
+    try {
+      // Update the hotel's favorite status in Firestore
+      await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(widget.hotel.id)
+          .update({'isFavorite': false});
+
+      setState(() {
+        widget.hotel.isFavorite = false;
+      });
+    } catch (e) {
+      print('Error removing from favorites: $e');
+    }
+  }
+
+
+  // Define the toggleFavorite method
+  void toggleFavorite() {
+    if (isFavorite) {
+      removeFromFavorites();
+    } else {
+      addToFavorites();
     }
   }
 
@@ -105,192 +116,294 @@ class _HotelDetailState extends State<HotelDetail> {
         ),
       ),
     };
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-          color: Theme.of(context).appBarTheme.titleTextStyle?.color,
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: <Widget>[
+        actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications),
-            color: Theme.of(context).appBarTheme.iconTheme?.color,
+            icon: Icon(Icons.share, color: Colors.white),
+            onPressed: () {
+              // Add share functionality here
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: isFavorite ? Colors.red : Colors.grey,
+            ),
+            onPressed: toggleFavorite,
           ),
         ],
-        elevation: Theme.of(context).appBarTheme.elevation ?? 0,
-        shape: Theme.of(context).appBarTheme.shape,
       ),
+      extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         controller: scrollController,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${widget.hotel.name} Hotel',
-                style: GoogleFonts.almarai(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              ReviewsBox(hotel: widget.hotel),
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 250,
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      height: 200.0,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: widget.hotel.sliderpics.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
-                            child: Image.asset(
-                              widget.hotel.sliderpics[index],
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    if (widget.hotel.sliderpics.length > 6)
-                      Positioned(
-                        bottom: 8.0,
-                        right: 8.0,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FullScreenImagePage(
-                                  sliderpics: widget.hotel.sliderpics,
-                                  initialIndex: 5,
-                                  images: [],
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: const Text(
-                              '+2 More',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                CarouselSlider.builder(
+                  itemCount: widget.hotel.sliderpics.length,
+                  options: CarouselOptions(
+                    height: 250,
+                    viewportFraction: 1.0,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _currentPage = index;
+                      });
+                    },
+                  ),
+                  itemBuilder: (context, index, realIdx) {
+                    final imagePath = 'assets/images/${widget.hotel.name}/sliderpics/${widget.hotel.sliderpics[index]}';
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FullScreenImagePage(
+                              sliderpics: widget.hotel.sliderpics
+                                  .map((imageName) => 'assets/images/${widget.hotel.name}/sliderpics/$imageName')
+                                  .toList(),
+                              initialIndex: index,
+                              images: [],
                             ),
                           ),
-                        ),
+                        );
+                      },
+                      child: Image.asset(
+                        imagePath,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
                       ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-
-
-              // Start Categories
-              SizedBox(
-                child:  _categories.isEmpty
-                    ? const Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                  itemCount: _categories.length,
-                  itemBuilder: (context, index) {
-                    final category = _categories[index];
-                    return ListTile(
-                      title: Text(category.title),
-                      subtitle: Text(category.description),
                     );
                   },
                 ),
-              ),
-
-
-            const SizedBox(height: 16),
-              Text(
-                'Description',
-                style: GoogleFonts.almarai(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              DescriptionWidget(
-                description: widget.hotel.description,
-                hotel: widget.hotel,
-                latitude: widget.latitude,
-                longitude: widget.longitude,
-              ),
-              const SizedBox(height: 16),
-              HotelMap(
-                hotel: widget.hotel,
-                latitude: widget.latitude,
-                longitude: widget.longitude,
-                markers: hotelMarkers,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Hotel Policies',
-                style: GoogleFonts.almarai(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              PoliciesWidget(
-                policies: widget.policies, hotel: widget.hotel,
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ReviewsBox(hotel: widget.hotel),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                child: ReviewsBox(hotel: widget.hotel),
-              ),
-              const SizedBox(height: 16),
-              FutureBuilder<NearbyPlaces?>(
-                future: NearbyPlaces.fetchNearbyPlacesFromFirestore(
-                    widget.hotel.id),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (snapshot.hasData && snapshot.data != null) {
-                    final nearbyPlaces = snapshot.data!;
-                    return NearbyPlacesWidget(
-                      nearbyPlaces: nearbyPlaces,
+                    child: Text(
+                      '${_currentPage + 1} / ${widget.hotel.sliderpics.length}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            HotelReviewsCardWidget(hotelId: widget.hotel.id, reviews: [],), // Added line
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.hotel.name,
+                    style: GoogleFonts.almarai(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  ReviewsBox(hotel: widget.hotel),
+                  const SizedBox(height: 16),
+                  Text(
+                    '${widget.hotel.discount}% off',
+                    style: const TextStyle(
+                      color: Colors.green,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Economic Discount',
+                    style: TextStyle(
+                      color: Colors.green,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Price for ${_nights > 0 ? '$_nights nights' : '1 night'}, 2 adults',
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(
+                        _nights > 0
+                            ? '${widget.hotel.nightPrice * _nights} USD'
+                            : '${widget.hotel.nightPrice} USD',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Total Price',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  DateSelectionWidget(
+                    hotel: widget.hotel,
+                    onDatesSelected: (checkInDate, checkOutDate, nights) {
+                      setState(() {
+                        _nights = nights;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  RoomsAndGuestsSelector(
+                    onSelectionChanged: (rooms, adults, children) {
+                      setState(() {
+                        _userRoomSelected = rooms;
+                        _userAdultSelected = adults;
+                        _userChildrenSelected = children;
+                      });
+                    },
+                    hotel: widget.hotel,
+                  ),
+                  const SizedBox(height: 16),
+                  HotelMapLocation(
+                    hotel: widget.hotel,
+                  ),
+                  const SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HotelsFullDescription(
+                            hotel: widget.hotel,
+                            latitude: widget.latitude,
+                            longitude: widget.longitude,
+                            initialTabIndex: 1,
+                          ),
+                        ),
+                      );
+                    },
+                    child: HotelAmenitiesCard(
+                      amenities: widget.hotel.facilities,
                       hotel: widget.hotel,
-                      places: [],
-                    );
-                  } else {
-                    return const Center(child: Text('No nearby places found.'));
-                  }
-                },
+                      latitude: widget.latitude,
+                      longitude: widget.longitude,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HotelsFullDescription(
+                            hotel: widget.hotel,
+                            latitude: widget.latitude,
+                            longitude: widget.longitude,
+                            initialTabIndex: 0,
+                          ),
+                        ),
+                      );
+                    },
+                    child: DescriptionWidget(
+                      description: widget.hotel.description,
+                      hotel: widget.hotel,
+                      latitude: widget.latitude,
+                      longitude: widget.longitude,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  HotelPoliciesCardWidget(
+                    hotel: widget.hotel,
+                    policies: widget.hotel.policies,
+                    latitude: widget.hotel.lat,
+                    longitude: widget.hotel.lng,
+                  ),
+                  const SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HotelsFullDescription(
+                            hotel: widget.hotel,
+                            latitude: widget.latitude,
+                            longitude: widget.longitude,
+                            initialTabIndex: 4,
+                          ),
+                        ),
+                      );
+                    },
+                    child: FutureBuilder<DocumentSnapshot>(
+                      future: FirebaseFirestore.instance
+                          .collection('hotels')
+                          .doc(widget.hotel.id)
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        }
+
+                        if (snapshot.hasData && snapshot.data!.exists) {
+                          List<dynamic> reviews = snapshot.data!['reviews'];
+                          return HotelReviewsCardWidget(reviews: reviews, hotelId: '',);
+                        }
+
+                        return Text('No reviews available');
+                      },
+                    ),
+                  ),
+                ],
               ),
-              ScrollupButton(scrollController: scrollController),
-            ],
-          ),
+            ),
+            // ScrollUpButton(controller: scrollController),
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        icon: const Icon(Icons.book),
-        label: const Text('Book Now'),
+    );
+  }
+}
+
+class HotelMapLocation extends StatelessWidget {
+  final Hotel hotel;
+
+  const HotelMapLocation({Key? key, required this.hotel}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 250,
+      child: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(hotel.lat, hotel.lng),
+          zoom: 14.0,
+        ),
+        markers: {
+          Marker(
+            markerId: MarkerId(hotel.id),
+            position: LatLng(hotel.lat, hotel.lng),
+            infoWindow: InfoWindow(
+              title: hotel.name,
+              snippet: '${hotel.city} - ${hotel.address}',
+            ),
+          ),
+        },
       ),
     );
   }

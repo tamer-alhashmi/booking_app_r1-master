@@ -25,7 +25,7 @@ class FullScreenImagePage extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context); // Go back when tapped
                 },
-                child: Image.network(
+                child: Image.asset(
                   sliderpics[index],
                   fit: BoxFit.contain,
                 ),
