@@ -15,6 +15,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../services/hotel_service.dart';
 import '../../amenities.dart';
+import '../reviews.dart';
 import '../widgets/description_widget.dart';
 import '../widgets/icons_widget/scrollup.dart';
 import '../widgets/policies_widget.dart';
@@ -46,11 +47,13 @@ class _HotelDetailState extends State<HotelDetail> {
   int _userRoomSelected = 1;
   int _userAdultSelected = 1;
   int _userChildrenSelected = 0;
+  List<Review> reviews = [];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+    fetchReviews(widget.hotel.id);
   }
 
   @override
@@ -59,11 +62,32 @@ class _HotelDetailState extends State<HotelDetail> {
     super.dispose();
   }
 
-  // Add the addToFavorites and removeFromFavorites methods
+  Future<void> fetchReviews(String hotelId) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('reviews')
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        reviews = querySnapshot.docs.map((doc) => Review(
+          userId: doc['userId'],
+          rating: doc['rating'],
+          comment: doc['comment'],
+          timestamp: doc['timestamp'].toDate(),
+        )).toList();
+      }
+
+      setState(() {});
+    } catch (error) {
+      print('Error fetching reviews: $error');
+    }
+  }
+
   bool isFavorite = false;
   void addToFavorites() async {
     try {
-      // Update the hotel's favorite status in Firestore
       await FirebaseFirestore.instance
           .collection('hotels')
           .doc(widget.hotel.id)
@@ -79,7 +103,6 @@ class _HotelDetailState extends State<HotelDetail> {
 
   void removeFromFavorites() async {
     try {
-      // Update the hotel's favorite status in Firestore
       await FirebaseFirestore.instance
           .collection('hotels')
           .doc(widget.hotel.id)
@@ -93,8 +116,6 @@ class _HotelDetailState extends State<HotelDetail> {
     }
   }
 
-
-  // Define the toggleFavorite method
   void toggleFavorite() {
     if (isFavorite) {
       removeFromFavorites();
@@ -102,6 +123,7 @@ class _HotelDetailState extends State<HotelDetail> {
       addToFavorites();
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +138,7 @@ class _HotelDetailState extends State<HotelDetail> {
         ),
       ),
     };
+
 
     return Scaffold(
       appBar: AppBar(
@@ -296,10 +319,8 @@ class _HotelDetailState extends State<HotelDetail> {
                       );
                     },
                     child: HotelAmenitiesCard(
-                      amenities: widget.hotel.facilities,
-                      hotel: widget.hotel,
-                      latitude: widget.latitude,
-                      longitude: widget.longitude,
+                      title: 'Most Popular Facilities',
+                      amenities: widget.hotel.facilities, hotel: widget.hotel, latitude: widget.latitude, longitude: widget.longitude,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -346,10 +367,11 @@ class _HotelDetailState extends State<HotelDetail> {
                         ),
                       );
                     },
-                    child: FutureBuilder<DocumentSnapshot>(
+                    child: FutureBuilder<QuerySnapshot>(
                       future: FirebaseFirestore.instance
                           .collection('hotels')
                           .doc(widget.hotel.id)
+                          .collection('reviews')
                           .get(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -360,9 +382,17 @@ class _HotelDetailState extends State<HotelDetail> {
                           return Text('Error: ${snapshot.error}');
                         }
 
-                        if (snapshot.hasData && snapshot.data!.exists) {
-                          List<dynamic> reviews = snapshot.data!['reviews'];
-                          return HotelReviewsCardWidget(reviews: reviews, hotelId: '',);
+                        if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          List<Review> reviews = snapshot.data!.docs.map((doc) {
+                            return Review(
+                              userId: doc['userId'],
+                              rating: doc['rating'],
+                              comment: doc['comment'],
+                              timestamp: (doc['timestamp'] as Timestamp).toDate(),
+                            );
+                          }).toList();
+
+                          return HotelReviewsCardWidget(reviews: reviews, hotelId: widget.hotel.id);
                         }
 
                         return Text('No reviews available');
@@ -408,3 +438,7 @@ class HotelMapLocation extends StatelessWidget {
     );
   }
 }
+
+
+
+

@@ -149,3 +149,32 @@ import '../nearby_places.dart';
 
 
 
+
+
+// ********************************* reviews checker ************************************************
+// Future<void> initializeReviews() async {
+//   try {
+//     var hotelCollection = FirebaseFirestore.instance.collection('hotels');
+//     var snapshot = await hotelCollection.get();
+//
+//     for (var doc in snapshot.docs) {
+//       var reviewsCollection = hotelCollection.doc(doc.id).collection('reviews');
+//       var reviewsSnapshot = await reviewsCollection.get();
+//
+//       if (reviewsSnapshot.docs.isEmpty) {
+//         await reviewsCollection.add({
+//           'userId': 'initialUser',
+//           'rating': 5.0,
+//           'comment': 'Initial review',
+//           'timestamp': FieldValue.serverTimestamp(),
+//         });
+//         print('Added initial review to hotel: ${doc.id}');
+//       } else {
+//         print('Reviews already exist for hotel: ${doc.id}');
+//       }
+//     }
+//   } catch (e) {
+//     print('Error initializing reviews: $e');
+//   }
+// }
+// ********************************* reviews checker ************************************************

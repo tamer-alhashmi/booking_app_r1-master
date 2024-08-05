@@ -70,7 +70,7 @@ class HotelAmenitiesCard extends StatelessWidget {
     required this.hotel,
     this.height = 200.0,
     required this.latitude,
-    required this.longitude, // Default height
+    required this.longitude, required String title, // Default height
   }) : super(key: key);
 
   @override
