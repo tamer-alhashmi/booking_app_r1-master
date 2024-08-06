@@ -38,18 +38,18 @@ dependencies:
   flutter_asset_generator: ^1.1.0
   flutter_local_notifications: ^16.3.2
   flutter_config: ^2.0.2
-  fluttertoast: ^8.2.4
+  fluttertoast: ^8.2.6
   flutter_plugin_android_lifecycle: ^2.0.17
   google_fonts: ^6.1.0
   google_maps_flutter: ^2.5.2
   google_sign_in: ^6.2.1
   font_awesome_flutter: ^10.7.0
-  firebase_auth: ^4.17.4
-  firebase_core: ^2.25.4
+  firebase_auth: ^4.20.0
+  firebase_core: ^2.32.0
   firebase_messaging: ^14.7.15
   firebase_app_check: ^0.2.1+13
   firebase_storage: ^11.6.6
-  cloud_firestore: ^4.15.5
+  cloud_firestore: ^4.17.5
   cupertino_icons: ^1.0.6
   http: ^1.1.2
   get: ^4.6.6
@@ -60,7 +60,7 @@ dependencies:
   dots_indicator: ^3.0.0
   js: ^0.6.3
   animated_text_kit: ^4.2.2
-  url_launcher: ^6.2.4
+  url_launcher: ^6.3.0
   dio: ^5.4.0
   image_picker: ^1.0.7
   shared_preferences: ^2.2.2
@@ -76,6 +76,8 @@ dependencies:
   provider: ^6.1.2
   json_annotation: ^4.9.0
   json_serializable: ^6.8.0
+  material_design_icons_flutter: ^7.0.7296
+  flutter_dynamic_icon: ^2.1.0
 
 dev_dependencies:
   flutter_test:

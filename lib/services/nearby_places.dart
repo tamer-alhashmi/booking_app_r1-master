@@ -89,11 +89,13 @@ class NearbyPlaces {
 class NearbyPlacesWidget extends StatelessWidget {
   final NearbyPlaces nearbyPlaces;
   final Hotel hotel;
+  final List<Place> places;
 
   const NearbyPlacesWidget({
     Key? key,
     required this.nearbyPlaces,
-    required this.hotel, required List<Place> places,
+    required this.hotel,
+    required this.places,
   }) : super(key: key);
 
   @override
@@ -223,9 +225,6 @@ class _NearbyPlacesScreenState extends State<NearbyPlacesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nearby Places'),
-      ),
       body: FutureBuilder<NearbyPlaces?>(
         future: fetchNearbyPlaces(),
         builder: (context, snapshot) {
@@ -248,4 +247,6 @@ class _NearbyPlacesScreenState extends State<NearbyPlacesScreen> {
     );
   }
 }
+
+
 

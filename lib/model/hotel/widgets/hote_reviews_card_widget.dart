@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 class HotelReviewsCardWidget extends StatelessWidget {
   final String hotelId;
 
   const HotelReviewsCardWidget({
     Key? key,
-    required this.hotelId, required List reviews,
+    required this.hotelId,
   }) : super(key: key);
 
   Future<List<Map<String, dynamic>>> fetchHotelReviews() async {
@@ -77,3 +81,28 @@ class HotelReviewsCardWidget extends StatelessWidget {
     );
   }
 }
+
+
+
+class HotelReviewsCardScreen extends StatelessWidget {
+  final String hotelId;
+
+  const HotelReviewsCardScreen({
+    Key? key,
+    required this.hotelId,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text('Hotel Reviews'),
+      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: HotelReviewsCardWidget(hotelId: hotelId, ),
+      ),
+    );
+  }
+}
+

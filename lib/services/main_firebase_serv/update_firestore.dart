@@ -6,6 +6,34 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../nearby_places.dart';
 
+
+Future<void> addContactFieldsToHotels() async {
+  // Initialize Firebase
+  await Firebase.initializeApp();
+
+  // Reference to the hotels collection
+  CollectionReference hotels = FirebaseFirestore.instance.collection('hotels');
+
+  // Get all hotel documents
+  QuerySnapshot hotelSnapshot = await hotels.get();
+
+  // Loop through each document
+  for (QueryDocumentSnapshot hotelDoc in hotelSnapshot.docs) {
+    // Update document with new fields
+    await hotelDoc.reference.update({
+      'whatsapp': 'https://wa.me/qr/E4RTBVMOA7WEF1 ', // Set default or empty value
+      'email': 'tamer.elhashmi@crownbs.com',    // Set default or empty value
+      'phone': '00201202677818',    // Set default or empty value
+    }).then((_) {
+      print('Updated hotel: ${hotelDoc.id}');
+    }).catchError((error) {
+      print('Failed to update hotel: ${hotelDoc.id}. Error: $error');
+    });
+  }
+}
+
+
+
 // Future<void> updateFacilitiesField() async {
 //   // Initialize Firebase
 //   await Firebase.initializeApp();

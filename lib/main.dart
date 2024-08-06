@@ -5,6 +5,7 @@ import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
 import 'package:booking_app_r1/services/app/booking_app.dart';
 import 'package:booking_app_r1/services/hotels_apis.dart';
+import 'package:booking_app_r1/services/main_firebase_serv/update_firestore.dart';
 import 'package:booking_app_r1/services/nearby_places.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ void main() async {
     isFavorite: false,
     termsAndConditions: '',
     categories: [],
-    nearbyPlaces: NearbyPlaces(places: []) ,
+    nearbyPlaces: NearbyPlaces(places: []), whatsapp: '', email: '', phone: '' ,
 
   );
 
@@ -163,7 +164,7 @@ class MyApp extends StatelessWidget {
 }
 
 
-
+//
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/material.dart';
@@ -171,7 +172,8 @@ class MyApp extends StatelessWidget {
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
 //   await Firebase.initializeApp();
-//   await initializeReviews(); // Initialize reviews for hotels
+//   await addContactFieldsToHotels();
+//   // await initializeReviews(); // Initialize reviews for hotels
 //   // await ensureReviewsSubcollectionForAllHotels(); // Uncomment to ensure reviews sub-collection for all hotels
 //   runApp(MyApp());
 // }

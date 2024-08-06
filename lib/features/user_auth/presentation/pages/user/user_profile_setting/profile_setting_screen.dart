@@ -47,6 +47,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
   late bool _isDarkModeEnabled;
   late String _firstName = '';
   late String _lastName = '';
+  late String _profilePhotoUrl = '';
   // late bool _isDarkModeEnabled = false; // Initialize with default value
   Map<String, dynamic> _userDetails =
       {}; // Initialize with empty map, updated later with user details
@@ -69,15 +70,15 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
 
   Future<void> _loadUserData() async {
     Map<String, dynamic> userDetails =
-        await widget.authService.getUserDetails(widget.userDetails['userId']);
+    await widget.authService.getUserDetails(widget.userDetails['userId']);
     setState(() {
       _userDetails = userDetails;
-      _firstName = userDetails['firstname'] ??
-          ''; // Assign the firstname from userDetails map
-      _lastName = userDetails['lastname'] ??
-          ''; // Assign the lastname from userDetails map
+      _firstName = userDetails['firstname'] ?? ''; // Assign the firstname from userDetails map
+      _lastName = userDetails['lastname'] ?? ''; // Assign the lastname from userDetails map
+      _profilePhotoUrl = userDetails['profilePhotoUrl'] ?? ''; // Assign the profilePhotoUrl from userDetails map
     });
   }
+
 
   Future<void> _toggleDarkMode(bool value) async {
     final prefs = await SharedPreferences.getInstance();

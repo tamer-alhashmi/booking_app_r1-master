@@ -470,29 +470,16 @@ class AuthService {
     }
   }
 
-  Future<void> addUserToFirestore(
-      User user,
-      String email,
-      String firstname,
-      String lastname,
-      String? profilePhotoUrl,
-      ) async {
-    try {
-      await _firestore.collection('users').doc(user.uid).set({
-        'email': email,
-        'firstname': firstname,
-        'lastname': lastname,
-        'profilePhotoUrl': profilePhotoUrl,
-        'dateOfBirth': null,
-        'gender': null,
-        'phoneNumber': null,
-        'address': null,
-        'nationality': null,
-      });
-    } catch (e) {
-      print('Error adding user to Firestore: $e');
-      throw Exception("Failed to add user to Firestore.");
-    }
+  Future<void> addUserToFirestore(User user, String email, String firstName, String lastName, String? profilePhotoUrl) async {
+    final userDoc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+    await userDoc.set({
+      'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'profilePhotoUrl': profilePhotoUrl,
+      'hasNotification': false, // Default value
+    });
   }
 
   Future<UserCredential?> signInWithEmailAndPassword(
@@ -563,7 +550,6 @@ class AuthService {
             userInfo.photoUrl,
           );
         }
-
         return userCredential.user;
       }
     } catch (e) {
@@ -572,6 +558,7 @@ class AuthService {
     }
     return null;
   }
+
 
   Future<User?> signUpWithGoogle() async {
     try {

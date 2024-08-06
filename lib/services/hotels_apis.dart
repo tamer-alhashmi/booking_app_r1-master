@@ -47,7 +47,10 @@ class HotelsApi {
           activitiesAndExperiences: [],
           isFavorite: false,
           termsAndConditions: '',
-          categories: [], // Initialize other fields as needed
+          categories: [],
+          whatsapp: (data['whatsapp'] as String?) ?? '', // Initialize other fields as needed
+          email: (data['whatsapp'] as String?) ?? '', // Initialize other fields as needed
+          phone: (data['whatsapp'] as String?) ?? '', // Initialize other fields as needed
         );
       }).toList();
 
@@ -100,6 +103,9 @@ class HotelsApi {
           isFavorite: false,
           termsAndConditions: '',
           categories: [], // Initialize other fields as needed
+          email: data['name'] as String? ?? '',
+          phone: data['name'] as String? ?? '',
+          whatsapp:data['name'] as String? ?? '',
         );
       }).toList();
 

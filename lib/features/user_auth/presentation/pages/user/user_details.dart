@@ -3,13 +3,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class UserDetails {
   late final bool hasNotification;
   late final String firstName;
+  late final String lastName;
+  late final String profilePhotoUrl;
 
-  UserDetails({required this.hasNotification, required this.firstName});
+  UserDetails({
+    required this.hasNotification,
+    required this.firstName,
+    required this.lastName,
+    required this.profilePhotoUrl,
+  });
 
   factory UserDetails.fromJson(Map<String, dynamic> json) {
     return UserDetails(
       hasNotification: json['hasNotification'] ?? false,
-      firstName: json['firstName'] ?? '', // Assuming you also want to load the first name
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      profilePhotoUrl: json['profilePhotoUrl'] ?? '',
     );
   }
 
@@ -17,6 +26,8 @@ class UserDetails {
     return {
       'hasNotification': hasNotification,
       'firstName': firstName,
+      'lastName': lastName,
+      'profilePhotoUrl': profilePhotoUrl,
     };
   }
 
@@ -32,7 +43,12 @@ class UserDetails {
     }
 
     // Return default values if the document doesn't exist or data is null
-    return UserDetails(hasNotification: false, firstName: '');
+    return UserDetails(
+      hasNotification: false,
+      firstName: '',
+      lastName: '',
+      profilePhotoUrl: '',
+    );
   }
 
   Future<void> saveUserData(String userId) async {

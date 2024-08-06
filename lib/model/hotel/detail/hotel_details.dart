@@ -145,12 +145,12 @@ class _HotelDetailState extends State<HotelDetail> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.share, color: Colors.white),
+            icon: const Icon(Icons.share, color: Colors.white),
             onPressed: () {
               // Add share functionality here
             },
@@ -212,20 +212,20 @@ class _HotelDetailState extends State<HotelDetail> {
                   bottom: 10,
                   right: 10,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                     decoration: BoxDecoration(
                       color: Colors.black54,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       '${_currentPage + 1} / ${widget.hotel.sliderpics.length}',
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
               ],
             ),
-            HotelReviewsCardWidget(hotelId: widget.hotel.id, reviews: [],), // Added line
+            // HotelReviewsCardWidget(hotelId: widget.hotel.id, ), // Added line
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -313,26 +313,6 @@ class _HotelDetailState extends State<HotelDetail> {
                             hotel: widget.hotel,
                             latitude: widget.latitude,
                             longitude: widget.longitude,
-                            initialTabIndex: 1,
-                          ),
-                        ),
-                      );
-                    },
-                    child: HotelAmenitiesCard(
-                      title: 'Most Popular Facilities',
-                      amenities: widget.hotel.facilities, hotel: widget.hotel, latitude: widget.latitude, longitude: widget.longitude,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HotelsFullDescription(
-                            hotel: widget.hotel,
-                            latitude: widget.latitude,
-                            longitude: widget.longitude,
                             initialTabIndex: 0,
                           ),
                         ),
@@ -346,13 +326,61 @@ class _HotelDetailState extends State<HotelDetail> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  HotelPoliciesCardWidget(
-                    hotel: widget.hotel,
-                    policies: widget.hotel.policies,
-                    latitude: widget.hotel.lat,
-                    longitude: widget.hotel.lng,
-                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HotelsFullDescription(
+                            hotel: widget.hotel,
+                            latitude: widget.latitude,
+                            longitude: widget.longitude,
+                            initialTabIndex: 1,
+                          ),
+                        ),
+                      );
+                    },
+                    child: HotelAmenitiesCard(
+                      title: 'Most Popular Facilities',
+                      amenities: widget.hotel.facilities, hotel: widget.hotel, latitude: widget.latitude, longitude: widget.longitude,
+                    ),
+                  ), // Most Popular Facilities
+
+
                   const SizedBox(height: 16),
+
+
+
+                  const SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HotelsFullDescription(
+                            hotel: widget.hotel,
+                            latitude: widget.latitude,
+                            longitude: widget.longitude,
+                            initialTabIndex: 2,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: HotelPoliciesCardWidget(
+                        hotel: widget.hotel,
+                        policies: widget.hotel.policies,
+                        latitude: widget.hotel.lat,
+                        longitude: widget.hotel.lng,
+                      ),
+                    ),
+                  ), // HotelPoliciesCardWidget
+
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -367,6 +395,37 @@ class _HotelDetailState extends State<HotelDetail> {
                         ),
                       );
                     },
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        'View Nearby Places',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ), // View Nearby Places
+
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HotelsFullDescription(
+                            hotel: widget.hotel,
+                            latitude: widget.latitude,
+                            longitude: widget.longitude,
+                            initialTabIndex: 5,
+                          ),
+                        ),
+                      );
+                    },
                     child: FutureBuilder<QuerySnapshot>(
                       future: FirebaseFirestore.instance
                           .collection('hotels')
@@ -375,7 +434,7 @@ class _HotelDetailState extends State<HotelDetail> {
                           .get(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         }
 
                         if (snapshot.hasError) {
@@ -386,16 +445,16 @@ class _HotelDetailState extends State<HotelDetail> {
                           List<Review> reviews = snapshot.data!.docs.map((doc) {
                             return Review(
                               userId: doc['userId'],
-                              rating: doc['rating'],
+                              rating: (doc['rating'] as num).toDouble(),
                               comment: doc['comment'],
                               timestamp: (doc['timestamp'] as Timestamp).toDate(),
                             );
                           }).toList();
 
-                          return HotelReviewsCardWidget(reviews: reviews, hotelId: widget.hotel.id);
+                          return HotelReviewsCardWidget( hotelId: widget.hotel.id);
                         }
 
-                        return Text('No reviews available');
+                        return const Text('No reviews available');
                       },
                     ),
                   ),

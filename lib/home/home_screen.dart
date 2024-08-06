@@ -9,12 +9,15 @@ import 'package:booking_app_r1/services/hotel_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:booking_app_r1/services/hotel_service.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
 import 'package:booking_app_r1/model/hotel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/hotel/detail/policies.dart';
+import 'hotel_card.dart';
 
 class HomeScreen extends StatefulWidget {
   final AuthService authService;
@@ -50,7 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
   late final ScrollController _scrollController = ScrollController();
   Set<Marker> markers = {};
   late String _firstName = '';
+  late String _lastName = '';
   late UserDetails _userDetails;
+
+
+
 
   @override
   void initState() {
@@ -243,6 +250,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
                 child: Card(
+                  color: Colors.transparent,
+                  shadowColor: Colors.transparent,
+
+                  // shape:  CircleBorder(side: BorderSide(),eccentricity: 2),
                   margin: const EdgeInsets.symmetric(vertical: 8.0),
                   elevation: 4.0,
                   child: Column(
@@ -266,28 +277,78 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              hotel.name,
+                              '${hotel.name} Hotel',
                               style: const TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 8.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Text(hotel.address),
+                            Text(
+                              hotel.city,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Text(
-                                  '£${hotel.nightPrice} / night',
-                                  style: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.blue,
+                                 const Text('Price for 1 night 2 adult'),
+                                  Text(
+                                    '£${hotel.nightPrice} ',
+                                    style: const TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
+
                               ],
                             ),
                           ],
                         ),
                       ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          iconSize: 30,
+                          icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
+                          onPressed: () {
+                            final whatsappMessage = Uri.encodeComponent(
+                                'Hi, I am interested in your property at ${hotel.name} Hotel,\nLocated at ${hotel.address}.\nName: $_firstName $_lastName.'
+                            );
+                            final whatsappUrl = 'https://wa.me/${hotel.whatsapp}?text=$whatsappMessage';
+                            launchUrl(Uri.parse(whatsappUrl));
+                          },
+                        ),
+                        IconButton(
+                          iconSize: 30,
+                          icon: Icon(Icons.email, color: Colors.blue),
+                          onPressed: () {
+                            final emailMessage = Uri.encodeComponent(
+                                'Hi, I am interested in your property at ${hotel.name} Hotel,\nLocated at ${hotel.address}.\nName: $_firstName $_lastName'
+                            );
+                            final emailUrl = 'mailto:${hotel.email}?subject=Property Inquiry&body=$emailMessage';
+                            launchUrl(Uri.parse(emailUrl));
+                          },
+                        ),
+                        IconButton(
+                          iconSize: 30,
+                          icon: Icon(Icons.phone, color: Colors.black),
+                          onPressed: () {
+                            final phoneUrl = 'tel:${hotel.phone}';
+                            launchUrl(Uri.parse(phoneUrl));
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+//***************** Contact tools
                     ],
                   ),
                 ),
@@ -391,9 +452,21 @@ class _HomeScreenState extends State<HomeScreen> {
     _userDetails = await UserDetails.loadUserData(widget.userId);
     setState(() {
       _firstName = _userDetails.firstName;
+      _lastName = _userDetails.lastName;
       hasNotification = _userDetails.hasNotification;
     });
   }
+
+
+
+  // Future<void> _loadUserData() async {
+  //   Map<String, dynamic> userDetails =
+  //   await widget.authService.getUserDetails(_firstName);
+  //   setState(() {
+  //     _firstName = userDetails['firstname'] ?? ''; // Assign the firstname from userDetails map
+  //   });
+  // }
+
 
   Future<void> _refreshPage() async {
     await fetchHotel();

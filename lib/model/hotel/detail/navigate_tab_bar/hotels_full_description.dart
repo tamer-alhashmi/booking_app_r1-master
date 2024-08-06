@@ -4,6 +4,8 @@ import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/widgets/policy_widget.dart';
 import 'package:booking_app_r1/model/amenities.dart';
 
+import '../../widgets/hote_reviews_card_widget.dart';
+
 class HotelsFullDescription extends StatefulWidget {
   final Hotel hotel;
   final int initialTabIndex;
@@ -65,6 +67,7 @@ class _HotelsFullDescriptionState extends State<HotelsFullDescription>
                   Tab(text: 'Policies'),
                   Tab(text: 'Children & Extra Beds'),
                   Tab(text: 'Nearby Places'),
+                  Tab(text: 'Reviews'),
                 ],
               ),
             ),
@@ -84,6 +87,8 @@ class _HotelsFullDescriptionState extends State<HotelsFullDescription>
                   latitude: widget.latitude,
                   longitude: widget.longitude,
                 ),
+                ReviewsTab(hotel: widget.hotel ),
+
               ],
             ),
           ),
@@ -172,6 +177,25 @@ class NearbyPlacesTab extends StatelessWidget {
       child: Center(
         child: NearbyPlacesScreen(
              hotel: hotel, hotelId: '',),
+      ),
+    );
+  }
+}
+
+class ReviewsTab extends StatelessWidget {
+  final Hotel hotel;
+
+
+  ReviewsTab(
+      {required this.hotel, });
+
+  @override
+  Widget build(BuildContext context) {
+    // Implement the UI to display important info
+    return const Center(
+      child: Center(
+        child: HotelReviewsCardScreen(
+           hotelId: '', ),
       ),
     );
   }

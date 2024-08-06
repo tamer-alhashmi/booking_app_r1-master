@@ -4,6 +4,7 @@ import 'package:booking_app_r1/features/user_auth/presentation/pages/sign_up_scr
 import 'package:booking_app_r1/home/home_screen.dart';
 import 'package:booking_app_r1/model/category/hotel_categories.dart';
 import 'package:booking_app_r1/model/hotel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
 import 'package:booking_app_r1/global/common/toast.dart';
@@ -243,21 +244,23 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  _signInWithGoogle() async {
+  void _signInWithGoogle() async {
     try {
-      await widget.authService.signInWithGoogle();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ConfirmationCredentialPage(
-            authService: widget.authService,
-            // categories: widget.categories,
-            hotel: widget.hotel,
+      User? user = await widget.authService.signInWithGoogle();
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConfirmationCredentialPage(
+              authService: widget.authService,
+              hotel: widget.hotel,
+            ),
           ),
-        ),
-      );
+        );
+      }
     } catch (e) {
-      showToast(message: "some error occurred $e");
+      showToast(message: "Failed to sign in with Google: $e");
     }
   }
+
 }

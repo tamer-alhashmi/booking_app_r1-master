@@ -9,6 +9,8 @@ import '../model/hotel/reviews.dart';
 import 'nearby_places.dart';
 
 class HotelService {
+
+
   static Future<List<Hotel>> fetchHotels() async {
     try {
       final QuerySnapshot querySnapshot =
@@ -56,6 +58,9 @@ class HotelService {
           isFavorite: false,
           categories: categories, // List of categories
           termsAndConditions: data['termsAndConditions'] as String? ?? '',
+          whatsapp: data['whatsapp'] as String? ?? '',
+          email: data['email'] as String? ?? '',
+          phone: data['phone'] as String? ?? '',
         );
       }).toList());
       return hotels;
@@ -161,7 +166,7 @@ class HotelService {
               data['activitiesAndExperiences'] as List<dynamic>? ?? []),
           isFavorite: false,
           categories: categories, // List of categories
-          termsAndConditions: data['termsAndConditions'] as String? ?? '',
+          termsAndConditions: data['termsAndConditions'] as String? ?? '', whatsapp: '', email: '', phone: '',
         );
       }).toList());
       return hotels;

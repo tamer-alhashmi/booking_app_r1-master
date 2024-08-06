@@ -26,6 +26,9 @@ class Hotel extends ChangeNotifier {
   final String nightPrice;
   final String termsAndConditions;
   final String starRate;
+  final String? whatsapp;
+  final String? email;
+  final String? phone;
 
   Hotel({
     required this.activitiesAndExperiences,
@@ -48,6 +51,10 @@ class Hotel extends ChangeNotifier {
     required this.policies,
     required this.nearbyPlaces,
     required this.termsAndConditions,
+    required this.whatsapp,
+    required this.email,
+    required this.phone,
+
   });
 
   factory Hotel.fromFirestore(DocumentSnapshot doc) {
@@ -82,6 +89,9 @@ class Hotel extends ChangeNotifier {
       policies: HotelPolicies.fromJson(data['policies'] ?? {}),
       nearbyPlaces: NearbyPlaces.fromJson(data['nearbyPlaces'] ?? {}),
       isFavorite: data['isFavorite'] ?? false,
+      whatsapp: data['whatsapp'],
+      email: data['email'],
+      phone: data['phone'],
     );
   }
 
@@ -106,6 +116,9 @@ class Hotel extends ChangeNotifier {
     "isFavorite": isFavorite,
     "policies": policies.toJson(),
     "nearbyPlaces": nearbyPlaces.toJson(),
+    "whatsapp": whatsapp,
+    "email": email,
+    "phone": phone,
   };
 }
 
