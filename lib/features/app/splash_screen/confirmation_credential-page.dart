@@ -29,7 +29,7 @@ class _ConfirmationCredentialPageState
 
   Future<void> _loadUserData() async {
     Map<String, dynamic> userDetails =
-    await widget.authService.getUserDetails(_firstName);
+    await widget.authService.getUserDetails();
     setState(() {
       _firstName = userDetails['firstname'] ?? ''; // Assign the firstname from userDetails map
     });

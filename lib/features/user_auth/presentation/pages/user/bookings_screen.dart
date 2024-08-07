@@ -44,7 +44,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   }
   Future<void> _loadUserData() async {
     Map<String, dynamic> userDetails =
-    await widget.authService.getUserDetails({});
+    await widget.authService.getUserDetails();
     setState(() {
       _userDetails = userDetails;
       _firstName = userDetails['firstname'] ?? ''; // Assign the firstname from userDetails map

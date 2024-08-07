@@ -16,14 +16,12 @@ import 'dart:io';
 class UserProfileSettingScreen extends StatefulWidget {
   final AuthService authService;
   final List<Category> categories;
-
   final Hotel hotel;
   final Map<String, dynamic> userDetails;
   final Function(int) onPageChanged;
   final double latitude;
   final double longitude;
   final String userId; // Add userId as a parameter
-
 
   const UserProfileSettingScreen({
     Key? key, // Add 'Key?' instead of 'super.key'
@@ -40,7 +38,6 @@ class UserProfileSettingScreen extends StatefulWidget {
   @override
   _UserProfileSettingScreenState createState() =>
       _UserProfileSettingScreenState();
-  // static Map<String, dynamic> get userDetails => {}; // Update this line with your userDetails logic
 }
 
 class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
@@ -48,9 +45,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
   late String _firstName = '';
   late String _lastName = '';
   late String _profilePhotoUrl = '';
-  // late bool _isDarkModeEnabled = false; // Initialize with default value
-  Map<String, dynamic> _userDetails =
-      {}; // Initialize with empty map, updated later with user details
+  Map<String, dynamic> _userDetails = {}; // Initialize with empty map, updated later with user details
   File? _imageFile; // Store the selected image file
   int currentPageIndex = 3;
 
@@ -69,8 +64,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
   }
 
   Future<void> _loadUserData() async {
-    Map<String, dynamic> userDetails =
-    await widget.authService.getUserDetails(widget.userDetails['userId']);
+    Map<String, dynamic> userDetails = await widget.authService.getUserDetails();
     setState(() {
       _userDetails = userDetails;
       _firstName = userDetails['firstname'] ?? ''; // Assign the firstname from userDetails map
@@ -78,7 +72,6 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
       _profilePhotoUrl = userDetails['profilePhotoUrl'] ?? ''; // Assign the profilePhotoUrl from userDetails map
     });
   }
-
 
   Future<void> _toggleDarkMode(bool value) async {
     final prefs = await SharedPreferences.getInstance();
@@ -88,66 +81,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
     prefs.setBool('isDarkModeEnabled', value);
   }
 
-  // Method to handle selecting an image from the gallery
-  Future<void> _selectImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
-    }
-  }
 
-  // Method to upload the selected image to Firebase Storage
-  Future<void> _uploadImage() async {
-    if (_imageFile != null) {
-      try {
-        firebase_storage.Reference ref = firebase_storage
-            .FirebaseStorage.instance
-            .ref()
-            .child('user_profile_photos')
-            .child('${_userDetails['userId']}.jpg');
-        await ref.putFile(_imageFile!);
-        String imageUrl = await ref.getDownloadURL();
-
-        // Update the user's profile photo URL in Firestore
-        await widget.authService.updateUserProfilePhoto(imageUrl);
-
-        setState(() {
-          // Update the user's profile photo in the UI
-          _userDetails['profilePhotoUrl'] = imageUrl;
-        });
-      } catch (e) {
-        print('Error uploading image: $e');
-        // Handle the error
-      }
-    }
-  }
-
-  // Method to delete the user's profile photo
-  Future<void> _deleteImage() async {
-    try {
-      // Delete the image from Firebase Storage
-      await firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('user_profile_photos')
-          .child('${_userDetails['userId']}.jpg')
-          .delete();
-
-      // Update the user's profile photo URL in Firestore to null
-      await widget.authService.updateUserProfilePhoto(null);
-
-      setState(() {
-        // Clear the profile photo URL in the UI
-        _userDetails['profilePhotoUrl'] = null;
-        _imageFile = null; // Clear the image file
-      });
-    } catch (e) {
-      print('Error deleting image: $e');
-      // Handle the error
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,12 +95,13 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
               MaterialPageRoute(
                 builder: (_) => HomeScreen(
                   authService: widget.authService,
-                  // categories: widget.categories,
                   hotel: widget.hotel,
                   userDetails: widget.userDetails,
                   latitude: widget.latitude,
                   longitude: widget.longitude,
-                  userId: widget.userId, policies: widget.hotel.policies, categories: widget.categories,
+                  userId: widget.userId,
+                  policies: widget.hotel.policies,
+                  categories: widget.categories,
                 ),
               ),
             );
@@ -181,9 +116,6 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
           ),
         ],
         // Set the app bar theme based on the current theme mode
-        // Use MyAppBarTheme class to access the app bar themes
-        // If dark mode is enabled, use darkAppBarTheme, otherwise use lightAppBarTheme
-        // You can adjust other properties as needed
         backgroundColor: _isDarkModeEnabled
             ? MyAppBarTheme.darkAppBarTheme.backgroundColor
             : MyAppBarTheme.lightAppBarTheme.backgroundColor,
@@ -202,87 +134,88 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
         hotel: widget.hotel,
         userDetails: _userDetails,
         authService: widget.authService,
-        firstName: '', longitude: widget.longitude, latitude: widget.latitude, userId: '',
+        firstName: '',
+        longitude: widget.longitude,
+        latitude: widget.latitude,
+        userId: '',
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: EdgeInsets.all(20.0),
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                // User photo in the center
-                CircleAvatar(
-                  radius: 50,
-                  // Placeholder for user photo, you can replace it with actual user photo
-                  backgroundImage: _imageFile != null
-                      ? FileImage(_imageFile!)
-                      : (_userDetails['profilePhotoUrl'] != null)
-                          ? NetworkImage(
-                              _userDetails['profilePhotoUrl'] as String)
-                          : const AssetImage(
-                                  'assets/holder/user_photo_placeholder.jpeg')
-                              as ImageProvider<Object>,
-                ),
-                const SizedBox(height: 10),
-                // User full name
-                Text(
-                  '$_firstName $_lastName'.toUpperCase(),
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                // Text "Complete 5 bookings within 2 tears to unlocking Level 2 discounts and rewards!"
-                const Text(
-                  "Complete 5 bookings within 2 years to unlock Level 2 discounts and rewards!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: EdgeInsets.all(20.0),
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  // User photo in the center
+                  CircleAvatar(
+                    radius: 50,
+                    // Placeholder for user photo, you can replace it with actual user photo
+                    backgroundImage: _imageFile != null
+                        ? FileImage(_imageFile!)
+                        : (_userDetails['profilePhotoUrl'] != null)
+                        ? NetworkImage(
+                        _userDetails['profilePhotoUrl'] as String)
+                        : const AssetImage(
+                        'assets/holder/user_photo_placeholder.jpeg')
+                    as ImageProvider<Object>,
+                  ),
+                  const SizedBox(height: 10),
+                  // Buttons to select and upload images
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     ElevatedButton(
+                  //       onPressed: _selectImage,
+                  //       child: const Text('Select Image'),
+                  //     ),
+                  //     const SizedBox(width: 10),
+                  //     ElevatedButton(
+                  //       onPressed: _uploadImage,
+                  //       child: const Text('Upload Image'),
+                  //     ),
+                  //   ],
+                  // ),
+                  const SizedBox(height: 10),
+                  // User full name
+                  Text(
+                    '$_firstName $_lastName'.toUpperCase(),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  // Text "Complete 5 bookings within 2 years to unlock Level 2 discounts and rewards!"
+                  const Text(
+                    "Complete 5 bookings within 2 years to unlock Level 2 discounts and rewards!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
             ),
-          ),
-
-          _buildSection(
-            'Manage your account',
-            Icons.account_circle,
-            () {
-              // Handle action for managing account
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => AccountSettingScreen(
-                          authService: widget.authService,
-                          hotel: widget.hotel,
-                          categories: widget.categories,
-                          userDetails: _userDetails,
-                          currentPageIndex: currentPageIndex,
-                          onPageChanged: widget.onPageChanged,
-                          latitude: widget.latitude,
-                          longitude: widget.longitude, userId: widget.userId,
-                        )),
-              );
-            },
-          ),
-          _buildSection(
-            'Rewards & Wallet',
-            Icons.account_balance_wallet,
-            () {
-              // Handle action for rewards & wallet
-            },
-          ),
-          // Other sections...
-          _buildDarkModeToggle(),
-          _buildSection(
-            'Sign Out',
-            Icons.exit_to_app,
-            () {
-              // Handle sign-out action
-              FirebaseAuth.instance.signOut();
-              Navigator.pushNamed(context, "/login");
-            },
-          ),
-        ],
+            AccountSettingScreen(
+              authService: widget.authService,
+              hotel: widget.hotel,
+              categories: widget.categories,
+              userDetails: _userDetails,
+              currentPageIndex: currentPageIndex,
+              onPageChanged: widget.onPageChanged,
+              latitude: widget.latitude,
+              longitude: widget.longitude,
+              userId: widget.userId,
+            ),
+            _buildDarkModeToggle(),
+            _buildSection(
+              'Sign Out',
+              Icons.exit_to_app,
+                  () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, "/login");
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -316,10 +249,8 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
       onChanged: (value) {
         _toggleDarkMode(value);
         if (value) {
-          // Set theme mode to dark
           BookingApp.setThemeMode(ThemeMode.dark);
         } else {
-          // Set theme mode to light
           BookingApp.setThemeMode(ThemeMode.light);
         }
       },

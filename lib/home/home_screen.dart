@@ -5,7 +5,10 @@ import 'package:booking_app_r1/home/hotel_city_group_widget.dart';
 import 'package:booking_app_r1/model/category/hotel_categories.dart';
 import 'package:booking_app_r1/model/hotel/detail/hotel_details.dart';
 import 'package:booking_app_r1/model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
+import 'package:booking_app_r1/model/hotel/widgets/home/contact_hotel_widget.dart';
 import 'package:booking_app_r1/services/hotel_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:booking_app_r1/services/hotel_service.dart';
 import 'package:flutter/material.dart';
@@ -55,19 +58,42 @@ class _HomeScreenState extends State<HomeScreen> {
   late String _firstName = '';
   late String _lastName = '';
   late UserDetails _userDetails;
+  late String _userId = '';
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 
+
+  void _loadUserData() async {
+    final authService = AuthService();
+    final userDetails = await authService.getUserDetails();
+    setState(() {
+      _userId = userDetails['userId'] ?? '';
+      _firstName = userDetails['firstname'] ?? '';
+      _lastName = userDetails['lastname'] ?? '';
+      hasNotification = userDetails['hasNotification'] ?? false;
+    });
+  }
 
 
   @override
   void initState() {
     super.initState();
+    // _initializeUserDetails();
     fetchHotel();
     _loadUserData();
     checkNotifications();
     fetchAndSetMarkers();
   }
-
+  // Future<void> _initializeUserDetails() async {
+  //   try {
+  //     // Replace 'your_user_id' with the actual user ID
+  //     _userDetails = await UserDetails.loadUserData('your_user_id');
+  //     setState(() {}); // Trigger a rebuild to update the UI
+  //   } catch (e) {
+  //     print('Error initializing user details: $e');
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -249,45 +275,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               },
-                child: Card(
+                child:  Card(
                   color: Colors.transparent,
                   shadowColor: Colors.transparent,
 
                   // shape:  CircleBorder(side: BorderSide(),eccentricity: 2),
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
                   elevation: 4.0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       AspectRatio(
                         aspectRatio: 16 / 9,
-                        child: hotel.profilePic.isNotEmpty
-                            ? Image.asset(
-                          hotel.profilePic,
-                          fit: BoxFit.cover,
-                        )
-                            : Image.asset(
-                          'assets/splash/3weby.webp',
-                          fit: BoxFit.cover,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+                          child: hotel.profilePic.isNotEmpty
+                              ? Image.asset(
+                            hotel.profilePic,
+                            fit: BoxFit.cover,
+                          )
+                              : Image.asset(
+                            'assets/splash/3weby.webp',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               '${hotel.name} Hotel',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 8.0),
+                            SizedBox(height: 8.0),
                             Text(hotel.address),
                             Text(
                               hotel.city,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -295,10 +324,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                 const Text('Price for 1 night 2 adult'),
+                                 Text('Price for 1 night 2 adult'),
                                   Text(
                                     '£${hotel.nightPrice} ',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black,
@@ -310,44 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        IconButton(
-                          iconSize: 30,
-                          icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
-                          onPressed: () {
-                            final whatsappMessage = Uri.encodeComponent(
-                                'Hi, I am interested in your property at ${hotel.name} Hotel,\nLocated at ${hotel.address}.\nName: $_firstName $_lastName.'
-                            );
-                            final whatsappUrl = 'https://wa.me/${hotel.whatsapp}?text=$whatsappMessage';
-                            launchUrl(Uri.parse(whatsappUrl));
-                          },
-                        ),
-                        IconButton(
-                          iconSize: 30,
-                          icon: Icon(Icons.email, color: Colors.blue),
-                          onPressed: () {
-                            final emailMessage = Uri.encodeComponent(
-                                'Hi, I am interested in your property at ${hotel.name} Hotel,\nLocated at ${hotel.address}.\nName: $_firstName $_lastName'
-                            );
-                            final emailUrl = 'mailto:${hotel.email}?subject=Property Inquiry&body=$emailMessage';
-                            launchUrl(Uri.parse(emailUrl));
-                          },
-                        ),
-                        IconButton(
-                          iconSize: 30,
-                          icon: Icon(Icons.phone, color: Colors.black),
-                          onPressed: () {
-                            final phoneUrl = 'tel:${hotel.phone}';
-                            launchUrl(Uri.parse(phoneUrl));
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                      ContactHotelWidget(hotel: hotel,),
 //***************** Contact tools
                     ],
                   ),
@@ -377,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> fetchHotel() async {
     try {
-      final response = await HotelService.fetchHotels();
+      final response = await AuthService.fetchHotels();
       if (response != null) {
         final groupedHotels = groupHotelsByCity(response);
         printGroupedCities(groupedHotels);
@@ -413,7 +405,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> fetchAndSetMarkers() async {
     try {
       // Assuming a method to fetch hotels for marker data
-      final hotels = await HotelService.fetchHotels();
+      final hotels = await AuthService.fetchHotels();
       Set<Marker> newMarkers = {};
       for (var hotel in hotels) {
         newMarkers.add(
@@ -448,14 +440,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return hotelGroups;
   }
 
-  void _loadUserData() async {
-    _userDetails = await UserDetails.loadUserData(widget.userId);
-    setState(() {
-      _firstName = _userDetails.firstName;
-      _lastName = _userDetails.lastName;
-      hasNotification = _userDetails.hasNotification;
-    });
-  }
+  // void _loadUserData() async {
+  //   _userDetails = await UserDetails.loadUserData(widget.userId);
+  //   setState(() {
+  //     _firstName = _userDetails.firstName;
+  //     _lastName = _userDetails.lastName;
+  //     hasNotification = _userDetails.hasNotification;
+  //   });
+  // }
 
 
 

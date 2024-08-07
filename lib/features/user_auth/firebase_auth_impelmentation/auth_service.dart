@@ -365,9 +365,10 @@
 //
 // }
 
-
-
+import 'package:booking_app_r1/model/category/hotel_categories.dart';
 import 'package:booking_app_r1/model/hotel.dart';
+import 'package:booking_app_r1/model/hotel/detail/policies.dart';
+import 'package:booking_app_r1/services/nearby_places.dart';
 import 'package:booking_app_r1/theme/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -383,12 +384,12 @@ class AuthService {
   String? get currentUserUid => FirebaseAuth.instance.currentUser?.uid;
 
   Future<User?> signUpWithEmailAndPassword(
-      String email,
-      String password,
-      String firstname,
-      String lastname,
-      BuildContext context,
-      ) async {
+    String email,
+    String password,
+    String firstname,
+    String lastname,
+    BuildContext context,
+  ) async {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -396,7 +397,8 @@ class AuthService {
       );
 
       if (credential.user != null) {
-        await addUserToFirestore(credential.user!, email, firstname, lastname, null);
+        await addUserToFirestore(
+            credential.user!, email, firstname, lastname, null);
       }
 
       return credential.user;
@@ -424,10 +426,9 @@ class AuthService {
 
   Future<void> addUserFavorite(String userId, String hotelId) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .update({'favorites': FieldValue.arrayUnion([hotelId])});
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'favorites': FieldValue.arrayUnion([hotelId])
+      });
     } catch (error) {
       print('Error adding favorite hotel: $error');
     }
@@ -435,16 +436,23 @@ class AuthService {
 
   Future<List<Hotel>> getFavoriteHotels(String userId) async {
     try {
-      final DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      final DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
       final dynamic userData = userDoc.data();
 
       if (userData != null && userData.containsKey('favorites')) {
-        final List<dynamic> favoriteHotelIds = List<dynamic>.from(userData['favorites']);
+        final List<dynamic> favoriteHotelIds =
+            List<dynamic>.from(userData['favorites']);
         final List<Hotel> favoriteHotels = [];
 
         // Fetch details of each favorite hotel
         for (final dynamic hotelId in favoriteHotelIds) {
-          final DocumentSnapshot hotelDoc = await FirebaseFirestore.instance.collection('hotels').doc(hotelId).get();
+          final DocumentSnapshot hotelDoc = await FirebaseFirestore.instance
+              .collection('hotels')
+              .doc(hotelId)
+              .get();
           final Hotel hotel = Hotel.fromFirestore(hotelDoc);
           favoriteHotels.add(hotel);
         }
@@ -461,17 +469,18 @@ class AuthService {
 
   Future<void> removeUserFavorite(String userId, String hotelId) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .update({'favorites': FieldValue.arrayRemove([hotelId])});
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'favorites': FieldValue.arrayRemove([hotelId])
+      });
     } catch (error) {
       print('Error removing favorite hotel: $error');
     }
   }
 
-  Future<void> addUserToFirestore(User user, String email, String firstName, String lastName, String? profilePhotoUrl) async {
-    final userDoc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+  Future<void> addUserToFirestore(User user, String email, String firstName,
+      String lastName, String? profilePhotoUrl) async {
+    final userDoc =
+        FirebaseFirestore.instance.collection('users').doc(user.uid);
 
     await userDoc.set({
       'email': email,
@@ -483,9 +492,9 @@ class AuthService {
   }
 
   Future<UserCredential?> signInWithEmailAndPassword(
-      String email,
-      String password,
-      ) async {
+    String email,
+    String password,
+  ) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -500,8 +509,8 @@ class AuthService {
 
 // Method to update user data fields in Firestore
   Future<void> updateUserData(
-      Map<String, dynamic> userData,
-      ) async {
+    Map<String, dynamic> userData,
+  ) async {
     try {
       User? user = _auth.currentUser;
       if (user != null) {
@@ -530,14 +539,17 @@ class AuthService {
 
   Future<User?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
       if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-        final UserCredential userCredential = await _auth.signInWithCredential(credential);
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
 
         // Add user's Google account data to Firestore
         if (userCredential.user != null) {
@@ -559,20 +571,19 @@ class AuthService {
     return null;
   }
 
-
   Future<User?> signUpWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
-      await _googleSignIn.signIn();
+          await _googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+            await googleSignInAccount.authentication;
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
         final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
+            await _auth.signInWithCredential(credential);
         return userCredential.user;
       }
     } catch (e) {
@@ -620,23 +631,35 @@ class AuthService {
   }
 
   // Method to fetch user details from Firestore
-  Future<Map<String, dynamic>> getUserDetails(userDetail) async {
+  // Future<Map<String, dynamic>> getUserDetails() async {
+  //   User? user = _auth.currentUser;
+  //   if (user != null) {
+  //     DocumentSnapshot snapshot =
+  //     await _firestore.collection('users').doc(user.uid).get();
+  //     if (snapshot.exists) {
+  //       return {
+  //         'email': snapshot['email'],
+  //         'firstname': snapshot['firstname'],
+  //         'lastname': snapshot['lastname'],
+  //         'profilePhotoUrl': snapshot['profilePhotoUrl'],
+  //         'dateOfBirth': snapshot['dateOfBirth'],
+  //         'gender': snapshot['gender'],
+  //         'phoneNumber': snapshot['phoneNumber'],
+  //         'address': snapshot['address'],
+  //         'nationality': snapshot['nationality'],
+  //       };
+  //     }
+  //   }
+  //   return {};
+  // }
+
+  Future<Map<String, dynamic>> getUserDetails() async {
     User? user = _auth.currentUser;
     if (user != null) {
       DocumentSnapshot snapshot =
-      await _firestore.collection('users').doc(user.uid).get();
+          await _firestore.collection('users').doc(user.uid).get();
       if (snapshot.exists) {
-        return {
-          'email': snapshot['email'],
-          'firstname': snapshot['firstname'],
-          'lastname': snapshot['lastname'],
-          'profilePhotoUrl': snapshot['profilePhotoUrl'],
-          'dateOfBirth': snapshot['dateOfBirth'],
-          'gender': snapshot['gender'],
-          'phoneNumber': snapshot['phoneNumber'],
-          'address': snapshot['address'],
-          'nationality': snapshot['nationality'],
-        };
+        return snapshot.data() as Map<String, dynamic>;
       }
     }
     return {};
@@ -671,17 +694,20 @@ class AuthService {
 //     }
 //   }
 
-
-
 // Function to retrieve all hotels from Firestore
+
   Stream<QuerySnapshot> getAllHotelsFromFirestore() {
     return FirebaseFirestore.instance.collection('hotels').snapshots();
   }
 
 // Function to update favorite status of a hotel in Firestore
-  Future<void> updateFavoriteStatusInFirestore(String hotelId, bool isFavorite) async {
+  Future<void> updateFavoriteStatusInFirestore(
+      String hotelId, bool isFavorite) async {
     try {
-      await FirebaseFirestore.instance.collection('hotels').doc(hotelId).update({
+      await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .update({
         'isFavorite': isFavorite,
       });
     } catch (error) {
@@ -691,13 +717,17 @@ class AuthService {
 
 // Function to add a new review for a hotel in Firestore
   Future<void> addReviewForHotel(
-      String hotelId,
-      String userId,
-      double rating,
-      String comment,
-      ) async {
+    String hotelId,
+    String userId,
+    double rating,
+    String comment,
+  ) async {
     try {
-      await FirebaseFirestore.instance.collection('hotels').doc(hotelId).collection('reviews').add({
+      await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('reviews')
+          .add({
         'userId': userId,
         'rating': rating,
         'comment': comment,
@@ -710,7 +740,11 @@ class AuthService {
 
 // Function to retrieve user's bookings from Firestore
   Stream<QuerySnapshot> getUserBookingsFromFirestore(String userId) {
-    return FirebaseFirestore.instance.collection('users').doc(userId).collection('bookings').snapshots();
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('bookings')
+        .snapshots();
   }
 
   // Implementation of hasNotification
@@ -722,4 +756,172 @@ class AuthService {
     return Future.value(true);
   }
 
+  static Future<List<Hotel>> fetchHotels() async {
+    try {
+      final QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('hotels').get();
+      final List<Hotel> hotels =
+          await Future.wait(querySnapshot.docs.map((doc) async {
+        final Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+        if (data == null) {
+          throw StateError('Document data is null');
+        }
+
+        // Fetch nearby places from Firestore
+        final List<Place> nearbyPlacesList =
+            await fetchNearbyPlacesFromFirestore(doc.id);
+        final nearbyPlaces = NearbyPlaces(places: nearbyPlacesList);
+
+        final List<String> sliderPics =
+            List<String>.from(data['sliderpics'] ?? []);
+        final String profilePicAsset = data['profilePic'] ?? '';
+
+        // Fetch categories for the hotel
+        final List<Category> categories = await fetchHotelCategories(doc.id);
+
+        return Hotel(
+          id: doc.id,
+          name: data['name'] as String? ?? '',
+          sliderpics: sliderPics,
+          reception: data['reception'] as String? ?? '',
+          discount: (data['discount'] as num?)?.toInt() ?? 0,
+          description: data['description'] as String? ?? '',
+          city: data['city'] as String? ?? '',
+          address: data['address'] as String? ?? '',
+          lat: (data['lat'] as num?)?.toDouble() ?? 0.0,
+          lng: (data['lng'] as num?)?.toDouble() ?? 0.0,
+          starRate: data['starRate'] as String? ?? '',
+          nightPrice: data['nightPrice'] as String? ?? '',
+          profilePic: profilePicAsset,
+          facilities:
+              List<String>.from(data['facilities'] as List<dynamic>? ?? []),
+          policies: HotelPolicies.fromJson(
+              data['policies'] as Map<String, dynamic>? ?? {}),
+          nearbyPlaces: nearbyPlaces,
+          activitiesAndExperiences: List<String>.from(
+              data['activitiesAndExperiences'] as List<dynamic>? ?? []),
+          isFavorite: false,
+          categories: categories, // List of categories
+          termsAndConditions: data['termsAndConditions'] as String? ?? '',
+          whatsapp: data['whatsapp'] as String? ?? '',
+          email: data['email'] as String? ?? '',
+          phone: data['phone'] as String? ?? '',
+        );
+      }).toList());
+      return hotels;
+    } catch (error) {
+      print('Error fetching hotels: $error');
+      return [];
+    }
+  }
+
+  static Future<List<Category>> fetchHotelCategories(String hotelId) async {
+    try {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('category')
+          .get();
+
+      return querySnapshot.docs.map((doc) {
+        final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return Category.fromFirestore(data, doc.id);
+      }).toList();
+    } catch (e) {
+      print("Error fetching categories: $e");
+      return [];
+    }
+  }
+
+  Future<String?> getImageUrl(String? imagePath) async {
+    try {
+      // Return the asset path directly
+      return imagePath;
+    } catch (e) {
+      print("Error fetching image URL: $e");
+      return null;
+    }
+  }
+
+  static Future<List<Place>> fetchNearbyPlacesFromFirestore(
+      String hotelId) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('nearby_places')
+          .get();
+
+      final List<Place> nearbyPlaces = querySnapshot.docs.map((doc) {
+        return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id);
+      }).toList();
+
+      return nearbyPlaces;
+    } catch (error) {
+      print('Error fetching nearby places: $error');
+      return [];
+    }
+  }
+
+  static Future<List<Hotel>> searchHotelsByCity(String city) async {
+    try {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .where('city', isEqualTo: city)
+          .get();
+
+      final List<Hotel> hotels =
+          await Future.wait(querySnapshot.docs.map((doc) async {
+        final Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+        if (data == null) {
+          throw StateError('Document data is null');
+        }
+
+        // Fetch nearby places from Firestore
+        final List<Place> nearbyPlacesList =
+            await fetchNearbyPlacesFromFirestore(doc.id);
+        final nearbyPlaces = NearbyPlaces(places: nearbyPlacesList);
+
+        final List<String> sliderPics =
+            List<String>.from(data['sliderpics'] ?? []);
+        final String profilePicAsset = data['profilePic'] ?? '';
+
+        // Fetch categories for the hotel
+        final List<Category> categories = await fetchHotelCategories(doc.id);
+
+        return Hotel(
+          id: doc.id,
+          name: data['name'] as String? ?? '',
+          sliderpics: sliderPics,
+          reception: data['reception'] as String? ?? '',
+          discount: (data['discount'] as num?)?.toInt() ?? 0,
+          description: data['description'] as String? ?? '',
+          city: data['city'] as String? ?? '',
+          address: data['address'] as String? ?? '',
+          lat: (data['lat'] as num?)?.toDouble() ?? 0.0,
+          lng: (data['lng'] as num?)?.toDouble() ?? 0.0,
+          starRate: data['starRate'] as String? ?? '',
+          nightPrice: data['nightPrice'] as String? ?? '',
+          profilePic: profilePicAsset,
+          facilities:
+              List<String>.from(data['facilities'] as List<dynamic>? ?? []),
+          policies: HotelPolicies.fromJson(
+              data['policies'] as Map<String, dynamic>? ?? {}),
+          nearbyPlaces: nearbyPlaces,
+          activitiesAndExperiences: List<String>.from(
+              data['activitiesAndExperiences'] as List<dynamic>? ?? []),
+          isFavorite: false,
+          categories: categories, // List of categories
+          termsAndConditions: data['termsAndConditions'] as String? ?? '',
+          whatsapp: '', email: '', phone: '',
+        );
+      }).toList());
+      return hotels;
+    } catch (error) {
+      print('Error fetching hotels by city: $error');
+      return [];
+    }
+  }
 }

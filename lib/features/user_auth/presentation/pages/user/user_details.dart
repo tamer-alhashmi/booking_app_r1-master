@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 class UserDetails {
+  late final String userId;
   late final bool hasNotification;
   late final String firstName;
   late final String lastName;
   late final String profilePhotoUrl;
 
   UserDetails({
+    required this.userId,
     required this.hasNotification,
     required this.firstName,
     required this.lastName,
@@ -19,6 +22,7 @@ class UserDetails {
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
       profilePhotoUrl: json['profilePhotoUrl'] ?? '',
+      userId: '',
     );
   }
 
@@ -48,6 +52,7 @@ class UserDetails {
       firstName: '',
       lastName: '',
       profilePhotoUrl: '',
+      userId: '',
     );
   }
 

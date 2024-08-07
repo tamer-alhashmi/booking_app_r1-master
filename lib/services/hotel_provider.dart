@@ -1,3 +1,4 @@
+import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:booking_app_r1/services/hotel_service.dart';
@@ -16,7 +17,7 @@ class HotelProvider with ChangeNotifier {
   Future<void> fetchHotels() async {
     _setLoading(true);
     try {
-      final response = await HotelService.fetchHotels();
+      final response = await AuthService.fetchHotels();
       _setHotels(response);
     } catch (error) {
       _setError('Error fetching hotels: $error');
@@ -29,7 +30,7 @@ class HotelProvider with ChangeNotifier {
   Future<void> searchHotelsByCity(String city) async {
     _setLoading(true);
     try {
-      final response = await HotelService.searchHotelsByCity(city);
+      final response = await AuthService.searchHotelsByCity(city);
       _setHotels(response);
     } catch (error) {
       _setError('Error searching hotels: $error');

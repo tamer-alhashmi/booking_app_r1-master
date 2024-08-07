@@ -59,7 +59,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   Future<void> _loadUserData() async {
     Map<String, dynamic> userDetails =
-        await widget.authService.getUserDetails(_userDetails);
+        await widget.authService.getUserDetails();
     setState(() {
       _userDetails = userDetails;
       _firstName = userDetails['firstname'] ?? '';
