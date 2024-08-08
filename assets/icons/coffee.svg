@@ -1,0 +1,22 @@
+<svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+    <g id="vuesax/linear/coffee">
+        <g id="coffee">
+            <path d="M14.825 8.72501V14.825C14.825 16.7667 13.25 18.3333 11.3167 18.3333H5.17501C3.24167 18.3333 1.66667 16.7583 1.66667 14.825V8.72501C1.66667 6.78334 3.24167 5.21667 5.17501 5.21667H11.3167C13.25 5.21667 14.825 6.79167 14.825 8.72501Z"
+                id="Vector"
+                stroke="#101010" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5" />
+            <path d="M4.58333 3.33333V1.875" id="Vector_2" stroke="#101010" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="1.5" />
+            <path d="M7.91667 3.33333V1.875" id="Vector_3" stroke="#101010" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="1.5" />
+            <path d="M11.25 3.33333V1.875" id="Vector_4" stroke="#101010" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="1.5" />
+            <path d="M18.3333 10.9667C18.3333 12.9 16.7583 14.475 14.825 14.475V7.45834C16.7583 7.45834 18.3333 9.02501 18.3333 10.9667Z"
+                id="Vector_5"
+                stroke="#101010" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5" />
+            <path d="M1.66667 10H14.5917" id="Vector_6" stroke="#101010" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="1.5" />
+        </g>
+    </g>
+</svg>

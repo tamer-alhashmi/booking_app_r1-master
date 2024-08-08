@@ -1,0 +1,357 @@
+name: booking_app_r1
+description: "H&H Hotels Booking App"
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  flutter_snake_navigationbar: ^0.6.1
+  flutter_svg: ^2.0.9
+  flutter_asset_generator: ^1.1.0
+  flutter_local_notifications: ^16.3.2
+  flutter_config: ^2.0.2
+  fluttertoast: ^8.2.6
+  flutter_plugin_android_lifecycle: ^2.0.17
+  google_fonts: ^6.1.0
+  google_maps_flutter: ^2.5.2
+  google_sign_in: ^6.2.1
+  font_awesome_flutter: ^10.7.0
+  firebase_auth: ^4.20.0
+  firebase_core: ^2.32.0
+  firebase_messaging: ^14.7.15
+  firebase_app_check: ^0.2.1+13
+  firebase_storage: ^11.6.6
+  cloud_firestore: ^4.17.5
+  cupertino_icons: ^1.0.6
+  http: ^1.1.2
+  get: ^4.6.6
+  shimmer: ^3.0.0
+  carousel_slider: ^4.2.1
+  page_view_dot_indicator: ^2.3.0
+  page_view_indicators: ^2.0.0
+  dots_indicator: ^3.0.0
+  js: ^0.6.3
+  animated_text_kit: ^4.2.2
+  url_launcher: ^6.3.0
+  dio: ^5.4.0
+  image_picker: ^1.0.7
+  shared_preferences: ^2.2.2
+  g_recaptcha_v3: ^0.0.5
+  #  firebase_app_installations: ^0.2.4+14
+  #  provider: ^6.1.1
+  firebase_ui_auth: ^1.13.0
+  get_storage: ^2.1.1
+  flutter_gen: ^5.4.0
+  intl: 0.19.0
+  mockito: ^5.4.4
+  flutter_dotenv: ^5.1.0
+  provider: ^6.1.2
+  json_annotation: ^4.9.0
+  json_serializable: ^6.8.0
+  material_design_icons_flutter: ^7.0.7296
+  flutter_dynamic_icon: ^2.1.0
+
+dependency_overrides:
+  carousel_slider: ^4.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^3.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/
+    - assets/fonts/Poppins/
+    - assets/fonts/Poppins/Poppins-Bold.ttf
+    - assets/holder/user_photo_placeholder.jpeg
+    - assets/icons/
+    - assets/icons/
+    - assets/icons/ant-design_star-filled.svg
+    - assets/icons/Arrow-Left2.svg
+    - assets/icons/Blue_heart_SVG.svg
+    - assets/icons/coffee.svg
+    - assets/icons/location.svg
+    - assets/icons/more.svg
+    - assets/icons/red_heart_SVG.svg
+    - assets/icons/red_heart.png
+    - assets/icons/wifi.svg
+    - assets/images/
+    - assets/images/Alumhurst/
+    - assets/images/Alumhurst/Alumhurst1.png
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite1.jpg
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite2.jpg
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite3.jpg
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite4.jpg
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite5.jpg
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite6.jpg
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite7.jpeg
+    - assets/images/Alumhurst/Deluxe-Double_room-Ensuite/Deluxe_Double_room_Ensuite8.jpeg
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/Family_room-Deluxe-Ensuite-with_kitchenette1.jpg
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/Family_room-Deluxe-Ensuite-with_kitchenette2.jpg
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/Family_room-Deluxe-Ensuite-with_kitchenette3.jpg
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/Family_room-Deluxe-Ensuite-with_kitchenette4.jpg
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/Family_room-Deluxe-Ensuite-with_kitchenette5.jpg
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/Family_room-Deluxe-Ensuite-with_kitchenette5.jpg
+    - assets/images/Alumhurst/Family-room-Deluxe-Ensuite-with_kitchenette/Family_room-Deluxe-Ensuite-with_kitchenette7.jpeg
+    - assets/images/Alumhurst/sliderpics/
+    - assets/images/Alumhurst/sliderpics/1.jpg
+    - assets/images/Alumhurst/sliderpics/2.jpg
+    - assets/images/Alumhurst/sliderpics/3.jpg
+    - assets/images/Alumhurst/sliderpics/4.jpg
+    - assets/images/Alumhurst/sliderpics/5.jpg
+    - assets/images/Alumhurst/sliderpics/6.jpg
+    - assets/images/Alumhurst/sliderpics/7.jpg
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite1.jpeg
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite2.jpg
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite3.jpg
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_Room-Deluxe-Ensuite4.jpg
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_Room-Deluxe-Ensuite5.jpg
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite6.jpg
+    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite8.jpeg
+    - assets/images/Avalon/
+    - assets/images/Avalon/Deluxe-Double_room-Ensuite/
+    - assets/images/Avalon/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Avalon/sliderpics/
+    - assets/images/Avalon/sliderpics/1.jpg
+    - assets/images/Avalon/sliderpics/2.jpg
+    - assets/images/Avalon/sliderpics/3.jpg
+    - assets/images/Avalon/sliderpics/4.jpg
+    - assets/images/Avalon/sliderpics/5.jpg
+    - assets/images/Avalon/sliderpics/6.jpg
+    - assets/images/Avalon/sliderpics/7.jpg
+    - assets/images/Avalon/Triple_room-Deluxe-Ensuite/
+    - assets/images/Bonair/
+    - assets/images/Bonair/Bonair1.png
+    - assets/images/Bonair/Deluxe-Double_room-Ensuite/
+    - assets/images/Bonair/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Bonair/sliderpics/
+    - assets/images/Bonair/sliderpics/1.jpg
+    - assets/images/Bonair/sliderpics/2.jpg
+    - assets/images/Bonair/sliderpics/3.jpg
+    - assets/images/Bonair/sliderpics/4.jpg
+    - assets/images/Bonair/sliderpics/5.jpg
+    - assets/images/Bonair/sliderpics/6.jpg
+    - assets/images/Bonair/sliderpics/7.jpg
+    - assets/images/Bonair/Triple_room-Deluxe-Ensuite/
+    - assets/images/Crofton/
+    - assets/images/Crofton/Crofton1.jpg
+    - assets/images/Crofton/Deluxe-Double_room-Ensuite/
+    - assets/images/Crofton/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Crofton/sliderpics/
+    - assets/images/Crofton/sliderpics/1.jpg
+    - assets/images/Crofton/sliderpics/2.jpg
+    - assets/images/Crofton/sliderpics/3.jpg
+    - assets/images/Crofton/sliderpics/4.jpg
+    - assets/images/Crofton/sliderpics/5.jpg
+    - assets/images/Crofton/sliderpics/6.jpg
+    - assets/images/Crofton/sliderpics/7.jpg
+    - assets/images/Crofton/Triple_room-Deluxe-Ensuite/
+    - assets/images/Dolphin/
+    - assets/images/Dolphin/deluxe_doub/
+    - assets/images/Dolphin/dolphin.jpg
+    - assets/images/Dolphin/sliderpics/
+    - assets/images/Dolphin/sliderpics/1.jpg
+    - assets/images/Dolphin/sliderpics/10.jpg
+    - assets/images/Dolphin/sliderpics/11.jpg
+    - assets/images/Dolphin/sliderpics/12.jpg
+    - assets/images/Dolphin/sliderpics/13.jpg
+    - assets/images/Dolphin/sliderpics/14.jpg
+    - assets/images/Dolphin/sliderpics/15.jpg
+    - assets/images/Dolphin/sliderpics/16.jpg
+    - assets/images/Dolphin/sliderpics/17.jpg
+    - assets/images/Dolphin/sliderpics/18.jpg
+    - assets/images/Dolphin/sliderpics/19.jpg
+    - assets/images/Dolphin/sliderpics/2.jpg
+    - assets/images/Dolphin/sliderpics/20.jpg
+    - assets/images/Dolphin/sliderpics/21.jpg
+    - assets/images/Dolphin/sliderpics/22.jpg
+    - assets/images/Dolphin/sliderpics/23.jpg
+    - assets/images/Dolphin/sliderpics/3.jpg
+    - assets/images/Dolphin/sliderpics/4.jpg
+    - assets/images/Dolphin/sliderpics/5.jpg
+    - assets/images/Dolphin/sliderpics/523768796.jpg
+    - assets/images/Dolphin/sliderpics/523768851.jpg
+    - assets/images/Dolphin/sliderpics/523768879.jpg
+    - assets/images/Dolphin/sliderpics/523768952.jpg
+    - assets/images/Dolphin/sliderpics/551422634.jpg
+    - assets/images/Dolphin/sliderpics/6.jpg
+    - assets/images/Dolphin/sliderpics/7.jpg
+    - assets/images/Dolphin/sliderpics/8.jpg
+    - assets/images/Dolphin/sliderpics/9.jpg
+    - assets/images/Dolphin/st_doub/
+    - assets/images/Dolphin/st_quadruple/
+    - assets/images/Dolphin/st_trip/
+    - assets/images/Dolphin/Twn_pri_path/
+    - assets/images/Elmo/
+    - assets/images/Elmo/Deluxe-Double_room-Ensuite/
+    - assets/images/Elmo/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Elmo/sliderpics/
+    - assets/images/Elmo/Triple_room-Deluxe-Ensuite/
+    - assets/images/GreenGables/
+    - assets/images/GreenGables/Deluxe-Double_room-Ensuite/
+    - assets/images/GreenGables/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/GreenGables/GreenGables1.jpg
+    - assets/images/GreenGables/sliderpics/
+    - assets/images/GreenGables/sliderpics/1.jpg
+    - assets/images/GreenGables/sliderpics/2.jpg
+    - assets/images/GreenGables/sliderpics/3.jpg
+    - assets/images/GreenGables/sliderpics/4.jpg
+    - assets/images/GreenGables/sliderpics/5.jpg
+    - assets/images/GreenGables/sliderpics/6.jpg
+    - assets/images/GreenGables/sliderpics/7.jpg
+    - assets/images/GreenGables/Triple_room-Deluxe-Ensuite/
+    - assets/images/Holland/
+    - assets/images/Holland/Deluxe-Double_room-Ensuite/
+    - assets/images/Holland/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Holland/sliderpics/
+    - assets/images/Holland/Triple_room-Deluxe-Ensuite/
+    - assets/images/LG/
+    - assets/images/LG/Deluxe-Double_room-Ensuite/
+    - assets/images/LG/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/LG/LG1.jpg
+    - assets/images/LG/sliderpics/
+    - assets/images/LG/Triple_room-Deluxe-Ensuite/
+    - assets/images/Malvern/
+    - assets/images/Malvern/Deluxe-Double_room-Ensuite/
+    - assets/images/Malvern/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Malvern/sliderpics/
+    - assets/images/Malvern/Triple_room-Deluxe-Ensuite/
+    - assets/images/Orlando/
+    - assets/images/Orlando/Deluxe-Double_room-Ensuite/
+    - assets/images/Orlando/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Orlando/sliderpics/
+    - assets/images/Orlando/Triple_room-Deluxe-Ensuite/
+    - assets/images/Richmond/
+    - assets/images/Richmond/Deluxe-Double_room-Ensuite/
+    - assets/images/Richmond/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Richmond/Richmond1.jpg
+    - assets/images/Richmond/sliderpics/
+    - assets/images/Richmond/sliderpics/1.jpg
+    - assets/images/Richmond/sliderpics/2.jpg
+    - assets/images/Richmond/sliderpics/3.jpg
+    - assets/images/Richmond/sliderpics/4.jpeg
+    - assets/images/Richmond/sliderpics/4.jpg
+    - assets/images/Richmond/sliderpics/5.jpeg
+    - assets/images/Richmond/sliderpics/5.jpg
+    - assets/images/Richmond/sliderpics/6.jpeg
+    - assets/images/Richmond/sliderpics/6.jpg
+    - assets/images/Richmond/sliderpics/7.jpg
+    - assets/images/Richmond/Triple_room-Deluxe-Ensuite/
+    - assets/images/RoseAndCrown/
+    - assets/images/RoseAndCrown/RosCrown.jpg
+    - assets/images/RoseAndCrown/RosCrown.jpg
+    - assets/images/RoseAndCrown/sliderpics/
+    - assets/images/RoseAndCrown/sliderpics/1.jpg
+    - assets/images/RoseAndCrown/sliderpics/10.jpg
+    - assets/images/RoseAndCrown/sliderpics/11.jpg
+    - assets/images/RoseAndCrown/sliderpics/12.jpg
+    - assets/images/RoseAndCrown/sliderpics/2.jpg
+    - assets/images/RoseAndCrown/sliderpics/3.jpg
+    - assets/images/RoseAndCrown/sliderpics/368018422.jpg
+    - assets/images/RoseAndCrown/sliderpics/4.jpg
+    - assets/images/RoseAndCrown/sliderpics/5.jpg
+    - assets/images/RoseAndCrown/sliderpics/549898118.jpg
+    - assets/images/RoseAndCrown/sliderpics/6.jpg
+    - assets/images/RoseAndCrown/sliderpics/7.jpg
+    - assets/images/RoseAndCrown/sliderpics/8.jpg
+    - assets/images/RoseAndCrown/sliderpics/9.jpg
+    - assets/images/Russell/
+    - assets/images/Russell/Deluxe-Double_room-Ensuite/
+    - assets/images/Russell/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Russell/sliderpics/
+    - assets/images/Russell/sliderpics/4.jpg
+    - assets/images/Russell/sliderpics/5.jpg
+    - assets/images/Russell/sliderpics/6.jpg
+    - assets/images/Russell/sliderpics/Russell_1.jpg
+    - assets/images/Russell/Triple_room-Deluxe-Ensuite/
+    - assets/images/TorPark/
+    - assets/images/TorPark/Deluxe-Double_room-Ensuite/
+    - assets/images/TorPark/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/TorPark/sliderpics/
+    - assets/images/TorPark/sliderpics/1.jpg
+    - assets/images/TorPark/sliderpics/2.jpg
+    - assets/images/TorPark/sliderpics/3.jpg
+    - assets/images/TorPark/sliderpics/4.jpg
+    - assets/images/TorPark/sliderpics/5.jpg
+    - assets/images/TorPark/sliderpics/6.jpg
+    - assets/images/TorPark/sliderpics/7.jpg
+    - assets/images/TorPark/TorPark1.jpeg
+    - assets/images/TorPark/Triple_room-Deluxe-Ensuite/
+    - assets/images/Wembar/
+    - assets/images/Wembar/Deluxe-Double_room-Ensuite/
+    - assets/images/Wembar/Family-Room-Deluxe-Ensuite-with_kitchenette/
+    - assets/images/Wembar/sliderpics/
+    - assets/images/Wembar/Triple_room-Deluxe-Ensuite/
+    - assets/images/Wembar/Wember1.png
+    - assets/splash/3weby.webp
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: PlayFireBlack
+      fonts:
+        - asset: assets/fonts/Playfair_Display/static/PlayfairDisplay-Black.ttf
+          weight: 700
+    - family: PoppinsBold
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+          weight: 700
+# For details regarding fonts from package dependencies,
+# see https://flutter.dev/custom-fonts/#from-packages
