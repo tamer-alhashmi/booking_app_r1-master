@@ -1,3 +1,4 @@
+import 'package:booking_app_r1/features/user_auth/presentation/pages/user/user_details.dart';
 import 'package:booking_app_r1/model/category/categories_card.dart';
 import 'package:booking_app_r1/model/hotel/detail/date_selection_widget.dart';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
@@ -466,8 +467,137 @@ class _HotelDetailState extends State<HotelDetail> {
                                 );
                               }).toList();
 
-                              return HotelReviewsCardWidget(
-                                  hotelId: widget.hotel.id);
+                              double averageRating = reviews
+                                      .map((r) => r.rating)
+                                      .reduce((a, b) => a + b) /
+                                  reviews.length;
+
+                              return Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      averageRating.toStringAsFixed(2),
+                                      style: const TextStyle(
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    const Text(
+                                      'Guest favorite',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    const Text(
+                                      'This hotel is in the top 10% based on ratings, reviews, and reliability.',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Container(
+                                      height: 150,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: reviews.length,
+                                        itemBuilder: (context, index) {
+                                          final review = reviews[index];
+
+                                          return FutureBuilder<UserDetails>(
+                                            future: UserDetails.loadUserData(review.userId),
+                                            builder: (context, userSnapshot) {
+                                              if (userSnapshot.connectionState == ConnectionState.waiting) {
+                                                return const Center(child: CircularProgressIndicator());
+                                              }
+
+                                              if (userSnapshot.hasError) {
+                                                return Text('Error: ${userSnapshot.error}');
+                                              }
+
+                                              if (userSnapshot.hasData) {
+                                                final userDetails = userSnapshot.data;
+                                                review.userDetails = userDetails; // Assigning nullable value
+
+                                                return Container(
+                                                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                  width: 300,
+                                                  child: Card(
+                                                    elevation: 2,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(12),
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(16.0),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              if (userDetails?.profilePhotoUrl.isNotEmpty ??
+                                                                  false)
+                                                                CircleAvatar(
+                                                                  backgroundImage: NetworkImage(
+                                                                      userDetails!.profilePhotoUrl),
+                                                                ),
+                                                              const SizedBox(width: 8),
+                                                              const Icon(Icons.star, color: Colors.amber),
+                                                              const SizedBox(width: 4),
+                                                              Text('${review.rating}'),
+                                                              const Spacer(),
+                                                              Text(
+                                                                '${review.timestamp.toLocal()}',
+                                                                style: const TextStyle(fontSize: 12),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(height: 8),
+                                                          Expanded(
+                                                            child: Text(
+                                                              review.comment,
+                                                              maxLines: 3,
+                                                              overflow: TextOverflow.ellipsis,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(height: 8),
+                                                          Text(
+                                                            'Show more',
+                                                            style: TextStyle(
+                                                              color: Theme.of(context).primaryColor,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+
+                                              return const Text('No user data available');
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Action to navigate to the full review page
+                                      },
+                                      child: Text('Show all ${reviews.length} reviews'),
+                                    ),
+                                  ],
+                                ),
+                              );
+
+
                             }
 
                             return const Text('No reviews available');

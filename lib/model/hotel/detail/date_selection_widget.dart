@@ -71,7 +71,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: AppTheme.primaryVariantColor.withOpacity(0.1),
-                      border: Border.all(color: AppTheme.primaryVariantOpacityColor),
+                      border: Border.all(color: AppTheme.primaryColor),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
@@ -85,7 +85,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                             ? const Text(
                                 'Select Date',
                                 style: TextStyle(
-                                    color: AppTheme.secondaryVariantColor),
+                                    color: AppTheme.secondaryColor),
                               )
                             : Text(
                                 '${_checkInDate!.toLocal()}'.split(' ')[0],
@@ -105,8 +105,8 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                   onTap: () => _selectDate(context, false),
                   child: Container(
                     padding: const EdgeInsets.all(16),
-                    decoration: const BoxDecoration(
-                      color: AppTheme.primaryVariantOpacityColor,
+                    decoration:  BoxDecoration(
+                      color: AppTheme.primaryVariantColor.withOpacity(0.1),
                       // border: Border.all(color: AppTheme.buiColorCtaBackground),
                       // borderRadius: BorderRadius.circular(8),
                     ),
@@ -120,12 +120,12 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                             ? const Text(
                                 'Select Date',
                                 style: TextStyle(
-                                    color: AppTheme.secondaryVariantColor),
+                                    color: AppTheme.secondaryColor),
                               )
                             : Text(
                                 '${_checkOutDate!.toLocal()}'.split(' ')[0],
                                 style: const TextStyle(
-                                    color: AppTheme.secondaryVariantColor,
+                                    color: AppTheme.secondaryColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16),
                               ),
