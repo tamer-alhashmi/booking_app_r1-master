@@ -1,4 +1,5 @@
 import 'package:booking_app_r1/model/hotel.dart';
+import 'package:booking_app_r1/model/hotel/detail/policies.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 class HotelCard extends StatelessWidget {
   final Hotel hotel;
 
-  HotelCard({required this.hotel});
+  HotelCard({required this.hotel, required String userId, required Map<String, dynamic> userDetails, required HotelPolicies policies, required double longitude, required double latitude});
 
   @override
   Widget build(BuildContext context) {

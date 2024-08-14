@@ -1,9 +1,9 @@
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/user_profile_setting/user_account_setting/account_setting_screen.dart';
+import 'package:booking_app_r1/features/user_auth/presentation/pages/user/user_profile_setting/user_account_setting/user_personal_detail/personal_details_screen.dart';
 import 'package:booking_app_r1/home/home_screen.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
-import 'package:booking_app_r1/model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
 import 'package:booking_app_r1/services/app/booking_app.dart';
 import 'package:booking_app_r1/theme/app_bar_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +13,8 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
+import '../../../../../../model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
+
 class UserProfileSettingScreen extends StatefulWidget {
   final AuthService authService;
   final List<Category> categories;
@@ -21,10 +23,10 @@ class UserProfileSettingScreen extends StatefulWidget {
   final Function(int) onPageChanged;
   final double latitude;
   final double longitude;
-  final String userId; // Add userId as a parameter
+  final String userId;
 
   const UserProfileSettingScreen({
-    Key? key, // Add 'Key?' instead of 'super.key'
+    Key? key,
     required this.authService,
     required this.categories,
     required this.hotel,
@@ -33,6 +35,7 @@ class UserProfileSettingScreen extends StatefulWidget {
     required this.latitude,
     required this.longitude,
     required this.userId,
+    required int currentPageIndex,
   }) : super(key: key);
 
   @override
@@ -45,13 +48,16 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
   late String _firstName = '';
   late String _lastName = '';
   late String _profilePhotoUrl = '';
-  Map<String, dynamic> _userDetails = {}; // Initialize with empty map, updated later with user details
-  File? _imageFile; // Store the selected image file
+  Map<String, dynamic> _userDetails = {};
+  File? _imageFile;
   int currentPageIndex = 3;
 
   @override
   void initState() {
     super.initState();
+    if (_userDetails['profilePhotoUrl'] != null) {
+      precacheImage(NetworkImage(_userDetails['profilePhotoUrl'] as String), context);
+    }
     _loadThemeData();
     _loadUserData();
   }
@@ -67,9 +73,9 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
     Map<String, dynamic> userDetails = await widget.authService.getUserDetails();
     setState(() {
       _userDetails = userDetails;
-      _firstName = userDetails['firstname'] ?? ''; // Assign the firstname from userDetails map
-      _lastName = userDetails['lastname'] ?? ''; // Assign the lastname from userDetails map
-      _profilePhotoUrl = userDetails['profilePhotoUrl'] ?? ''; // Assign the profilePhotoUrl from userDetails map
+      _firstName = userDetails['firstname'] ?? '';
+      _lastName = userDetails['lastname'] ?? '';
+      _profilePhotoUrl = userDetails['profilePhotoUrl'] ?? '';
     });
   }
 
@@ -80,8 +86,6 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
     });
     prefs.setBool('isDarkModeEnabled', value);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +119,6 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
             },
           ),
         ],
-        // Set the app bar theme based on the current theme mode
         backgroundColor: _isDarkModeEnabled
             ? MyAppBarTheme.darkAppBarTheme.backgroundColor
             : MyAppBarTheme.lightAppBarTheme.backgroundColor,
@@ -140,18 +143,17 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
         userId: '',
       ),
       body: SingleChildScrollView(
+        key: const PageStorageKey('user-profile-scroll'),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  // User photo in the center
                   CircleAvatar(
                     radius: 50,
-                    // Placeholder for user photo, you can replace it with actual user photo
                     backgroundImage: _imageFile != null
                         ? FileImage(_imageFile!)
                         : (_userDetails['profilePhotoUrl'] != null)
@@ -162,30 +164,13 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                     as ImageProvider<Object>,
                   ),
                   const SizedBox(height: 10),
-                  // Buttons to select and upload images
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     ElevatedButton(
-                  //       onPressed: _selectImage,
-                  //       child: const Text('Select Image'),
-                  //     ),
-                  //     const SizedBox(width: 10),
-                  //     ElevatedButton(
-                  //       onPressed: _uploadImage,
-                  //       child: const Text('Upload Image'),
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(height: 10),
-                  // User full name
                   Text(
                     '$_firstName $_lastName'.toUpperCase(),
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  // Text "Complete 5 bookings within 2 years to unlock Level 2 discounts and rewards!"
                   const Text(
                     "Complete 5 bookings within 2 years to unlock Level 2 discounts and rewards!",
                     textAlign: TextAlign.center,
@@ -194,44 +179,77 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                 ],
               ),
             ),
-            AccountSettingScreen(
-              authService: widget.authService,
-              hotel: widget.hotel,
-              categories: widget.categories,
-              userDetails: _userDetails,
-              currentPageIndex: currentPageIndex,
-              onPageChanged: widget.onPageChanged,
-              latitude: widget.latitude,
-              longitude: widget.longitude,
-              userId: widget.userId,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildProfileSection(),
+                const SizedBox(height: 20),
+                _buildSection(
+                  title: 'Personal details',
+                  subtitle: 'Update your info and find out how it\'s used.',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserProfileUpdatePage(
+                          authService: widget.authService,
+                          categories: widget.categories,
+                          hotel: widget.hotel,
+                          latitude: widget.latitude,
+                          longitude: widget.longitude,
+                          currentPageIndex: currentPageIndex,
+                          onPageChanged: widget.onPageChanged,
+                          userDetails: widget.userDetails,
+                          userId: widget.userId,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                _buildDivider(),
+                _buildSection(
+                  title: 'Preferences',
+                  subtitle: 'Select your setting.',
+                  onTap: () {
+                    // Handle preferences section tap
+                  },
+                ),
+                _buildDivider(),
+                _buildSection(
+                  title: 'Security',
+                  subtitle:
+                  'Change your security settings or delete your account.',
+                  onTap: () {
+                    // Handle security section tap
+                  },
+                ),
+                _buildDivider(),
+                _buildSection(
+                  title: 'Payment details',
+                  subtitle: 'Manage your payment methods.',
+                  onTap: () {
+                    // Handle payment details section tap
+                  },
+                ),
+                _buildDivider(),
+                _buildSection(
+                  title: 'Email Notifications',
+                  subtitle: 'Manage your notification preferences.',
+                  onTap: () {
+                    // Handle email notifications section tap
+                  },
+                ),
+                const SizedBox(height: 20),
+              ],
             ),
             _buildDarkModeToggle(),
             _buildSection(
-              'Sign Out',
-              Icons.exit_to_app,
-                  () {
+              title: 'Sign Out',
+              subtitle: 'Log out from your account.',
+              onTap: () {
                 FirebaseAuth.instance.signOut();
                 Navigator.pushNamed(context, "/login");
               },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSection(String title, IconData icon, VoidCallback onPressed) {
-    return InkWell(
-      onTap: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Icon(icon),
-            const SizedBox(width: 16),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),
@@ -254,6 +272,120 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
           BookingApp.setThemeMode(ThemeMode.light);
         }
       },
+    );
+  }
+
+  Future<void> _selectImage() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> _uploadImage() async {
+    if (_imageFile != null) {
+      try {
+        firebase_storage.Reference ref = firebase_storage.FirebaseStorage
+            .instance
+            .ref()
+            .child('user_profile_photos')
+            .child('${widget.userId}.jpg');
+        await ref.putFile(_imageFile!);
+        String imageUrl = await ref.getDownloadURL();
+        await widget.authService.updateUserProfilePhoto(imageUrl);
+        setState(() {
+          _userDetails['profilePhotoUrl'] = imageUrl;
+        });
+      } catch (e) {
+        print('Error uploading image: $e');
+      }
+    }
+  }
+
+  Future<void> _deleteImage() async {
+    setState(() {
+      _imageFile = null;
+    });
+  }
+
+  Widget _buildProfileSection() {
+    return Column(
+      children: [
+        InkWell(
+          onTap: _selectImage,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.camera_alt),
+              SizedBox(width: 10),
+              Text('Change Profile Picture'),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        if (_imageFile != null)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: _uploadImage,
+                child: const Text('Upload'),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: _deleteImage,
+                child: const Text('Delete'),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+
+  Widget _buildSection({
+    required String title,
+    required String subtitle,
+    required void Function() onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return const Divider(
+      height: 0,
+      color: Colors.grey,
+      indent: 20,
+      endIndent: 20,
     );
   }
 }

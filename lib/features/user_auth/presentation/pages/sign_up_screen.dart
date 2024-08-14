@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:booking_app_r1/features/app/splash_screen/confirmation_credential-page.dart';
 import 'package:booking_app_r1/features/user_auth/presentation/widgets/form_container_widget.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_app_r1/global/common/toast.dart';

@@ -6,9 +6,10 @@ import 'package:booking_app_r1/features/user_auth/presentation/pages/user/bookin
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/favorite_screen.dart';
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/user_profile_setting/profile_setting_screen.dart';
 import 'package:booking_app_r1/home/home_screen.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/services/select_mode_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -41,16 +42,32 @@ class BookingApp extends StatelessWidget {
     onPageChanged(index);
   }
 
-  Future<List<Category>> fetchCategories() async {
-    return CategoryService.fetchCategoriesForHotel(hotel.id);
+  Future<List<Category>> fetchCategories(String hotelId) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('categories')
+          .get();
+
+      return querySnapshot.docs.map((doc) {
+        // Make sure to pass the correct ID and handle null safely
+        return Category.fromJson(doc.data() as Map<String, dynamic>, doc.id);
+      }).toList();
+    } catch (e) {
+      print('Error fetching categories: $e');
+      return [];
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     ThemeMode themeMode = _getSavedThemeMode();
 
     return FutureBuilder<List<Category>>(
-      future: fetchCategories(),
+      future: fetchCategories(hotel.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -112,7 +129,7 @@ class BookingApp extends StatelessWidget {
                 onPageChanged: onPageChanged,
                 latitude: latitude,
                 longitude: longitude,
-                userId: userId,
+                userId: userId, currentPageIndex: currentPageIndex,
               ),
               '/selectMode': (_) => const SelectModeScreen(),
               '/login': (_) => LoginPage(

@@ -1,4 +1,4 @@
-import 'package:booking_app_r1/model/hotel/detail/navigate_tab_bar/hotels_full_description.dart';
+import 'package:booking_app_r1/model/hotel/detail/navigate_tab_bar/navigation-tabs.dart';
 import 'package:flutter/material.dart';
 
 import '../../hotel.dart';
@@ -51,7 +51,7 @@ class DescriptionWidget extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => HotelsFullDescription(
+                builder: (context) => NavigationTabs(
                   latitude: latitude,
                   longitude: longitude,
                   hotel: hotel,

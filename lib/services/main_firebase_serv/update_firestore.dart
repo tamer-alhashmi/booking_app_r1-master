@@ -7,30 +7,30 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../nearby_places.dart';
 
 
-Future<void> addContactFieldsToHotels() async {
-  // Initialize Firebase
-  await Firebase.initializeApp();
-
-  // Reference to the hotels collection
-  CollectionReference hotels = FirebaseFirestore.instance.collection('hotels');
-
-  // Get all hotel documents
-  QuerySnapshot hotelSnapshot = await hotels.get();
-
-  // Loop through each document
-  for (QueryDocumentSnapshot hotelDoc in hotelSnapshot.docs) {
-    // Update document with new fields
-    await hotelDoc.reference.update({
-      'whatsapp': 'https://wa.me/qr/E4RTBVMOA7WEF1 ', // Set default or empty value
-      'email': 'tamer.elhashmi@crownbs.com',    // Set default or empty value
-      'phone': '00201202677818',    // Set default or empty value
-    }).then((_) {
-      print('Updated hotel: ${hotelDoc.id}');
-    }).catchError((error) {
-      print('Failed to update hotel: ${hotelDoc.id}. Error: $error');
-    });
-  }
-}
+// Future<void> addContactFieldsToHotels() async {
+//   // Initialize Firebase
+//   await Firebase.initializeApp();
+//
+//   // Reference to the hotels collection
+//   CollectionReference hotels = FirebaseFirestore.instance.collection('hotels');
+//
+//   // Get all hotel documents
+//   QuerySnapshot hotelSnapshot = await hotels.get();
+//
+//   // Loop through each document
+//   for (QueryDocumentSnapshot hotelDoc in hotelSnapshot.docs) {
+//     // Update document with new fields
+//     await hotelDoc.reference.update({
+//       'whatsapp': 'https://wa.me/qr/E4RTBVMOA7WEF1 ', // Set default or empty value
+//       'email': 'tamer.elhashmi@crownbs.com',    // Set default or empty value
+//       'phone': '00201202677818',    // Set default or empty value
+//     }).then((_) {
+//       print('Updated hotel: ${hotelDoc.id}');
+//     }).catchError((error) {
+//       print('Failed to update hotel: ${hotelDoc.id}. Error: $error');
+//     });
+//   }
+// }
 
 
 
@@ -206,3 +206,188 @@ Future<void> addContactFieldsToHotels() async {
 //   }
 // }
 // ********************************* reviews checker ************************************************
+
+
+
+// Future<void> ensureCategoriesHaveRequiredFields() async {
+//   final CollectionReference hotelsCollection =
+//   FirebaseFirestore.instance.collection('hotels');
+//
+//   // Fetch all hotels
+//   QuerySnapshot hotelsSnapshot = await hotelsCollection.get();
+//
+//   for (QueryDocumentSnapshot hotelDoc in hotelsSnapshot.docs) {
+//     final CollectionReference categoryCollection =
+//     hotelsCollection.doc(hotelDoc.id).collection('category');
+//
+//     // Fetch all categories within the hotel
+//     QuerySnapshot categorySnapshot = await categoryCollection.get();
+//
+//     for (QueryDocumentSnapshot categoryDoc in categorySnapshot.docs) {
+//       Map<String, dynamic>? categoryData = categoryDoc.data() as Map<String, dynamic>?;
+//
+//       // Map to store updates if any field is missing
+//       Map<String, dynamic> updateData = {};
+//
+//       // Check each field and set a default value if missing
+//       if (categoryData == null || !categoryData.containsKey('id')) {
+//         updateData['id'] = categoryDoc.id; // Default to document ID
+//       }
+//       if (categoryData == null || !categoryData.containsKey('title')) {
+//         updateData['title'] = 'Default Title'; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('catFullName')) {
+//         updateData['catFullName'] = 'Default Full Name'; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('description')) {
+//         updateData['description'] = 'Default Description'; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('fullDescription')) {
+//         updateData['fullDescription'] = 'Default Full Description'; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('bedType')) {
+//         updateData['bedType'] = 'Default Bed Type'; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('capacity')) {
+//         updateData['capacity'] = 2; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('amenities')) {
+//         updateData['amenities'] = ['Default Amenity']; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('imageUrl')) {
+//         updateData['imageUrl'] = 'default_image_url'; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('roomSize')) {
+//         updateData['roomSize'] = 'Default Room Size'; // Example default value
+//       }
+//       if (categoryData == null || !categoryData.containsKey('catProPicUrl')) {
+//         updateData['catProPicUrl'] = 'default_cat_pro_pic_url'; // Example default value
+//       }
+//
+//       // Update the category document if there are missing fields
+//       if (updateData.isNotEmpty) {
+//         await categoryCollection.doc(categoryDoc.id).update(updateData);
+//         print('Updated category ${categoryDoc.id} in hotel ${hotelDoc.id}');
+//       } else {
+//         print('Category ${categoryDoc.id} in hotel ${hotelDoc.id} already has all required fields.');
+//       }
+//     }
+//   }
+// }
+
+
+
+// Add a Hotel to the Firebase Firestore*****************************
+
+
+// Function to add a new hotel to Firestore
+//   Future<void> addHotelToFirestore(
+//       String name,
+//       String address,
+//       double starRating,
+//       double roomRate,
+//       bool isFavorite,
+//       String imageUrl,
+//       double latitude,
+//       double longitude,
+//       List<String> amenities,
+//       ) async {
+//     try {
+//       await FirebaseFirestore.instance.collection('hotels').add({
+//         'name': name,
+//         'address': address,
+//         'starRating': starRating,
+//         'roomRate': roomRate,
+//         'isFavorite': isFavorite,
+//         'imageUrl': imageUrl,
+//         'latitude': latitude,
+//         'longitude': longitude,
+//         'amenities': amenities,
+//       });
+//     } catch (error) {
+//       print('Error adding hotel to Firestore: $error');
+//     }
+//   }
+
+// Function to retrieve all hotels from Firestore
+//                ***********************************************************
+// Future<void> updateCategoryImageUrls() async {
+//   final firestore = FirebaseFirestore.instance;
+//
+//   try {
+//     // Fetch all hotels
+//     final hotelsSnapshot = await firestore.collection('hotels').get();
+//
+//     for (var hotelDoc in hotelsSnapshot.docs) {
+//       final hotelId = hotelDoc.id;
+//
+//       // Fetch categories for each hotel
+//       final categoriesSnapshot = await firestore
+//           .collection('hotels')
+//           .doc(hotelId)
+//           .collection('category')
+//           .get();
+//
+//       for (var categoryDoc in categoriesSnapshot.docs) {
+//         final categoryId = categoryDoc.id;
+//
+//         // Update each category document
+//         await firestore
+//             .collection('hotels')
+//             .doc(hotelId)
+//             .collection('category')
+//             .doc(categoryId)
+//             .update({
+//           'galleryUrl': List.generate(20, (index) => '${index + 1}.jpg'),
+//           // Remove old field if it exists
+//           // You can also handle the case if 'imageUrl' does not exist
+//         });
+//       }
+//     }
+//     print('Update completed successfully.');
+//   } catch (e) {
+//     print('Error updating categories: $e');
+//   }
+// }
+
+
+
+
+Future<void> updateCategoryTitle() async {
+  final firestore = FirebaseFirestore.instance;
+
+  try {
+    // Fetch all hotels
+    final hotelsSnapshot = await firestore.collection('hotels').get();
+
+    for (var hotelDoc in hotelsSnapshot.docs) {
+      final hotelId = hotelDoc.id;
+
+      // Fetch categories for each hotel
+      final categoriesSnapshot = await firestore
+          .collection('hotels')
+          .doc(hotelId)
+          .collection('category')
+          .get();
+
+      for (var categoryDoc in categoriesSnapshot.docs) {
+        final categoryId = categoryDoc.id;
+
+        // Update each category document
+        await firestore
+            .collection('hotels')
+            .doc(hotelId)
+            .collection('category')
+            .doc(categoryId)
+            .update({
+          'galleryUrl': List.generate(20, (index) => '${index + 1}.jpg'),
+          // Remove old field if it exists
+          // You can also handle the case if 'imageUrl' does not exist
+        });
+      }
+    }
+    print('Update completed successfully.');
+  } catch (e) {
+    print('Error updating categories: $e');
+  }
+}

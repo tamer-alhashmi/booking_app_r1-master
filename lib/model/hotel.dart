@@ -1,12 +1,11 @@
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/services/nearby_places.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'hotel/detail/policies.dart';
 
 class Hotel extends ChangeNotifier {
-  final NearbyPlaces nearbyPlaces;
+  final NearbyPlaces nearbyPlaces; // This holds the nearby places
   final List<String> activitiesAndExperiences;
   final List<String> facilities;
   final String address;
@@ -49,14 +48,14 @@ class Hotel extends ChangeNotifier {
     required this.categories,
     required this.facilities,
     required this.policies,
-    required this.nearbyPlaces,
+    required this.nearbyPlaces, // Include NearbyPlaces in constructor
     required this.termsAndConditions,
     required this.whatsapp,
     required this.email,
     required this.phone,
-
   });
 
+  // Factory method to create a Hotel instance from Firestore data
   factory Hotel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>?;
 
@@ -84,10 +83,10 @@ class Hotel extends ChangeNotifier {
       profilePic: data['profilePic'] ?? '',
       sliderpics: sliderPics,
       facilities: List<String>.from(data['facilities'] ?? []),
-      categories: [], // Initialize as empty list
+      categories: [], // Initialize as empty list, should be populated later
       activitiesAndExperiences: List<String>.from(data['activitiesAndExperiences'] ?? []),
       policies: HotelPolicies.fromJson(data['policies'] ?? {}),
-      nearbyPlaces: NearbyPlaces.fromJson(data['nearbyPlaces'] ?? {}),
+      nearbyPlaces: NearbyPlaces.fromJson(data['nearbyPlaces'] ?? {}), // Handle NearbyPlaces
       isFavorite: data['isFavorite'] ?? false,
       whatsapp: data['whatsapp'],
       email: data['email'],
@@ -95,6 +94,7 @@ class Hotel extends ChangeNotifier {
     );
   }
 
+  // Convert the Hotel instance back to a Map (e.g., for saving to Firestore)
   Map<String, dynamic> toJson() => {
     "name": name,
     "termsAndConditions": termsAndConditions,
@@ -115,33 +115,9 @@ class Hotel extends ChangeNotifier {
     "activitiesAndExperiences": activitiesAndExperiences,
     "isFavorite": isFavorite,
     "policies": policies.toJson(),
-    "nearbyPlaces": nearbyPlaces.toJson(),
+    "nearbyPlaces": nearbyPlaces.toJson(), // Include NearbyPlaces in JSON conversion
     "whatsapp": whatsapp,
     "email": email,
     "phone": phone,
   };
-}
-
-enum Reception { Manned, Unmanned }
-
-class CategoryService {
-  static Future<List<Category>> fetchCategoriesForHotel(String hotelId) async {
-    List<Category> categories = [];
-
-    try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('hotels')
-          .doc(hotelId)
-          .collection('category')
-          .get();
-
-      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        categories.add(Category.fromFirestore(doc.data() as Map<String, dynamic>, doc.id));
-      }
-    } catch (e) {
-      print("Error fetching categories: $e");
-    }
-
-    return categories;
-  }
 }

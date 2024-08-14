@@ -1,9 +1,9 @@
-import 'package:booking_app_r1/model/hotel/detail/navigate_tab_bar/hotels_full_description.dart';
+import 'package:booking_app_r1/model/hotel/detail/navigate_tab_bar/navigation-tabs.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/app_theme.dart';
 import 'hotel.dart';
-// import 'hotel_categories.dart';
+// import 'category.dart';
 
 class HotelAmenities extends StatelessWidget {
   final List<String> amenities;
@@ -120,7 +120,7 @@ class HotelAmenitiesCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HotelsFullDescription(
+                    builder: (context) => NavigationTabs(
                       hotel: hotel,
                       initialTabIndex: 1,
                       latitude: latitude,

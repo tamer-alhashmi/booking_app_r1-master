@@ -1,8 +1,10 @@
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
-import 'package:booking_app_r1/model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
+// import 'package:booking_app_r1/model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
+
+import '../../../../../model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
 
 
 class BookingHistoryScreen extends StatefulWidget {
@@ -58,6 +60,12 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking Screen'),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
       ),
       bottomNavigationBar: CustomBottomBar(
         currentPageIndex: currentPageIndex,

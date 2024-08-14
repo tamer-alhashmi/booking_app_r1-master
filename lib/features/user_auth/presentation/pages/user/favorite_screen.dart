@@ -1,8 +1,10 @@
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
-import 'package:booking_app_r1/model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
+// import 'package:booking_app_r1/model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
 
 class FavoriteScreen extends StatefulWidget {
   final AuthService authService;
@@ -31,13 +33,13 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  late String _firstName = '';
-  late String _lastName = '';
+
   Map<String, dynamic> _userDetails = {};
   int currentPageIndex = 1;
 
   late List<Hotel> _favoriteHotels = [];
-
+  late String _firstName = '';
+  late String _lastName = '';
   @override
   void initState() {
     super.initState();
@@ -72,6 +74,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorite Screen'),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
       ),
       bottomNavigationBar: CustomBottomBar(
         currentPageIndex: currentPageIndex,
@@ -83,7 +91,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         firstName: _firstName, longitude: widget.longitude, latitude: widget.latitude, userId: '',
       ),
       body: _favoriteHotels.isEmpty
-          ? Center(child: Text('No favorite hotels found.'))
+          ? const Center(child: Text('No favorite hotels found.'))
           : ListView.builder(
               itemCount: _favoriteHotels.length,
               itemBuilder: (context, index) {

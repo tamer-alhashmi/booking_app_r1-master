@@ -71,7 +71,7 @@
 // }
 
 import 'package:booking_app_r1/features/app/splash_screen/confirmation_credential-page.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';

@@ -20,15 +20,19 @@ class HotelsApi {
           throw StateError('Document data is null');
         }
 
-        // Example initialization of nearbyPlaces
-        final nearbyPlaces = NearbyPlaces(places: []);
+        // Ensure fields are properly initialized
+        final List<String> sliderPics =
+            List<String>.from(data['images'] as List<dynamic>? ?? []);
+        final List<String> facilities =
+            List<String>.from(data['amenities'] as List<dynamic>? ?? []);
+        final NearbyPlaces nearbyPlaces =
+            NearbyPlaces(places: []); // Initialize NearbyPlaces
 
         return Hotel(
           id: doc.id,
           name: data['name'] as String? ?? '',
           reception: (data['reception'] as String?) ?? '',
-          discount: (data['discount'] as num?)?.toInt() ??
-              0, // Ensure discount is casted to int
+          discount: (data['discount'] as num?)?.toInt() ?? 0,
           description: (data['description'] as String?) ?? '',
           city: (data['city'] as String?) ?? '',
           address: (data['address'] as String?) ?? '',
@@ -37,20 +41,18 @@ class HotelsApi {
           starRate: (data['starRate'] as String?) ?? '',
           nightPrice: (data['roomRate'] as String?) ?? '',
           profilePic: (data['profilePicture'] as String?) ?? '',
-          sliderpics: List<String>.from(data['images'] as List<dynamic>? ?? []),
-          facilities:
-              List<String>.from(data['amenities'] as List<dynamic>? ?? []),
+          sliderpics: sliderPics,
+          facilities: facilities,
           policies: HotelPolicies.fromJson(
               data['policies'] as Map<String, dynamic>? ?? {}),
-          nearbyPlaces:
-              nearbyPlaces, // Ensure nearbyPlaces is of type NearbyPlaces
+          nearbyPlaces: nearbyPlaces,
           activitiesAndExperiences: [],
           isFavorite: false,
           termsAndConditions: '',
           categories: [],
-          whatsapp: (data['whatsapp'] as String?) ?? '', // Initialize other fields as needed
-          email: (data['whatsapp'] as String?) ?? '', // Initialize other fields as needed
-          phone: (data['whatsapp'] as String?) ?? '', // Initialize other fields as needed
+          whatsapp: (data['whatsapp'] as String?) ?? '',
+          email: (data['email'] as String?) ?? '',
+          phone: (data['phone'] as String?) ?? '',
         );
       }).toList();
 
@@ -105,7 +107,7 @@ class HotelsApi {
           categories: [], // Initialize other fields as needed
           email: data['name'] as String? ?? '',
           phone: data['name'] as String? ?? '',
-          whatsapp:data['name'] as String? ?? '',
+          whatsapp: data['name'] as String? ?? '',
         );
       }).toList();
 
@@ -116,79 +118,31 @@ class HotelsApi {
     }
   }
 
-
-  static Future<List<Place>> fetchNearbyPlacesFromFirestore(String hotelId) async {
+  static Future<NearbyPlaces?> fetchNearbyPlacesFromFirestore(
+      String hotelId) async {
     try {
+      if (hotelId.isEmpty) {
+        print('Error: hotelId is empty or null');
+        return null;
+      }
+
+      print('Fetching nearby places for hotelId: $hotelId');
       final querySnapshot = await FirebaseFirestore.instance
           .collection('hotels')
           .doc(hotelId)
           .collection('nearby_places')
           .get();
 
-      final List<Place> nearbyPlaces = querySnapshot.docs.map((doc) {
+      final placesList = querySnapshot.docs.map((doc) {
         return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id);
       }).toList();
 
-      return nearbyPlaces;
-    } catch (error) {
-      print('Error fetching nearby places: $error');
-      return [];
+      return NearbyPlaces(places: placesList);
+    } catch (e) {
+      print('Error getting nearby places from Firestore: $e');
+      return null;
     }
   }
 }
 
 
-
-
-
-// static Future<List<Place>> fetchNearbyPlaces({
-//   required double latitude,
-//   required double longitude,
-//   String apiKey =
-//       '', // Default to an empty string, which will be replaced by the env variable
-//   int radius = 1000,
-//   String placeType = 'parking',
-// }) async {
-//   // Load the API key from environment variables if not passed as a parameter
-//   if (apiKey.isEmpty) {
-//     apiKey = dotenv.env['GOOGLE_API_KEY'] ?? '';
-//   }
-//
-//   // Throw an error if the API key is not provided
-//   if (apiKey.isEmpty) {
-//     throw Exception(
-//         'API key is missing. Please provide a valid Google API key.');
-//   }
-//
-//   final url = Uri.parse(
-//     'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
-//     '?location=$latitude,$longitude'
-//     '&radius=$radius'
-//     '&type=$placeType'
-//     '&key=$apiKey',
-//   );
-//
-//   try {
-//     final response = await http.get(url);
-//
-//     if (response.statusCode == 200) {
-//       final decodedData = json.decode(response.body);
-//
-//       if (decodedData['status'] == 'OK') {
-//         final places =
-//             (decodedData['results'] as List<dynamic>).map((placeData) {
-//           return Place.fromJson(placeData as Map<String, dynamic>,);
-//         }).toList();
-//         return places;
-//       } else {
-//         throw Exception(
-//             'Error fetching nearby places: ${decodedData['status']}');
-//       }
-//     } else {
-//       throw Exception(
-//           'Failed to load nearby places. HTTP Status Code: ${response.statusCode}');
-//     }
-//   } catch (e) {
-//     throw Exception('An error occurred while fetching nearby places: $e');
-//   }
-// }

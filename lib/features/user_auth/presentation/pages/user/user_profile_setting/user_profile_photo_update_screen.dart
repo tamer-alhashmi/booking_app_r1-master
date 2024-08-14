@@ -1,6 +1,6 @@
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
 import 'package:booking_app_r1/home/home_screen.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

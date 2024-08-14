@@ -1,6 +1,6 @@
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_provider.dart';
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
 import 'package:booking_app_r1/services/app/booking_app.dart';
@@ -66,7 +66,7 @@ void main() async {
 
   List<Place> places;
   try {
-    places = await HotelsApi.fetchNearbyPlacesFromFirestore(hotelId);
+    places = (await HotelsApi.fetchNearbyPlacesFromFirestore(hotelId)) as List<Place>;
   } catch (e) {
     print('Failed to fetch nearby places: $e');
     places = []; // Handle error appropriately
@@ -164,7 +164,11 @@ class MyApp extends StatelessWidget {
 }
 
 
+
+
+
 //
+// import 'package:booking_app_r1/services/main_firebase_serv/update_firestore.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/material.dart';
@@ -172,7 +176,8 @@ class MyApp extends StatelessWidget {
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
 //   await Firebase.initializeApp();
-//   await addContactFieldsToHotels();
+//   // await addContactFieldsToHotels();
+//   // await updateCategoryImageUrls();
 //   // await initializeReviews(); // Initialize reviews for hotels
 //   // await ensureReviewsSubcollectionForAllHotels(); // Uncomment to ensure reviews sub-collection for all hotels
 //   runApp(MyApp());

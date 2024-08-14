@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,12 @@ class NearbyPlaces {
 
   static Future<NearbyPlaces?> fetchNearbyPlacesFromFirestore(String hotelId) async {
     try {
+      if (hotelId.isEmpty) {
+        print('Error: hotelId is empty or null');
+        return null;
+      }
+
+      print('Fetching nearby places for hotelId: $hotelId');
       final querySnapshot = await FirebaseFirestore.instance
           .collection('hotels')
           .doc(hotelId)
@@ -69,15 +76,16 @@ class NearbyPlaces {
           .get();
 
       final placesList = querySnapshot.docs.map((doc) {
-        return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id); // Pass doc.id as id
+        return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id);
       }).toList();
 
       return NearbyPlaces(places: placesList);
     } catch (e) {
       print('Error getting nearby places from Firestore: $e');
+      return null;
     }
-    return null;
   }
+
 }
 
 
@@ -215,6 +223,34 @@ class NearbyPlacesScreen extends StatefulWidget {
 
   @override
   _NearbyPlacesScreenState createState() => _NearbyPlacesScreenState();
+}
+
+class NearbyPlacesTab extends StatelessWidget {
+  final Hotel hotel;
+  final double latitude;
+  final double longitude;
+
+  const NearbyPlacesTab(
+      {required this.hotel, required this.latitude, required this.longitude});
+
+  @override
+  Widget build(BuildContext context) {
+    if (hotel.id.isEmpty) {
+      if (kDebugMode) {
+        print('Error: hotelId is empty or null');
+      }
+      return const Center(
+        child: Text('Error: Invalid hotel ID'),
+      );
+    }
+
+    return Center(
+      child: NearbyPlacesScreen(
+        hotel: hotel,
+        hotelId: hotel.id, // Make sure this is not an empty string
+      ),
+    );
+  }
 }
 
 class _NearbyPlacesScreenState extends State<NearbyPlacesScreen> {

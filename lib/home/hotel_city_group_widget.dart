@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:booking_app_r1/model/hotel.dart';
+import 'package:flutter/rendering.dart';
 
 import '../model/hotel/detail/hotel_details.dart';
 import '../model/hotel/detail/policies.dart';
@@ -49,7 +50,7 @@ class HotelGroupWidget extends StatelessWidget {
                         hotel: hotel,
                         latitude: latitude,
                         longitude: longitude,
-                        policies: policies,
+                        policies: policies, userId: '', userDetails: {},
                       ),
                     ),
                   );
@@ -102,19 +103,5 @@ class HotelGroupWidget extends StatelessWidget {
     );
   }
 
-  Future<String?> getImageUrl(String? imageUrl) async {
-    try {
-      if (imageUrl != null && imageUrl.startsWith('gs://')) {
-        final ref = firebase_storage.FirebaseStorage.instance.refFromURL(imageUrl);
-        final downloadUrl = await ref.getDownloadURL();
-        // Cache image locally using a package like cached_network_image
-        return downloadUrl;
-      }
-      return imageUrl;
-    } catch (e) {
-      print("Error fetching image URL: $e");
-      return null;
-    }
-  }
 
 }

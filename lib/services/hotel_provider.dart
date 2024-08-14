@@ -26,6 +26,7 @@ class HotelProvider with ChangeNotifier {
     }
   }
 
+
   /// Search hotels by city using the service and update state.
   Future<void> searchHotelsByCity(String city) async {
     _setLoading(true);

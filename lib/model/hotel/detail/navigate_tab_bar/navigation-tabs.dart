@@ -4,25 +4,25 @@ import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/widgets/policy_widget.dart';
 import 'package:booking_app_r1/model/amenities.dart';
 
-import '../../widgets/hote_reviews_card_widget.dart';
+import '../../widgets/hotel_reviews_card_widget.dart';
 
-class HotelsFullDescription extends StatefulWidget {
+class NavigationTabs extends StatefulWidget {
   final Hotel hotel;
   final int initialTabIndex;
   final double latitude;
   final double longitude;
 
-  HotelsFullDescription(
+  NavigationTabs(
       {required this.hotel,
       required this.initialTabIndex,
       required this.latitude,
       required this.longitude});
 
   @override
-  _HotelsFullDescriptionState createState() => _HotelsFullDescriptionState();
+  _NavigationTabsState createState() => _NavigationTabsState();
 }
 
-class _HotelsFullDescriptionState extends State<HotelsFullDescription>
+class _NavigationTabsState extends State<NavigationTabs>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -30,7 +30,7 @@ class _HotelsFullDescriptionState extends State<HotelsFullDescription>
   void initState() {
     super.initState();
     _tabController = TabController(
-        length: 5, vsync: this, initialIndex: widget.initialTabIndex);
+        length: 6, vsync: this, initialIndex: widget.initialTabIndex);
     _tabController.addListener(_handleTabSelection);
   }
 
@@ -172,31 +172,41 @@ class NearbyPlacesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Implement the UI to display important info
+    if (hotel.id.isEmpty) {
+      print('Error: hotelId is empty or null');
+      return Center(
+        child: Text('Error: Invalid hotel ID'),
+      );
+    }
+
+    print('Displaying nearby places for hotelId: ${hotel.id}');
     return Center(
-      child: Center(
-        child: NearbyPlacesScreen(
-             hotel: hotel, hotelId: '',),
+      child: NearbyPlacesScreen(
+        hotel: hotel,
+        hotelId: hotel.id, // Ensure this is not empty
       ),
     );
   }
 }
+
 
 class ReviewsTab extends StatelessWidget {
   final Hotel hotel;
 
-
-  ReviewsTab(
-      {required this.hotel, });
+  ReviewsTab({required this.hotel});
 
   @override
   Widget build(BuildContext context) {
-    // Implement the UI to display important info
-    return const Center(
-      child: Center(
-        child: HotelReviewsCardScreen(
-           hotelId: '', ),
+    if (hotel.id.isEmpty) {
+      print('Error: hotelId is empty or null');
+      return const Center(
+        child: Text('Error: Invalid hotel ID'),
+      );
+    }
+
+    return Center(
+      child: HotelReviewsCardScreen(
+        hotelId: hotel.id, // Make sure this is not an empty string
       ),
     );
-  }
-}
+  }}

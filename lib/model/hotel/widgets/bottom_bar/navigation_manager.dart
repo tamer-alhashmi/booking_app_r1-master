@@ -4,7 +4,7 @@ import 'package:booking_app_r1/features/user_auth/presentation/pages/user/bookin
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/favorite_screen.dart';
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/user_profile_setting/profile_setting_screen.dart';
 import 'package:booking_app_r1/home/home_screen.dart';
-import 'package:booking_app_r1/model/category/hotel_categories.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:flutter/material.dart';
 
@@ -77,3 +77,5 @@ class NavigationManager {
     );
   }
 }
+
+
