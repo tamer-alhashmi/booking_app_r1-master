@@ -79,8 +79,8 @@ dependencies:
   material_design_icons_flutter: ^7.0.7296
   flutter_dynamic_icon: ^2.1.0
 
-dependency_overrides:
-  carousel_slider: ^4.2.1
+#dependency_overrides:
+#  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -149,13 +149,11 @@ flutter:
     - assets/images/Alumhurst/sliderpics/6.jpg
     - assets/images/Alumhurst/sliderpics/7.jpg
     - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/
-    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite1.jpeg
-    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite2.jpg
-    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite3.jpg
-    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_Room-Deluxe-Ensuite4.jpg
-    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_Room-Deluxe-Ensuite5.jpg
-    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite6.jpg
-    - assets/images/Alumhurst/Triple_room-Deluxe-Ensuite/Triple_room-Deluxe-Ensuite8.jpeg
+    - assets/images/Dolphin/deluxe_doub/
+    - assets/images/Dolphin/st_doub/
+    - assets/images/Dolphin/st_quadruple/
+    - assets/images/Dolphin/st_trip/
+    - assets/images/Dolphin/Twn_pri_path/
     - assets/images/Avalon/
     - assets/images/Avalon/Deluxe-Double_room-Ensuite/
     - assets/images/Avalon/Family-Room-Deluxe-Ensuite-with_kitchenette/
@@ -196,6 +194,11 @@ flutter:
     - assets/images/Crofton/Triple_room-Deluxe-Ensuite/
     - assets/images/Dolphin/
     - assets/images/Dolphin/deluxe_doub/
+    - assets/images/Dolphin/deluxe_doub/1.jpg
+    - assets/images/Dolphin/deluxe_doub/2.jpg
+    - assets/images/Dolphin/deluxe_doub/3.jpg
+    - assets/images/Dolphin/deluxe_doub/4.jpg
+    - assets/images/Dolphin/deluxe_doub/5.jpg
     - assets/images/Dolphin/dolphin.jpg
     - assets/images/Dolphin/sliderpics/
     - assets/images/Dolphin/sliderpics/1.jpg
@@ -217,19 +220,44 @@ flutter:
     - assets/images/Dolphin/sliderpics/3.jpg
     - assets/images/Dolphin/sliderpics/4.jpg
     - assets/images/Dolphin/sliderpics/5.jpg
-    - assets/images/Dolphin/sliderpics/523768796.jpg
-    - assets/images/Dolphin/sliderpics/523768851.jpg
-    - assets/images/Dolphin/sliderpics/523768879.jpg
-    - assets/images/Dolphin/sliderpics/523768952.jpg
+    - assets/images/Dolphin/sliderpics/1.jpg
+    - assets/images/Dolphin/sliderpics/2.jpg
+    - assets/images/Dolphin/sliderpics/4.jpg
+    - assets/images/Dolphin/sliderpics/6.jpg
     - assets/images/Dolphin/sliderpics/551422634.jpg
     - assets/images/Dolphin/sliderpics/6.jpg
     - assets/images/Dolphin/sliderpics/7.jpg
     - assets/images/Dolphin/sliderpics/8.jpg
     - assets/images/Dolphin/sliderpics/9.jpg
     - assets/images/Dolphin/st_doub/
+    - assets/images/Dolphin/st_doub/1.jpg
+    - assets/images/Dolphin/st_doub/2.jpg
+    - assets/images/Dolphin/st_doub/3.jpg
+    - assets/images/Dolphin/st_doub/4.jpg
+    - assets/images/Dolphin/st_doub/5.jpg
+    - assets/images/Dolphin/st_doub/6.jpg
+    - assets/images/Dolphin/st_doub/7.jpg
+    - assets/images/Dolphin/st_doub/8.jpg
     - assets/images/Dolphin/st_quadruple/
+    - assets/images/Dolphin/st_quadruple/1.jpg
+    - assets/images/Dolphin/st_quadruple/2.jpg
+    - assets/images/Dolphin/st_quadruple/3.jpg
+    - assets/images/Dolphin/st_quadruple/4.jpg
+    - assets/images/Dolphin/st_quadruple/5.jpg
+    - assets/images/Dolphin/st_quadruple/6.jpg
+    - assets/images/Dolphin/st_quadruple/7.jpg
     - assets/images/Dolphin/st_trip/
+    - assets/images/Dolphin/st_trip/1.jpg
+    - assets/images/Dolphin/st_trip/2.jpg
+    - assets/images/Dolphin/st_trip/3.jpg
+    - assets/images/Dolphin/st_trip/4.jpg
+    - assets/images/Dolphin/st_trip/5.jpg
     - assets/images/Dolphin/Twn_pri_path/
+    - assets/images/Dolphin/Twn_pri_path/1.jpg
+    - assets/images/Dolphin/Twn_pri_path/2.jpg
+    - assets/images/Dolphin/Twn_pri_path/3.jpg
+    - assets/images/Dolphin/Twn_pri_path/4.jpg
+    - assets/images/Dolphin/Twn_pri_path/5.jpg
     - assets/images/Elmo/
     - assets/images/Elmo/Deluxe-Double_room-Ensuite/
     - assets/images/Elmo/Family-Room-Deluxe-Ensuite-with_kitchenette/
