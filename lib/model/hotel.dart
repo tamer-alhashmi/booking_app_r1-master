@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'hotel/detail/policies.dart';
 
 class Hotel extends ChangeNotifier {
-  final NearbyPlaces nearbyPlaces; // This holds the nearby places
+  final NearbyPlaces nearbyPlace; // This holds the nearby places
   final List<String> activitiesAndExperiences;
   final List<String> facilities;
   final String address;
@@ -29,7 +29,7 @@ class Hotel extends ChangeNotifier {
   final String? email;
   final String? phone;
 
-  Hotel({
+  Hotel( {
     required this.activitiesAndExperiences,
     required this.id,
     required this.name,
@@ -48,11 +48,11 @@ class Hotel extends ChangeNotifier {
     required this.categories,
     required this.facilities,
     required this.policies,
-    required this.nearbyPlaces, // Include NearbyPlaces in constructor
     required this.termsAndConditions,
     required this.whatsapp,
     required this.email,
     required this.phone,
+    required this.nearbyPlace,
   });
 
   // Factory method to create a Hotel instance from Firestore data
@@ -86,7 +86,7 @@ class Hotel extends ChangeNotifier {
       categories: [], // Initialize as empty list, should be populated later
       activitiesAndExperiences: List<String>.from(data['activitiesAndExperiences'] ?? []),
       policies: HotelPolicies.fromJson(data['policies'] ?? {}),
-      nearbyPlaces: NearbyPlaces.fromJson(data['nearbyPlaces'] ?? {}), // Handle NearbyPlaces
+      nearbyPlace: NearbyPlaces.fromJson(data['nearbyPlaces'] ?? {}), // Handle NearbyPlaces
       isFavorite: data['isFavorite'] ?? false,
       whatsapp: data['whatsapp'],
       email: data['email'],
@@ -115,9 +115,10 @@ class Hotel extends ChangeNotifier {
     "activitiesAndExperiences": activitiesAndExperiences,
     "isFavorite": isFavorite,
     "policies": policies.toJson(),
-    "nearbyPlaces": nearbyPlaces.toJson(), // Include NearbyPlaces in JSON conversion
+    "nearbyPlaces": nearbyPlace.toJson(), // Include NearbyPlaces in JSON conversion
     "whatsapp": whatsapp,
     "email": email,
     "phone": phone,
   };
 }
+

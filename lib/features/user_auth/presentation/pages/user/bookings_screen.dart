@@ -9,7 +9,8 @@ import '../../../../../model/hotel/widgets/bottom_bar/bottom_navigate_bar.dart';
 
 class BookingHistoryScreen extends StatefulWidget {
   final AuthService authService;
-  final List<Category> categories;
+  final Category category;
+
   final Hotel hotel;
   final int currentPageIndex;
   final Function(int) onPageChanged;
@@ -21,7 +22,7 @@ class BookingHistoryScreen extends StatefulWidget {
     Key? key,
     required this.currentPageIndex,
     required this.onPageChanged,
-    required this.categories,
+    required this.category,
     required this.hotel,
     required this.userDetails,
     required this.authService,
@@ -46,7 +47,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   }
   Future<void> _loadUserData() async {
     Map<String, dynamic> userDetails =
-    await widget.authService.getUserDetails();
+    (await widget.authService.getUserDetails()) as Map<String, dynamic>;
     setState(() {
       _userDetails = userDetails;
       _firstName = userDetails['firstname'] ?? ''; // Assign the firstname from userDetails map
@@ -70,7 +71,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
       bottomNavigationBar: CustomBottomBar(
         currentPageIndex: currentPageIndex,
         onPageChanged: widget.onPageChanged, // Use the onPageChanged directly
-        categories: widget.categories,
+        category: widget.category,
         hotel: widget.hotel,
         userDetails: widget.userDetails,
         authService: widget.authService,

@@ -63,14 +63,14 @@ class HotelAmenitiesCard extends StatelessWidget {
   final double height;
   final double latitude;
   final double longitude;
-
+  final String hotelId;
   const HotelAmenitiesCard({
     Key? key,
     required this.amenities,
     required this.hotel,
     this.height = 200.0,
     required this.latitude,
-    required this.longitude, required String title, // Default height
+    required this.longitude, required String title, required this.hotelId, // Default height
   }) : super(key: key);
 
   @override
@@ -124,7 +124,8 @@ class HotelAmenitiesCard extends StatelessWidget {
                       hotel: hotel,
                       initialTabIndex: 1,
                       latitude: latitude,
-                      longitude: longitude, // Index of the Facilities tab
+                      longitude: longitude, hotelId: hotelId, nearbyCategoryId: '',
+                      // categoryId: '', // Index of the Facilities tab
                     ),
                   ),
                 );

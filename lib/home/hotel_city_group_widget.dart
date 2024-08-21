@@ -12,6 +12,9 @@ class HotelGroupWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
   final HotelPolicies policies;
+  final String hotelId;
+  final String userId;
+  // final String categoryId;
 
   const HotelGroupWidget({
     Key? key,
@@ -20,6 +23,8 @@ class HotelGroupWidget extends StatelessWidget {
     required this.latitude,
     required this.longitude,
     required this.policies,
+    required this.hotelId, required this.userId,
+    // required this.categoryId,
   }) : super(key: key);
 
   @override
@@ -50,7 +55,8 @@ class HotelGroupWidget extends StatelessWidget {
                         hotel: hotel,
                         latitude: latitude,
                         longitude: longitude,
-                        policies: policies, userId: '', userDetails: {},
+                        policies: policies, userId: userId, userDetails: {}, hotelId: hotelId,
+                        // categoryId: categoryId,
                       ),
                     ),
                   );

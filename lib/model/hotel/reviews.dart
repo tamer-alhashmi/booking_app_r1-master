@@ -12,7 +12,7 @@ class Review {
     required this.rating,
     required this.comment,
     required this.timestamp,
-    this.userDetails, // Initialize as null by default
+     this.userDetails, // Initialize as null by default
   });
 }
 

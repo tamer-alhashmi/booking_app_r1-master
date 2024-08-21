@@ -27,7 +27,7 @@ void main() async {
   // Initialize your AuthService and Hotel instances here
   final AuthService authService = AuthService();
 
-  // Example hotel initialization (replace with actual data as needed)
+  //  hotel initialization
   final Hotel hotel = Hotel(
     id: "id",
     name: 'Sample Hotel',
@@ -53,43 +53,46 @@ void main() async {
     isFavorite: false,
     termsAndConditions: '',
     categories: [],
-    nearbyPlaces: NearbyPlaces(places: []), whatsapp: '', email: '', phone: '' ,
-
+    whatsapp: '',
+    email: '',
+    phone: '',
+    nearbyPlace: NearbyPlaces(nearbyCategories: []),
   );
 
   // Define latitude and longitude for fetching nearby places
-  const double latitude = 0.0; // Replace with actual latitude
-  const double longitude = 0.0; // Replace with actual longitude
+  const double latitude = 0.0;
+  const double longitude = 0.0;
 
   // Get the hotel ID from the initialized hotel
   final String hotelId = hotel.id;
+  // const String nearbyCategoryId ;
 
-  List<Place> places;
-  try {
-    places = (await HotelsApi.fetchNearbyPlacesFromFirestore(hotelId)) as List<Place>;
-  } catch (e) {
-    print('Failed to fetch nearby places: $e');
-    places = []; // Handle error appropriately
-  }
 
-  // Print the fetched nearby places for verification
-  for (var place in places) {
-    print('Place: ${place.name}, Address: ${place.address}, Lat: ${place.latitude}, Lng: ${place.longitude}');
-  }
 
-  final NearbyPlaces nearbyPlaces = NearbyPlaces(places: places);
+  final String categoryId;
+  final Category category = Category(
+    id: 'sample_id',
+    catTitle: 'Sample Category',
+    catFullName: 'Sample Full Name',
+    catDescreption: 'Sample Description',
+    bedType: 'Queen',
+    capacity: 2,
+    amenities: ['WiFi', 'TV'],
+    galleryUrl: ['1.jpg', '2.jpg'],
+    roomSize: '30 sqm',
+    catProPicUrl: 'sample_tropic_url.jpg',
+    catHotelDescreption: 'Full Sample Description',
+  );
 
   runApp(MyApp(
     authService: authService,
     hotel: hotel,
     userDetails: {},
     currentPageIndex: 0, // Set your initial page index here
-    onPageChanged: (int index) {
-      // Implement your page change logic here
-    },
+    onPageChanged: (int index) {    },
     latitude: latitude,
     longitude: longitude,
-    userId: "", // Replace with actual userId if available
+    userId: "", category: category, hotelId: hotelId, categoryId: '',
   ));
 }
 
@@ -101,7 +104,10 @@ class MyApp extends StatelessWidget {
   final Map<String, dynamic> userDetails;
   final double latitude;
   final double longitude;
-  final String userId; // Add userId as a parameter
+  final String userId;
+  final Category category;
+  final String hotelId;
+  final String categoryId;
 
   const MyApp({
     Key? key,
@@ -113,6 +119,8 @@ class MyApp extends StatelessWidget {
     required this.latitude,
     required this.longitude,
     required this.userId,
+    required this.category, required this.hotelId,
+    required this.categoryId,
   }) : super(key: key);
 
   void updateCurrentPageIndex(int index) {
@@ -129,7 +137,7 @@ class MyApp extends StatelessWidget {
         builder: (context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final ThemeMode themeMode =
-            snapshot.data == true ? ThemeMode.dark : ThemeMode.light;
+                snapshot.data == true ? ThemeMode.dark : ThemeMode.light;
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Booking App',
@@ -144,9 +152,9 @@ class MyApp extends StatelessWidget {
                 userDetails: userDetails,
                 latitude: latitude,
                 longitude: longitude,
-                userId: userId, categories: [],
+                userId: userId,
+                category: category, hotelId: hotelId, categoryId: categoryId,
               ),
-
             );
           } else {
             return const CircularProgressIndicator(); // Loading indicator
@@ -165,9 +173,6 @@ class MyApp extends StatelessWidget {
 
 
 
-
-
-//
 // import 'package:booking_app_r1/services/main_firebase_serv/update_firestore.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -176,10 +181,9 @@ class MyApp extends StatelessWidget {
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
 //   await Firebase.initializeApp();
-//   // await addContactFieldsToHotels();
-//   // await updateCategoryImageUrls();
-//   // await initializeReviews(); // Initialize reviews for hotels
-//   // await ensureReviewsSubcollectionForAllHotels(); // Uncomment to ensure reviews sub-collection for all hotels
+//
+//   // await updateNearbyPlacesForAllHotels(); // Make sure this is awaited
+//
 //   runApp(MyApp());
 // }
 //
@@ -199,4 +203,5 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
-//
+
+

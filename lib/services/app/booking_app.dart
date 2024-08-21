@@ -23,7 +23,10 @@ class BookingApp extends StatelessWidget {
   final double latitude;
   final double longitude;
   final String userId;
-  final List<Category> categories;
+  final Category category;
+  final String hotelId;
+  final String categoryId;
+
 
   const BookingApp({
     Key? key,
@@ -35,7 +38,8 @@ class BookingApp extends StatelessWidget {
     required this.latitude,
     required this.longitude,
     required this.userId,
-    required this.categories,
+    required this.category,
+    required this.hotelId, required this.categoryId,
   }) : super(key: key);
 
   void updateCurrentPageIndex(int index) {
@@ -64,7 +68,7 @@ class BookingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeMode themeMode = _getSavedThemeMode();
+    // ThemeMode themeMode = _getSavedThemeMode();
 
     return FutureBuilder<List<Category>>(
       future: fetchCategories(hotel.id),
@@ -84,26 +88,29 @@ class BookingApp extends StatelessWidget {
             title: 'H&H Booking App',
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
-            themeMode: themeMode,
+            // themeMode: themeMode,
             home: SplashScreen(
               authService: authService,
               categories: categories,
               hotel: hotel,
+              // categoryId: categoryId,
+              hotelId: hotelId,
             ),
             routes: {
               '/home': (_) => HomeScreen(
                 authService: authService,
-                categories: categories,
+                category: category,
                 hotel: hotel,
                 userDetails: userDetails,
                 latitude: latitude,
                 longitude: longitude,
                 userId: userId,
-                policies: hotel.policies,
+                policies: hotel.policies, hotelId: hotelId,
+                // categoryId: categoryId,
               ),
               '/favorite': (_) => FavoriteScreen(
                 authService: authService,
-                categories: categories,
+                category: category,
                 hotel: hotel,
                 currentPageIndex: currentPageIndex,
                 onPageChanged: onPageChanged,
@@ -113,7 +120,7 @@ class BookingApp extends StatelessWidget {
               ),
               '/bookings': (_) => BookingHistoryScreen(
                 authService: authService,
-                categories: categories,
+                category: category,
                 hotel: hotel,
                 userDetails: userDetails,
                 currentPageIndex: currentPageIndex,
@@ -123,24 +130,27 @@ class BookingApp extends StatelessWidget {
               ),
               '/userProfileSettings': (_) => UserProfileSettingScreen(
                 authService: authService,
-                categories: categories,
+                category: category,
                 hotel: hotel,
                 userDetails: userDetails,
                 onPageChanged: onPageChanged,
                 latitude: latitude,
                 longitude: longitude,
-                userId: userId, currentPageIndex: currentPageIndex,
+                userId: userId, currentPageIndex: currentPageIndex, hotelId: hotelId,
+                // categoryId: categoryId,
               ),
               '/selectMode': (_) => const SelectModeScreen(),
               '/login': (_) => LoginPage(
                 authService: authService,
                 categories: categories,
-                hotel: hotel,
+                hotel: hotel, hotelId: hotelId,
+                  // categoryId: categoryId
               ),
               '/signup': (_) => SignUpScreen(
                 authService: authService,
                 categories: categories,
-                hotel: hotel,
+                hotel: hotel, hotelId: hotelId,
+                // categoryId: categoryId,
               ),
             },
           );
@@ -149,13 +159,13 @@ class BookingApp extends StatelessWidget {
     );
   }
 
-  ThemeMode _getSavedThemeMode() {
-    final themeModeString = GetStorage().read('themeMode');
-    return themeModeString == 'dark' ? ThemeMode.dark : ThemeMode.light;
-  }
-
-  static void setThemeMode(ThemeMode themeMode) {
-    Get.changeThemeMode(themeMode);
-    GetStorage().write('themeMode', themeMode.toString());
-  }
+  // ThemeMode _getSavedThemeMode() {
+  //   final themeModeString = GetStorage().read('themeMode');
+  //   return themeModeString == 'dark' ? ThemeMode.dark : ThemeMode.light;
+  // }
+  //
+  // static void setThemeMode(ThemeMode themeMode) {
+  //   Get.changeThemeMode(themeMode);
+  //   GetStorage().write('themeMode', themeMode.toString());
+  // }
 }

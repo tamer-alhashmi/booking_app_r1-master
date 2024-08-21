@@ -9,11 +9,13 @@ class DescriptionWidget extends StatelessWidget {
       required this.hotel,
       required String description,
       required this.latitude,
-      required this.longitude})
+      required this.longitude,
+      required this.hotelId})
       : super(key: key);
   final Hotel hotel;
   final double latitude;
   final double longitude;
+  final String hotelId;
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +54,13 @@ class DescriptionWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => NavigationTabs(
-                  latitude: latitude,
-                  longitude: longitude,
-                  hotel: hotel,
-                  initialTabIndex: 0, // Index of the Facilities tab
-                ),
+                    latitude: latitude,
+                    longitude: longitude,
+                    hotel: hotel,
+                    initialTabIndex: 0,
+                    hotelId: hotelId, nearbyCategoryId: '',
+                  // categoryId: '', // Index of the Facilities tab
+                    ),
               ),
             );
           },

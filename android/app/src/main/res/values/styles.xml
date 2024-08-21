@@ -15,4 +15,14 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+
+<!--    <string name="default_web_client_id" translatable="false">AIzaSyB5o0s9-H0itD6KROvFdNKZNr5wqi5twcg.apps.googleusercontent.com</string>-->
+<!--    <string name="firebase_database_url" translatable="false">https://booking-app-2024.firebaseio.com</string>-->
+<!--    <string name="gcm_defaultSenderId" translatable="false">117042467856</string>-->
+<!--    <string name="google_api_key" translatable="false">AIzaSyAA8iSQH-LEnvj14lGK4pfYxIVr5t7cgVo</string>-->
+<!--    <string name="google_app_id" translatable="false">1:117042467856:android:f1554cd5e0db32d9a4a695</string>-->
+<!--    <string name="google_storage_bucket" translatable="false">booking-app-2024.appspot.com</string>-->
+<!--    <string name="project_id" translatable="false">booking-app-2024</string>-->
+
+
 </resources>

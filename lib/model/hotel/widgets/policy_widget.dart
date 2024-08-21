@@ -110,6 +110,7 @@ class HotelPoliciesCardWidget extends StatelessWidget {
   final Hotel hotel;
   final double latitude;
   final double longitude;
+  final String hotelId;
 
   final HotelPolicies policies;
 
@@ -118,7 +119,7 @@ class HotelPoliciesCardWidget extends StatelessWidget {
       required this.policies,
       required this.hotel,
       required this.latitude,
-      required this.longitude})
+      required this.longitude, required this.hotelId})
       : super(key: key);
 
   @override
@@ -168,7 +169,10 @@ class HotelPoliciesCardWidget extends StatelessWidget {
                             hotel: hotel,
                             initialTabIndex: 2,
                             latitude: latitude,
-                            longitude: longitude, // Index of the Facilities tab
+                            longitude: longitude,
+                            hotelId: hotelId,
+                            nearbyCategoryId: '',
+                            // categoryId: '', // Index of the Facilities tab
                           ),
                         ),
                       );

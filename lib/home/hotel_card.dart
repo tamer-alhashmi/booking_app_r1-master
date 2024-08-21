@@ -1,13 +1,25 @@
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
+import 'package:booking_app_r1/model/hotel/widgets/home/contact_tool_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HotelCard extends StatelessWidget {
   final Hotel hotel;
+  final Category category;
 
-  HotelCard({required this.hotel, required String userId, required Map<String, dynamic> userDetails, required HotelPolicies policies, required double longitude, required double latitude});
+
+  HotelCard(
+      {required this.hotel,
+      required String userId,
+      required Map<String, dynamic> userDetails,
+      required HotelPolicies policies,
+      required double longitude,
+      required double latitude,
+        required this.category,
+         });
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +34,13 @@ class HotelCard extends StatelessWidget {
             aspectRatio: 16 / 9,
             child: hotel.profilePic.isNotEmpty
                 ? Image.asset(
-              hotel.profilePic,
-              fit: BoxFit.cover,
-            )
+                    hotel.profilePic,
+                    fit: BoxFit.cover,
+                  )
                 : Image.asset(
-              'assets/splash/3weby.webp',
-              fit: BoxFit.cover,
-            ),
+                    'assets/splash/3weby.webp',
+                    fit: BoxFit.cover,
+                  ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -66,38 +78,7 @@ class HotelCard extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
-                  onPressed: () {
-                    // Extract the phone number from the Firestore document
-                    final phoneNumber = hotel.whatsapp; // Assuming this is just the number
-                    final whatsappUrl = 'https://wa.me/$phoneNumber?text=Hello%20${hotel.name}';
-                    launchUrl(Uri.parse(whatsappUrl));
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.email, color: Colors.blue),
-                  onPressed: () {
-                    final emailUrl = 'mailto:${hotel.email}';
-                    launchUrl(Uri.parse(emailUrl));
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.phone, color: Colors.black),
-                  onPressed: () {
-                    final phoneUrl = 'tel:${hotel.phone}';
-                    launchUrl(Uri.parse(phoneUrl));
-                  },
-                ),
-              ],
-            ),
-          ),
-
+          ContactToolWidget(hotel: hotel, category: category),
         ],
       ),
     );

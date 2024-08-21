@@ -15,12 +15,18 @@ class LoginPage extends StatefulWidget {
   final AuthService authService;
   // final Category categories;
   final Hotel hotel;
+  final String hotelId;
+  // final String categoryId;
 
   const LoginPage(
       {super.key,
       required this.authService,
       // required this.categories,
-      required this.hotel, required List<Category> categories});
+      required this.hotel,
+      required List<Category> categories,
+      required this.hotelId,
+      // required this.categoryId
+      });
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -171,9 +177,12 @@ class _LoginPageState extends State<LoginPage> {
                                 milliseconds:
                                     200), // Adjust the duration as needed
                             pageBuilder: (_, __, ___) => SignUpScreen(
-                              authService: widget.authService,
-                              // categories: widget.categories,
-                              hotel: widget.hotel, categories: [],
+                                authService: widget.authService,
+                                // categories: widget.categories,
+                                hotel: widget.hotel,
+                                categories: [],
+                                hotelId: widget.hotelId,
+                                // categoryId: widget.categoryId
                             ),
                             transitionsBuilder: (_, animation, __, child) {
                               return FadeTransition(
@@ -224,18 +233,17 @@ class _LoginPageState extends State<LoginPage> {
       showToast(message: "User is successfully signed in");
 
       Navigator.of(context).pushReplacement(
-
         MaterialPageRoute(
           builder: (context) => ConfirmationCredentialPage(
             authService: widget.authService,
             // categories: widget.categories,
-            hotel: widget.hotel,
+            hotel: widget.hotel, hotelId: '',
+            // categoryId: '',
           ),
         ),
       );
 
       // Navigator.of(context).pushNamedAndRemoveUntil("/home", (route)=> false);
-
     } catch (e) {
       setState(() {
         _isSigning = false;
@@ -254,6 +262,8 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) => ConfirmationCredentialPage(
               authService: widget.authService,
               hotel: widget.hotel,
+              hotelId: widget.hotelId,
+              // categoryId: widget.categoryId,
             ),
           ),
         );
@@ -262,5 +272,4 @@ class _LoginPageState extends State<LoginPage> {
       showToast(message: "Failed to sign in with Google: $e");
     }
   }
-
 }

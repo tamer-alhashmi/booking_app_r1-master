@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 
 class AccountSettingScreen extends StatefulWidget {
   final AuthService authService;
-  final List<Category> categories;
+  final Category category;
   final Hotel hotel;
   final int currentPageIndex;
   final Function(int) onPageChanged;
@@ -18,18 +18,20 @@ class AccountSettingScreen extends StatefulWidget {
   final double latitude;
   final double longitude;
   final String userId;
+  final String hotelId;
+  final String categoryId;
 
   const AccountSettingScreen({
     Key? key,
     required this.authService,
-    required this.categories,
+    required this.category,
     required this.hotel,
     required this.userDetails,
     required this.currentPageIndex,
     required this.onPageChanged,
     required this.latitude,
     required this.longitude,
-    required this.userId,
+    required this.userId, required this.hotelId, required this.categoryId,
   }) : super(key: key);
 
   @override
@@ -50,7 +52,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
   }
 
   Future<void> _loadUserData() async {
-    Map<String, dynamic> userDetails = await widget.authService.getUserDetails();
+    Map<String, dynamic> userDetails = (await widget.authService.getUserDetails()) as Map<String, dynamic>;
     setState(() {
       _userDetails = userDetails;
       _firstName = userDetails['firstname'] ?? '';
@@ -138,14 +140,15 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                         MaterialPageRoute(
                           builder: (context) => UserProfileUpdatePage(
                             authService: widget.authService,
-                            categories: widget.categories,
+                            category: widget.category,
                             hotel: widget.hotel,
                             latitude: widget.latitude,
                             longitude: widget.longitude,
                             currentPageIndex: widget.currentPageIndex,
                             onPageChanged: widget.onPageChanged,
                             userDetails: widget.userDetails,
-                            userId: widget.userId,
+                            userId: widget.userId, hotelId: widget.hotelId,
+                            // categoryId: widget.categoryId,
                           ),
                         ),
                       );

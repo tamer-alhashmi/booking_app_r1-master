@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class NavigationManager {
   final AuthService authService;
-  final List<Category> categories;
+  final Category category;
   final Hotel hotel;
   final int currentPageIndex;
   final Function(int) onPageChanged;
@@ -19,7 +19,7 @@ class NavigationManager {
   NavigationManager({
     required this.currentPageIndex,
     required this.onPageChanged,
-    required this.categories,
+    required this.category,
     required this.hotel,
     required this.userDetails,
     required this.authService,
@@ -31,7 +31,7 @@ class NavigationManager {
           (route) => false,
       arguments: {
         'authService': authService,
-        'categories': categories,
+        'category': category,
         'hotel': hotel,
         'userDetails': userDetails,
       },
@@ -44,7 +44,7 @@ class NavigationManager {
       '/favorite',
       arguments: {
         'authService': authService,
-        'categories': categories,
+        'category': category,
         'hotel': hotel,
         'userDetails': userDetails,
       },
@@ -57,7 +57,7 @@ class NavigationManager {
       '/bookings',
       arguments: {
         'authService': authService,
-        'categories': categories,
+        'category': category,
         'hotel': hotel,
         'userDetails': userDetails,
       },
@@ -70,7 +70,7 @@ class NavigationManager {
       '/userProfileSettings',
       arguments: {
         'authService': authService,
-        'categories': categories,
+        'category': category,
         'hotel': hotel,
         'userDetails': userDetails,
       },

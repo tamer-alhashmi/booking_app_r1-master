@@ -3,14 +3,15 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 class AppTheme {
-  static const Color primaryColor = Color(0xFF0288D1);
-  static const Color primaryVariantColor = Color(0xFF00695C);
-  static const Color secondaryColor = Color(0xFF03DAC6);
+  static const Color primaryColor = Color(0xFF009688);
+  static const Color primaryVariantColor = Color(0x6D00796B);  // 00796B6D
+  static const Color primaryOpacityColor = Color(0x60796B6D);  // 00796B6D
+  static const Color secondaryColor = Color(0xFFB2DFDB);
   static const Color backgroundColor = Color(0xFFF6F6F6);
   static const Color surfaceColor = Colors.white;
   static const Color errorColor = Color(0xFFB00020);
-  static const Color onPrimaryColor = Colors.white;
-  static const Color onSecondaryColor = Colors.black;
+  static const Color onPrimaryColor = Color(0XFFFFFFFF);
+  static const Color onSecondaryColor = Color(0xFF212121);
   static const Color onBackgroundColor = Colors.black;
   static const Color onSurfaceColor = Colors.black;
   static const Color onErrorColor = Colors.white;

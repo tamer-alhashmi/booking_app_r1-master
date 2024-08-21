@@ -17,18 +17,20 @@ import '../../../../../../model/hotel/widgets/bottom_bar/bottom_navigate_bar.dar
 
 class UserProfileSettingScreen extends StatefulWidget {
   final AuthService authService;
-  final List<Category> categories;
+  final Category category;
   final Hotel hotel;
   final Map<String, dynamic> userDetails;
   final Function(int) onPageChanged;
   final double latitude;
   final double longitude;
   final String userId;
+  final String hotelId;
+  // final String categoryId;
 
   const UserProfileSettingScreen({
     Key? key,
     required this.authService,
-    required this.categories,
+    required this.category,
     required this.hotel,
     required this.userDetails,
     required this.onPageChanged,
@@ -36,6 +38,8 @@ class UserProfileSettingScreen extends StatefulWidget {
     required this.longitude,
     required this.userId,
     required int currentPageIndex,
+    required this.hotelId,
+    // required this.categoryId,
   }) : super(key: key);
 
   @override
@@ -56,7 +60,8 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
   void initState() {
     super.initState();
     if (_userDetails['profilePhotoUrl'] != null) {
-      precacheImage(NetworkImage(_userDetails['profilePhotoUrl'] as String), context);
+      precacheImage(
+          NetworkImage(_userDetails['profilePhotoUrl'] as String), context);
     }
     _loadThemeData();
     _loadUserData();
@@ -70,7 +75,8 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
   }
 
   Future<void> _loadUserData() async {
-    Map<String, dynamic> userDetails = await widget.authService.getUserDetails();
+    Map<String, dynamic> userDetails =
+        (await widget.authService.getUserDetails()) as Map<String, dynamic>;
     setState(() {
       _userDetails = userDetails;
       _firstName = userDetails['firstname'] ?? '';
@@ -105,7 +111,9 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                   longitude: widget.longitude,
                   userId: widget.userId,
                   policies: widget.hotel.policies,
-                  categories: widget.categories,
+                  category: widget.category,
+                  hotelId: widget.hotelId,
+                  // categoryId: widget.categoryId,
                 ),
               ),
             );
@@ -133,7 +141,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
       bottomNavigationBar: CustomBottomBar(
         currentPageIndex: currentPageIndex,
         onPageChanged: widget.onPageChanged,
-        categories: widget.categories,
+        category: widget.category,
         hotel: widget.hotel,
         userDetails: _userDetails,
         authService: widget.authService,
@@ -157,11 +165,11 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                     backgroundImage: _imageFile != null
                         ? FileImage(_imageFile!)
                         : (_userDetails['profilePhotoUrl'] != null)
-                        ? NetworkImage(
-                        _userDetails['profilePhotoUrl'] as String)
-                        : const AssetImage(
-                        'assets/holder/user_photo_placeholder.jpeg')
-                    as ImageProvider<Object>,
+                            ? NetworkImage(
+                                _userDetails['profilePhotoUrl'] as String)
+                            : const AssetImage(
+                                    'assets/holder/user_photo_placeholder.jpeg')
+                                as ImageProvider<Object>,
                   ),
                   const SizedBox(height: 10),
                   const SizedBox(height: 10),
@@ -193,7 +201,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                       MaterialPageRoute(
                         builder: (context) => UserProfileUpdatePage(
                           authService: widget.authService,
-                          categories: widget.categories,
+                          category: widget.category,
                           hotel: widget.hotel,
                           latitude: widget.latitude,
                           longitude: widget.longitude,
@@ -201,6 +209,8 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                           onPageChanged: widget.onPageChanged,
                           userDetails: widget.userDetails,
                           userId: widget.userId,
+                          hotelId: widget.hotelId,
+                          // categoryId: widget.categoryId,
                         ),
                       ),
                     );
@@ -218,7 +228,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                 _buildSection(
                   title: 'Security',
                   subtitle:
-                  'Change your security settings or delete your account.',
+                      'Change your security settings or delete your account.',
                   onTap: () {
                     // Handle security section tap
                   },
@@ -242,7 +252,7 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                 const SizedBox(height: 20),
               ],
             ),
-            _buildDarkModeToggle(),
+            // _buildDarkModeToggle(),
             _buildSection(
               title: 'Sign Out',
               subtitle: 'Log out from your account.',
@@ -257,27 +267,27 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
     );
   }
 
-  Widget _buildDarkModeToggle() {
-    return SwitchListTile(
-      title: const Text(
-        'Dark Mode',
-        style: TextStyle(fontSize: 16),
-      ),
-      value: _isDarkModeEnabled,
-      onChanged: (value) {
-        _toggleDarkMode(value);
-        if (value) {
-          BookingApp.setThemeMode(ThemeMode.dark);
-        } else {
-          BookingApp.setThemeMode(ThemeMode.light);
-        }
-      },
-    );
-  }
+  // Widget _buildDarkModeToggle() {
+  //   return SwitchListTile(
+  //     title: const Text(
+  //       'Dark Mode',
+  //       style: TextStyle(fontSize: 16),
+  //     ),
+  //     value: _isDarkModeEnabled,
+  //     onChanged: (value) {
+  //       _toggleDarkMode(value);
+  //       if (value) {
+  //         BookingApp.setThemeMode(ThemeMode.dark);
+  //       } else {
+  //         BookingApp.setThemeMode(ThemeMode.light);
+  //       }
+  //     },
+  //   );
+  // }
 
   Future<void> _selectImage() async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
@@ -288,8 +298,8 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
   Future<void> _uploadImage() async {
     if (_imageFile != null) {
       try {
-        firebase_storage.Reference ref = firebase_storage.FirebaseStorage
-            .instance
+        firebase_storage.Reference ref = firebase_storage
+            .FirebaseStorage.instance
             .ref()
             .child('user_profile_photos')
             .child('${widget.userId}.jpg');

@@ -269,7 +269,7 @@ import 'navigation_manager.dart';
 
 class CustomBottomBar extends StatelessWidget {
   final AuthService authService;
-  final List<Category> categories;
+  final Category category;
   final Hotel hotel;
   final int currentPageIndex;
   final Function(int) onPageChanged;
@@ -281,7 +281,7 @@ class CustomBottomBar extends StatelessWidget {
   CustomBottomBar({
     Key? key,
     required this.authService,
-    required this.categories,
+    required this.category,
     required this.hotel,
     required this.userDetails,
     required this.currentPageIndex,
@@ -316,7 +316,7 @@ class CustomBottomBar extends StatelessWidget {
     onPageChanged(index);
     final navigationManager = NavigationManager(
       authService: authService,
-      categories: categories,
+      category: category,
       hotel: hotel,
       userDetails: userDetails,
       currentPageIndex: currentPageIndex,

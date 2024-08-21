@@ -23,20 +23,32 @@ void main() {
     // Define dummy latitude and longitude values
     final double latitude = 0.0;
     final double longitude = 0.0;
-
+    final Category category = Category(
+      id: 'sample_id',
+      catTitle: 'Sample Category',
+      catFullName: 'Sample Full Name',
+      catDescreption: 'Sample Description',
+      bedType: 'Queen',
+      capacity: 2,
+      amenities: ['WiFi', 'TV'],
+      galleryUrl: ['1.jpg', '2.jpg'],
+      roomSize: '30 sqm',
+      catProPicUrl: 'sample_tropic_url.jpg',
+      catHotelDescreption: 'Full Sample Description',
+    );
     // Build the BookingApp widget with mocked dependencies
     await tester.pumpWidget(
       MaterialApp(
         home: BookingApp(
           authService: authService,
-          categories: mockCategories,
+          category: category,
           hotel: hotel,
           userDetails: {},
           currentPageIndex: 0,
           onPageChanged: (int index) {},
           latitude: latitude,
           longitude: longitude,
-          userId: '',
+          userId: '', hotelId: '', categoryId: '',
         ),
       ),
     );

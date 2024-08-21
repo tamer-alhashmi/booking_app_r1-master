@@ -4,6 +4,7 @@ import 'package:booking_app_r1/model/hotel.dart';
 import 'package:booking_app_r1/model/hotel/widgets/policy_widget.dart';
 import 'package:booking_app_r1/model/amenities.dart';
 
+import '../../../../theme/app_theme.dart';
 import '../../widgets/hotel_reviews_card_widget.dart';
 
 class NavigationTabs extends StatefulWidget {
@@ -11,12 +12,19 @@ class NavigationTabs extends StatefulWidget {
   final int initialTabIndex;
   final double latitude;
   final double longitude;
+  final String hotelId;
+  final String nearbyCategoryId;
+  // final String categoryId;
 
   NavigationTabs(
       {required this.hotel,
       required this.initialTabIndex,
       required this.latitude,
-      required this.longitude});
+      required this.longitude,
+      required this.hotelId,
+        required this.nearbyCategoryId,
+      // required this.categoryId
+      });
 
   @override
   _NavigationTabsState createState() => _NavigationTabsState();
@@ -55,8 +63,9 @@ class _NavigationTabsState extends State<NavigationTabs>
           Container(
             constraints: const BoxConstraints(maxHeight: 150.0),
             child: Material(
-              color: Colors.blue, // Choose your desired color
+              color: AppTheme.primaryColor, // Choose your desired color
               child: TabBar(
+                dividerColor: AppTheme.accentColor,
                 controller: _tabController,
                 isScrollable: true,
                 labelColor: Colors
@@ -86,9 +95,10 @@ class _NavigationTabsState extends State<NavigationTabs>
                   hotel: widget.hotel,
                   latitude: widget.latitude,
                   longitude: widget.longitude,
+                  hotelId: widget.hotelId,
+                  nearbyCategoryId: widget.nearbyCategoryId,
                 ),
-                ReviewsTab(hotel: widget.hotel ),
-
+                ReviewsTab(hotel: widget.hotel),
               ],
             ),
           ),
@@ -162,32 +172,7 @@ class ChildrenExtraBedsTab extends StatelessWidget {
   }
 }
 
-class NearbyPlacesTab extends StatelessWidget {
-  final Hotel hotel;
-  final double latitude;
-  final double longitude;
 
-  NearbyPlacesTab(
-      {required this.hotel, required this.latitude, required this.longitude});
-
-  @override
-  Widget build(BuildContext context) {
-    if (hotel.id.isEmpty) {
-      print('Error: hotelId is empty or null');
-      return Center(
-        child: Text('Error: Invalid hotel ID'),
-      );
-    }
-
-    print('Displaying nearby places for hotelId: ${hotel.id}');
-    return Center(
-      child: NearbyPlacesScreen(
-        hotel: hotel,
-        hotelId: hotel.id, // Ensure this is not empty
-      ),
-    );
-  }
-}
 
 
 class ReviewsTab extends StatelessWidget {
@@ -209,4 +194,5 @@ class ReviewsTab extends StatelessWidget {
         hotelId: hotel.id, // Make sure this is not an empty string
       ),
     );
-  }}
+  }
+}

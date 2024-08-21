@@ -80,11 +80,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../user_auth/firebase_auth_impelmentation/auth_service.dart';
 import '../../user_auth/presentation/pages/log_In_screen.dart';
 
-
 class SplashScreen extends StatefulWidget {
   final AuthService authService;
   final List<Category> categories;
   final Hotel hotel;
+  // final String categoryId;
+  final String hotelId;
 
   const SplashScreen({
     Key? key,
@@ -92,6 +93,8 @@ class SplashScreen extends StatefulWidget {
     // required this.categories,
     required this.hotel,
     required this.categories,
+    // required this.categoryId,
+    required this.hotelId,
   }) : super(key: key);
 
   @override
@@ -120,7 +123,8 @@ class _SplashScreenState extends State<SplashScreen> {
           builder: (_) => ConfirmationCredentialPage(
             authService: widget.authService,
             // categories: widget.categories,
-            hotel: widget.hotel,
+            hotel: widget.hotel, hotelId: widget.hotel.id,
+            // categoryId: widget.categoryId,
           ),
         ),
       );
@@ -131,7 +135,8 @@ class _SplashScreenState extends State<SplashScreen> {
           builder: (_) => LoginPage(
             authService: widget.authService,
             // categories: widget.categories,
-            hotel: widget.hotel, categories: [],
+            hotel: widget.hotel, categories: widget.categories, hotelId: widget.hotelId,
+              // categoryId: widget.categoryId
           ),
         ),
       );

@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../nearby_places.dart';
 
+// import '../nearby_places.dart';
+
 
 // Future<void> addContactFieldsToHotels() async {
 //   // Initialize Firebase
@@ -353,41 +355,130 @@ import '../nearby_places.dart';
 
 
 
-Future<void> updateCategoryTitle() async {
-  final firestore = FirebaseFirestore.instance;
+// Future<void> updateCategoryTitle() async {
+//   final firestore = FirebaseFirestore.instance;
+//
+//   try {
+//     // Fetch all hotels
+//     final hotelsSnapshot = await firestore.collection('hotels').get();
+//
+//     for (var hotelDoc in hotelsSnapshot.docs) {
+//       final hotelId = hotelDoc.id;
+//
+//       // Fetch categories for each hotel
+//       final categoriesSnapshot = await firestore
+//           .collection('hotels')
+//           .doc(hotelId)
+//           .collection('category')
+//           .get();
+//
+//       for (var categoryDoc in categoriesSnapshot.docs) {
+//         final categoryId = categoryDoc.id;
+//
+//         // Update each category document
+//         await firestore
+//             .collection('hotels')
+//             .doc(hotelId)
+//             .collection('category')
+//             .doc(categoryId)
+//             .update({
+//           'galleryUrl': List.generate(20, (index) => '${index + 1}.jpg'),
+//           // Remove old field if it exists
+//           // You can also handle the case if 'imageUrl' does not exist
+//         });
+//       }
+//     }
+//     print('Update completed successfully.');
+//   } catch (e) {
+//     print('Error updating categories: $e');
+//   }
+// }
 
-  try {
-    // Fetch all hotels
-    final hotelsSnapshot = await firestore.collection('hotels').get();
 
-    for (var hotelDoc in hotelsSnapshot.docs) {
-      final hotelId = hotelDoc.id;
 
-      // Fetch categories for each hotel
-      final categoriesSnapshot = await firestore
-          .collection('hotels')
-          .doc(hotelId)
-          .collection('category')
-          .get();
 
-      for (var categoryDoc in categoriesSnapshot.docs) {
-        final categoryId = categoryDoc.id;
 
-        // Update each category document
-        await firestore
-            .collection('hotels')
-            .doc(hotelId)
-            .collection('category')
-            .doc(categoryId)
-            .update({
-          'galleryUrl': List.generate(20, (index) => '${index + 1}.jpg'),
-          // Remove old field if it exists
-          // You can also handle the case if 'imageUrl' does not exist
-        });
-      }
-    }
-    print('Update completed successfully.');
-  } catch (e) {
-    print('Error updating categories: $e');
-  }
-}
+// // ******************** START OF *********** Fetch New Nearby Places and save those to Firebase ***********************
+// import 'dart:convert';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:http/http.dart' as http;
+//
+// Future<List<Place>> fetchNearbyPlaces(double latitude, double longitude) async {
+//   String apiKey = dotenv.env['GOOGLE_API_KEY'] ?? '';
+//   const radius = 1000; // radius in meters
+//   const List<String> placeTypes = ['parking', 'restaurant', 'hospital', 'school'];
+//   List<Place> nearbyPlaces = [];
+//
+//   for (String placeType in placeTypes) {
+//     final url = Uri.parse(
+//         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+//             'location=$latitude,$longitude'
+//             '&radius=$radius'
+//             '&type=$placeType'
+//             '&key=$apiKey');
+//     final response = await http.get(url);
+//
+//     if (response.statusCode == 200) {
+//       final decodedData = json.decode(response.body);
+//       final List<dynamic> places = decodedData['results'];
+//       final List<Place> placesList = places.map((placeData) {
+//         return Place.fromJson(placeData as Map<String, dynamic>);
+//       }).toList();
+//       nearbyPlaces.addAll(placesList);
+//     } else {
+//       throw Exception('Failed to load nearby places');
+//     }
+//   }
+//   return nearbyPlaces;
+// }
+//
+// Future<void> saveNearbyPlacesToFirestore(
+//     String hotelId, List<Place> nearbyPlaces) async {
+//   final hotelRef = FirebaseFirestore.instance.collection('hotels').doc(hotelId);
+//
+//   try {
+//     final List<String> placeTypes = ['parking', 'restaurant', 'hospital', 'school'];
+//
+//     for (String placeType in placeTypes) {
+//       final categoryRef = hotelRef.collection('nearby_places').doc(placeType);
+//
+//       List<Place> filteredPlaces = nearbyPlaces.where((place) => place.type == placeType).toList();
+//       for (Place place in filteredPlaces) {
+//         await categoryRef.collection('places').doc(place.id).set({
+//           ...place.toJson(),
+//           'rating': place.rating ?? 0,
+//           'date': Timestamp.now(),
+//         });
+//       }
+//     }
+//     print('Nearby places saved successfully for hotelId: $hotelId');
+//   } catch (e) {
+//     print('Error saving nearby places to Firestore for hotelId: $hotelId: $e');
+//   }
+// }
+//
+// Future<void> updateNearbyPlacesForAllHotels() async {
+//   final hotelsCollection = FirebaseFirestore.instance.collection('hotels');
+//   final hotelsSnapshot = await hotelsCollection.get();
+//
+//   for (final hotelDoc in hotelsSnapshot.docs) {
+//     final String hotelId = hotelDoc.id;
+//     final Map<String, dynamic>? hotelData = hotelDoc.data() as Map<String, dynamic>?;
+//
+//     if (hotelData != null) {
+//       final double latitude = (hotelData['lat'] as num?)?.toDouble() ?? 0.0;
+//       final double longitude = (hotelData['lng'] as num?)?.toDouble() ?? 0.0;
+//
+//       if (latitude != 0.0 && longitude != 0.0) {
+//         // Step 1: Fetch the nearby places for this hotel
+//         List<Place> nearbyPlaces = await fetchNearbyPlaces(latitude, longitude);
+//
+//         // Step 2: Save the fetched places to Firestore under the specific hotel
+//         await saveNearbyPlacesToFirestore(hotelId, nearbyPlaces);
+//       }
+//     }
+//   }
+//   print('All hotels updated with nearby places.');
+// }
+// // *************** END OF **************** Fetch New Nearby Places and save those to Firebase ***********************

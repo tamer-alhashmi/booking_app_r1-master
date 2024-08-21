@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class UserProfileUpdatePage extends StatefulWidget {
   final AuthService authService;
-  final List<Category> categories;
+  final Category category;
   final Hotel hotel;
   final int currentPageIndex;
   final Function(int) onPageChanged;
@@ -15,18 +15,22 @@ class UserProfileUpdatePage extends StatefulWidget {
   final double latitude;
   final double longitude;
   final String userId; // Add userId as a parameter
-
+  final String hotelId;
+  // final String categoryId;
 
   const UserProfileUpdatePage({
     Key? key,
     required this.authService,
-    required this.categories,
+    required this.category,
     required this.hotel,
     required this.currentPageIndex,
     required this.onPageChanged,
     required this.userDetails,
     required this.latitude,
-    required this.longitude, required this.userId,
+    required this.longitude,
+    required this.userId,
+    required this.hotelId,
+    // required this.categoryId,
   }) : super(key: key);
 
   @override
@@ -120,7 +124,12 @@ class _UserProfileUpdatePageState extends State<UserProfileUpdatePage> {
           hotel: widget.hotel,
           userDetails: widget.userDetails,
           latitude: widget.latitude,
-          longitude: widget.longitude, userId: widget.userId, policies: widget.hotel.policies, categories: widget.categories,
+          longitude: widget.longitude,
+          userId: widget.userId,
+          policies: widget.hotel.policies,
+          category: widget.category,
+          hotelId: widget.hotelId,
+          // categoryId: widget.categoryId,
         ),
       ),
     );

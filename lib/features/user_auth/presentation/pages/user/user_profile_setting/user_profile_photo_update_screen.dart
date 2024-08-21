@@ -7,22 +7,26 @@ import 'package:flutter/material.dart';
 
 class UserPhotoUpdatePage extends StatefulWidget {
   final AuthService authService;
-  final List<Category> categories;
+  final Category category;
   final Hotel hotel;
   final Map<String, dynamic> userDetails;
   final double latitude;
   final double longitude;
   final String userId;
-
+  final String hotelId;
+  final String categoryId;
 
   const UserPhotoUpdatePage({
     Key? key,
     required this.authService,
-    required this.categories,
+    required this.category,
     required this.hotel,
     required this.userDetails,
     required this.latitude,
-    required this.longitude, required this.userId,
+    required this.longitude,
+    required this.userId,
+    required this.hotelId,
+    required this.categoryId,
   }) : super(key: key);
 
   @override
@@ -86,11 +90,15 @@ class _UserPhotoUpdatePageState extends State<UserPhotoUpdatePage> {
       MaterialPageRoute(
         builder: (_) => HomeScreen(
           authService: widget.authService,
-          // categories: widget.categories,
           hotel: widget.hotel,
           userDetails: widget.userDetails,
           latitude: widget.latitude,
-          longitude: widget.longitude, userId: widget.userId, policies: widget.hotel.policies, categories: widget.categories,
+          longitude: widget.longitude,
+          userId: widget.userId,
+          policies: widget.hotel.policies,
+          category: widget.category,
+          hotelId: widget.hotelId,
+          // categoryId: widget.categoryId,
         ),
       ),
     );

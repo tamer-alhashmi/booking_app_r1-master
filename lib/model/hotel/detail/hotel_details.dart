@@ -1,9 +1,11 @@
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/user_details.dart';
 import 'package:booking_app_r1/model/category/categories_card.dart';
+import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel/detail/date_selection_widget.dart';
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
 import 'package:booking_app_r1/model/hotel/detail/user_rooms_adoult_child_selected.dart';
 import 'package:booking_app_r1/model/hotel/widgets/hotel_reviews_card_widget.dart';
+import 'package:booking_app_r1/theme/app_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +27,8 @@ class HotelDetail extends StatefulWidget {
   final double latitude;
   final double longitude;
   final HotelPolicies policies;
+  final String hotelId;
+  // late String categoryId;
 
   const HotelDetail({
     Key? key,
@@ -34,6 +38,8 @@ class HotelDetail extends StatefulWidget {
     required this.policies,
     required String userId,
     required Map<String, dynamic> userDetails,
+    required this.hotelId,
+    // required this.categoryId,
   }) : super(key: key);
 
   @override
@@ -48,6 +54,7 @@ class _HotelDetailState extends State<HotelDetail> {
   int _userAdultSelected = 1;
   int _userChildrenSelected = 0;
   List<Review> reviews = [];
+  late String categoryId;
 
   @override
   void initState() {
@@ -142,7 +149,7 @@ class _HotelDetailState extends State<HotelDetail> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppTheme.primaryColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -322,6 +329,8 @@ class _HotelDetailState extends State<HotelDetail> {
                                 latitude: widget.latitude,
                                 longitude: widget.longitude,
                                 initialTabIndex: 0,
+                                hotelId: widget.hotelId, nearbyCategoryId: '',
+                                // categoryId: widget.categoryId,
                               ),
                             ),
                           );
@@ -331,6 +340,8 @@ class _HotelDetailState extends State<HotelDetail> {
                           hotel: widget.hotel,
                           latitude: widget.latitude,
                           longitude: widget.longitude,
+                          hotelId: widget.hotelId,
+
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -344,6 +355,8 @@ class _HotelDetailState extends State<HotelDetail> {
                                 latitude: widget.latitude,
                                 longitude: widget.longitude,
                                 initialTabIndex: 1,
+                                hotelId: widget.hotelId, nearbyCategoryId: '',
+                                // categoryId: widget.categoryId,
                               ),
                             ),
                           );
@@ -354,6 +367,7 @@ class _HotelDetailState extends State<HotelDetail> {
                           hotel: widget.hotel,
                           latitude: widget.latitude,
                           longitude: widget.longitude,
+                          hotelId: widget.hotelId,
                         ),
                       ), // Most Popular Facilities
 
@@ -366,13 +380,14 @@ class _HotelDetailState extends State<HotelDetail> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NavigationTabs(
-                                hotel: widget.hotel,
-                                latitude: widget.latitude,
-                                longitude: widget.longitude,
-                                initialTabIndex: 2,
-                              ),
+                                  hotel: widget.hotel,
+                                  latitude: widget.latitude,
+                                  longitude: widget.longitude,
+                                  initialTabIndex: 2,
+                                  hotelId: widget.hotelId, nearbyCategoryId: '',
+                                // categoryId: widget.categoryId,),
                             ),
-                          );
+                          ));
                         },
                         child: Container(
                           padding: const EdgeInsets.all(16),
@@ -385,6 +400,7 @@ class _HotelDetailState extends State<HotelDetail> {
                             policies: widget.hotel.policies,
                             latitude: widget.hotel.lat,
                             longitude: widget.hotel.lng,
+                            hotelId: widget.hotelId,
                           ),
                         ),
                       ), // HotelPoliciesCardWidget
@@ -395,10 +411,12 @@ class _HotelDetailState extends State<HotelDetail> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NavigationTabs(
-                                hotel: widget.hotel,
-                                latitude: widget.latitude,
-                                longitude: widget.longitude,
-                                initialTabIndex: 4,
+                                  hotel: widget.hotel,
+                                  latitude: widget.latitude,
+                                  longitude: widget.longitude,
+                                  initialTabIndex: 4,
+                                  hotelId: widget.hotelId, nearbyCategoryId: '',
+                                // categoryId: widget.categoryId,
                               ),
                             ),
                           );
@@ -429,10 +447,12 @@ class _HotelDetailState extends State<HotelDetail> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NavigationTabs(
-                                hotel: widget.hotel,
-                                latitude: widget.latitude,
-                                longitude: widget.longitude,
-                                initialTabIndex: 5,
+                                  hotel: widget.hotel,
+                                  latitude: widget.latitude,
+                                  longitude: widget.longitude,
+                                  initialTabIndex: 5,
+                                  hotelId: widget.hotelId, nearbyCategoryId: '',
+                                // categoryId: widget.categoryId,
                               ),
                             ),
                           );
@@ -511,66 +531,104 @@ class _HotelDetailState extends State<HotelDetail> {
                                           final review = reviews[index];
 
                                           return FutureBuilder<UserDetails>(
-                                            future: UserDetails.loadUserData(review.userId),
+                                            future: UserDetails.loadUserData(
+                                                review.userId),
                                             builder: (context, userSnapshot) {
-                                              if (userSnapshot.connectionState == ConnectionState.waiting) {
-                                                return const Center(child: CircularProgressIndicator());
+                                              if (userSnapshot
+                                                      .connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return const Center(
+                                                    child:
+                                                        CircularProgressIndicator());
                                               }
 
                                               if (userSnapshot.hasError) {
-                                                return Text('Error: ${userSnapshot.error}');
+                                                return Text(
+                                                    'Error: ${userSnapshot.error}');
                                               }
 
                                               if (userSnapshot.hasData) {
-                                                final userDetails = userSnapshot.data;
-                                                review.userDetails = userDetails; // Assigning nullable value
+                                                final userDetails =
+                                                    userSnapshot.data;
+                                                review.userDetails =
+                                                    userDetails; // Assigning nullable value
 
                                                 return Container(
-                                                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                  margin: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 8.0),
                                                   width: 300,
                                                   child: Card(
                                                     elevation: 2,
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(12),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
                                                     ),
                                                     child: Padding(
-                                                      padding: const EdgeInsets.all(16.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              16.0),
                                                       child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              if (userDetails?.profilePhotoUrl.isNotEmpty ??
+                                                              if (userDetails
+                                                                      ?.profilePhotoUrl
+                                                                      .isNotEmpty ??
                                                                   false)
                                                                 CircleAvatar(
-                                                                  backgroundImage: NetworkImage(
-                                                                      userDetails!.profilePhotoUrl),
+                                                                  backgroundImage:
+                                                                      NetworkImage(
+                                                                          userDetails!
+                                                                              .profilePhotoUrl),
                                                                 ),
-                                                              const SizedBox(width: 8),
-                                                              const Icon(Icons.star, color: Colors.amber),
-                                                              const SizedBox(width: 4),
-                                                              Text('${review.rating}'),
+                                                              const SizedBox(
+                                                                  width: 8),
+                                                              const Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .amber),
+                                                              const SizedBox(
+                                                                  width: 4),
+                                                              Text(
+                                                                  '${review.rating}'),
                                                               const Spacer(),
                                                               Text(
                                                                 '${review.timestamp.toLocal()}',
-                                                                style: const TextStyle(fontSize: 12),
+                                                                style:
+                                                                    const TextStyle(
+                                                                        fontSize:
+                                                                            12),
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(height: 8),
+                                                          const SizedBox(
+                                                              height: 8),
                                                           Expanded(
                                                             child: Text(
                                                               review.comment,
                                                               maxLines: 3,
-                                                              overflow: TextOverflow.ellipsis,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                             ),
                                                           ),
-                                                          const SizedBox(height: 8),
+                                                          const SizedBox(
+                                                              height: 8),
                                                           Text(
                                                             'Show more',
                                                             style: TextStyle(
-                                                              color: Theme.of(context).primaryColor,
-                                                              fontWeight: FontWeight.bold,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
                                                           ),
                                                         ],
@@ -580,7 +638,8 @@ class _HotelDetailState extends State<HotelDetail> {
                                                 );
                                               }
 
-                                              return const Text('No user data available');
+                                              return const Text(
+                                                  'No user data available');
                                             },
                                           );
                                         },
@@ -591,13 +650,12 @@ class _HotelDetailState extends State<HotelDetail> {
                                       onPressed: () {
                                         // Action to navigate to the full review page
                                       },
-                                      child: Text('Show all ${reviews.length} reviews'),
+                                      child: Text(
+                                          'Show all ${reviews.length} reviews'),
                                     ),
                                   ],
                                 ),
                               );
-
-
                             }
 
                             return const Text('No reviews available');
@@ -624,13 +682,14 @@ class _HotelDetailState extends State<HotelDetail> {
                 MaterialPageRoute(
                   builder: (context) => CategoriesScreen(
                     hotelId: widget.hotel.id,
+                    hotel: widget.hotel,
                   ),
                 ),
               );
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
+              backgroundColor: AppTheme.primaryColor,
               padding: const EdgeInsets.symmetric(vertical: 15),
               textStyle: const TextStyle(fontSize: 18),
               shape: const RoundedRectangleBorder(

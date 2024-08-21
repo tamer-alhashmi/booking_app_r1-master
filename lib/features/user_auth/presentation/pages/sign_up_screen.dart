@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:booking_app_r1/features/app/splash_screen/confirmation_credential-page.dart';
 import 'package:booking_app_r1/features/user_auth/presentation/widgets/form_container_widget.dart';
 import 'package:booking_app_r1/model/category/category.dart';
@@ -16,11 +15,15 @@ class SignUpScreen extends StatefulWidget {
   final AuthService authService;
   final List<Category> categories;
   final Hotel hotel;
+  final String hotelId;
+  // final String categoryId;
 
   const SignUpScreen({
     Key? key,
     required this.authService,
-    required this.hotel, required this.categories,
+    required this.hotel,
+    required this.categories, required this.hotelId,
+    // required this.categoryId,
   }) : super(key: key);
 
   @override
@@ -182,8 +185,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   200), // Adjust the duration as needed
                               pageBuilder: (_, __, ___) => LoginPage(
                                 authService: widget.authService,
-                                // categories: widget.categories,
-                                hotel: widget.hotel, categories: widget.categories,
+                                hotel: widget.hotel,
+                                categories: widget.categories, hotelId: widget.hotelId,
+                                // categoryId: widget.categoryId,
                               ),
                               transitionsBuilder: (_, animation, __, child) {
                                 return FadeTransition(
@@ -236,22 +240,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
         lastname,
         context,
       );
-      setState(() {
-        _isSignUp = false;
-      });
+
       if (user != null) {
-        showToast(message: "User is successfully signed up");
+        // Send email verification
+        await user.sendEmailVerification();
+
+        setState(() {
+          _isSignUp = false;
+        });
+
+        showToast(message: "Verification email sent. Please check your email.");
+
+        // Navigate to a page that asks the user to confirm their email
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => ConfirmationCredentialPage(
               authService: widget.authService,
-              // categories: widget.categories,
-              hotel: widget.hotel,
+              hotel: widget.hotel, hotelId: '',
+              // categoryId: '',
             ),
           ),
         );
       } else {
+        setState(() {
+          _isSignUp = false;
+        });
         showToast(message: "Error with Sign Up\nPlease try again");
       }
     } catch (e) {
