@@ -181,8 +181,6 @@ flutter:
     - assets/images/Bonair/Triple_room-Deluxe-Ensuite/
     - assets/images/Crofton/
     - assets/images/Crofton/Crofton1.jpg
-    - assets/images/Crofton/Deluxe-Double_room-Ensuite/
-    - assets/images/Crofton/Family-Room-Deluxe-Ensuite-with_kitchenette/
     - assets/images/Crofton/sliderpics/
     - assets/images/Crofton/sliderpics/1.jpg
     - assets/images/Crofton/sliderpics/2.jpg
@@ -191,7 +189,6 @@ flutter:
     - assets/images/Crofton/sliderpics/5.jpg
     - assets/images/Crofton/sliderpics/6.jpg
     - assets/images/Crofton/sliderpics/7.jpg
-    - assets/images/Crofton/Triple_room-Deluxe-Ensuite/
     - assets/images/Dolphin/
     - assets/images/Dolphin/deluxe_doub/
     - assets/images/Dolphin/deluxe_doub/1.jpg
@@ -263,19 +260,6 @@ flutter:
     - assets/images/Elmo/Family-Room-Deluxe-Ensuite-with_kitchenette/
     - assets/images/Elmo/sliderpics/
     - assets/images/Elmo/Triple_room-Deluxe-Ensuite/
-    - assets/images/GreenGables/
-    - assets/images/GreenGables/Deluxe-Double_room-Ensuite/
-    - assets/images/GreenGables/Family-Room-Deluxe-Ensuite-with_kitchenette/
-    - assets/images/GreenGables/GreenGables1.jpg
-    - assets/images/GreenGables/sliderpics/
-    - assets/images/GreenGables/sliderpics/1.jpg
-    - assets/images/GreenGables/sliderpics/2.jpg
-    - assets/images/GreenGables/sliderpics/3.jpg
-    - assets/images/GreenGables/sliderpics/4.jpg
-    - assets/images/GreenGables/sliderpics/5.jpg
-    - assets/images/GreenGables/sliderpics/6.jpg
-    - assets/images/GreenGables/sliderpics/7.jpg
-    - assets/images/GreenGables/Triple_room-Deluxe-Ensuite/
     - assets/images/Holland/
     - assets/images/Holland/Deluxe-Double_room-Ensuite/
     - assets/images/Holland/Family-Room-Deluxe-Ensuite-with_kitchenette/
@@ -360,6 +344,83 @@ flutter:
     - assets/images/Wembar/Triple_room-Deluxe-Ensuite/
     - assets/images/Wembar/Wember1.png
     - assets/splash/3weby.webp
+    - assets/images/Crofton/Double Room with Private Bathroom/
+    - assets/images/Crofton/One-Bedroom Suite/
+    - assets/images/Crofton/Standard Suite/
+    - assets/images/Crofton/Small Double Room/
+    - assets/images/Crofton/Small Double Room/1.jpg
+    - assets/images/Crofton/Deluxe Suite/
+    - assets/images/Crofton/Deluxe Suite/1.jpg
+    - assets/images/Crofton/Small Single Room/
+    - assets/images/Crofton/Small Single Room/1.jpg
+    - assets/images/Green Gables/
+    - assets/images/Green Gables/sliderpics/
+    - assets/images/Green Gables/Twin-Priv-Bath/
+    - assets/images/Green Gables/StandardDoubleRoom/
+    - assets/images/Green Gables/Standard Quadruple Room/
+    - assets/images/Green Gables/Family-Room-Deluxe-Ensuite/
+    - assets/images/Green Gables/Triple_room-Deluxe-Ensuite/
+    - assets/images/Green Gables/One-Bedroom Apartment-1SingleBed/
+    - assets/images/Green Gables/One-Bedroom Apartment-2SingleBed/
+    - assets/images/Green Gables/One-Bedroom Apartment-3SingleBed/
+    - assets/images/Green Gables/GreenGables1.jpg
+    - assets/images/Crofton/Standard Suite/1.jpg
+    - assets/images/Crofton/Standard Suite/2.jpg
+    - assets/images/Crofton/Standard Suite/3.jpg
+    - assets/images/Crofton/Standard Suite/4.jpg
+    - assets/images/Crofton/Standard Suite/5.jpg
+    - assets/images/Crofton/Standard Suite/6.jpg
+    - assets/images/Crofton/Standard Suite/7.jpg
+    - assets/images/Crofton/Standard Suite/8.jpg
+    - assets/images/Crofton/Standard Suite/9.jpg
+    - assets/images/Crofton/Standard Suite/10.jpg
+    - assets/images/Crofton/Deluxe Suite/2.jpg
+    - assets/images/Crofton/Deluxe Suite/3.jpg
+    - assets/images/Crofton/Deluxe Suite/4.jpg
+    - assets/images/Crofton/Deluxe Suite/5.jpg
+    - assets/images/Crofton/Deluxe Suite/6.jpg
+    - assets/images/Crofton/Deluxe Suite/7.jpg
+    - assets/images/Crofton/Deluxe Suite/8.jpg
+    - assets/images/Crofton/Deluxe Suite/9.jpg
+    - assets/images/Crofton/Deluxe Suite/10.jpg
+    - assets/images/Crofton/Deluxe Suite/11.jpg
+    - assets/images/Crofton/Deluxe Suite/12.jpg
+    - assets/images/Crofton/Deluxe Suite/13.jpg
+    - assets/images/Crofton/Deluxe Suite/14.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/1.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/2.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/3.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/4.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/5.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/6.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/7.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/8.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/9.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/10.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/11.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/12.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/13.jpg
+    - assets/images/Crofton/Double Room with Private Bathroom/14.jpg
+    - assets/images/Crofton/One-Bedroom Suite/1.jpg
+    - assets/images/Crofton/One-Bedroom Suite/2.jpg
+    - assets/images/Crofton/One-Bedroom Suite/3.jpg
+    - assets/images/Crofton/One-Bedroom Suite/4.jpg
+    - assets/images/Crofton/One-Bedroom Suite/5.jpg
+    - assets/images/Crofton/One-Bedroom Suite/6.jpg
+    - assets/images/Crofton/One-Bedroom Suite/7.jpg
+    - assets/images/Crofton/One-Bedroom Suite/8.jpg
+    - assets/images/Crofton/One-Bedroom Suite/9.jpg
+    - assets/images/Crofton/Small Double Room/2.jpg
+    - assets/images/Crofton/Small Double Room/3.jpg
+    - assets/images/Crofton/Small Double Room/4.jpg
+    - assets/images/Crofton/Small Double Room/5.jpg
+    - assets/images/Crofton/Small Double Room/6.jpg
+    - assets/images/Crofton/Small Single Room/2.jpg
+    - assets/images/Crofton/Small Single Room/3.jpg
+    - assets/images/Crofton/Small Single Room/4.jpg
+    - assets/images/Crofton/Small Single Room/5.jpg
+    - assets/images/Crofton/Small Single Room/6.jpg
+    - assets/holder/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
