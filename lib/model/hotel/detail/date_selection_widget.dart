@@ -70,7 +70,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppTheme.primaryVariantColor.withOpacity(0.1),
+                      color: AppTheme.primaryColor.withOpacity(0.1),
                       border: Border.all(color: AppTheme.primaryColor),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -85,12 +85,12 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                             ? const Text(
                                 'Select Date',
                                 style: TextStyle(
-                                    color: AppTheme.secondaryColor),
+                                    color: Colors.black),
                               )
                             : Text(
                                 '${_checkInDate!.toLocal()}'.split(' ')[0],
                                 style: const TextStyle(
-                                    color: AppTheme.primaryVariantColor,
+                                    color: AppTheme.accentColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16),
                               ),
@@ -106,7 +106,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration:  BoxDecoration(
-                      color: AppTheme.primaryVariantColor.withOpacity(0.1),
+                      color: AppTheme.primaryColor.withOpacity(0.1),
                       // border: Border.all(color: AppTheme.buiColorCtaBackground),
                       // borderRadius: BorderRadius.circular(8),
                     ),
@@ -115,12 +115,13 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                       children: [
                         const Text(
                           'Check-out',
+
                         ),
                         _checkOutDate == null
-                            ? const Text(
+                            ?  const Text(
                                 'Select Date',
                                 style: TextStyle(
-                                    color: AppTheme.secondaryColor),
+                                    color: Colors.black),
                               )
                             : Text(
                                 '${_checkOutDate!.toLocal()}'.split(' ')[0],

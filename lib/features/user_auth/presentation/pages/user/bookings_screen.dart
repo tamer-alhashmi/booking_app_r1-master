@@ -61,24 +61,24 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking Screen'),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back),
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        // ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      bottomNavigationBar: CustomBottomBar(
-        currentPageIndex: currentPageIndex,
-        onPageChanged: widget.onPageChanged, // Use the onPageChanged directly
-        category: widget.category,
-        hotel: widget.hotel,
-        userDetails: widget.userDetails,
-        authService: widget.authService,
-        firstName: _firstName,
-        longitude: widget.longitude,
-        latitude: widget.latitude, userId: '',
-      ),
+      // bottomNavigationBar: CustomBottomBar(
+      //   currentPageIndex: currentPageIndex,
+      //   onPageChanged: widget.onPageChanged, // Use the onPageChanged directly
+      //   category: widget.category,
+      //   hotel: widget.hotel,
+      //   userDetails: widget.userDetails,
+      //   authService: widget.authService,
+      //   firstName: _firstName,
+      //   longitude: widget.longitude,
+      //   latitude: widget.latitude, userId: '',
+      // ),
       body: const Center(
         child: Text('Bookings Screen Content'),
       ),

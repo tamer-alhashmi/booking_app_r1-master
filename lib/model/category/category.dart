@@ -30,8 +30,8 @@ class Category {
       id: json['id'] as String,
       catTitle: json['catTitle'] as String,
       catFullName: json['catFullName'] as String,
-      catDescreption: json['description'] as String,
-      catHotelDescreption: json['fullDescription'] as String,
+      catDescreption: json['catDescreption'] as String,
+      catHotelDescreption: json['catHotelDescreption'] as String,
       bedType: json['bedType'] as String,
       capacity: json['capacity'] is int
           ? json['capacity'] as int

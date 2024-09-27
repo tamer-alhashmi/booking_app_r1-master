@@ -21,7 +21,7 @@ class ReviewsBox extends StatelessWidget {
       height: 30,
       margin: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
-        color: AppTheme.primaryColor,
+        color: AppTheme.accentColor,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(6),
             topRight: Radius.circular(6),

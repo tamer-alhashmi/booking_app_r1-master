@@ -74,15 +74,16 @@ class _ContactToolWidgetState extends State<ContactToolWidget> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: AppTheme.secondaryColor,
-              borderRadius: BorderRadius.circular(30), // Adjust the radius as needed
+              color: AppTheme.accentColor,
+              borderRadius: BorderRadius.circular(5), // Adjust the radius as needed
             ),
             child: SizedBox(
-              width: 100, // Adjust the width as needed
-              height: 50,
+              width: 80, // Adjust the width as needed
+              height: 40,
               child: IconButton(
                 iconSize: 30,
-                icon: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
+                icon: const FaIcon(
+                    FontAwesomeIcons.whatsapp, color: Colors.white),
                 onPressed: () {
                   final whatsappMessage = Uri.encodeComponent(
                       'Hi, I am interested in your ${widget.hotel.name} Hotel,\nWith a ${widget.category.catFullName}.\nName: $_firstName $_lastName.'
@@ -95,7 +96,7 @@ class _ContactToolWidgetState extends State<ContactToolWidget> {
           ),
           Container(
             decoration: BoxDecoration(
-              color: AppTheme.secondaryColor,
+              color: AppTheme.accentColor,
               borderRadius: BorderRadius.circular(30), // Adjust the radius as needed
             ),
             child: SizedBox(
@@ -103,7 +104,7 @@ class _ContactToolWidgetState extends State<ContactToolWidget> {
               height: 50,
               child: IconButton(
                 iconSize: 30,
-                icon: const Icon(Icons.email, color: Colors.blue),
+                icon: const Icon(Icons.email, color: Colors.white),
                 onPressed: () {
                   final emailMessage = Uri.encodeComponent(
                       'Hi, I am interested in your property at ${widget.hotel.name} Hotel,\nLocated at ${widget.hotel.address}.\nName: $_firstName $_lastName'
@@ -116,7 +117,7 @@ class _ContactToolWidgetState extends State<ContactToolWidget> {
           ),
           Container(
             decoration: BoxDecoration(
-              color: AppTheme.secondaryColor,
+              color: AppTheme.accentColor,
               borderRadius: BorderRadius.circular(30), // Adjust the radius as needed
             ),
             child: SizedBox(
@@ -124,7 +125,7 @@ class _ContactToolWidgetState extends State<ContactToolWidget> {
               height: 50,
               child: IconButton(
                 iconSize: 30,
-                icon: const Icon(Icons.phone, color: Colors.black),
+                icon: const Icon(Icons.phone, color: Colors.white),
                 onPressed: () {
                   final phoneUrl = 'tel:${widget.hotel.phone}';
                   launchUrl(Uri.parse(phoneUrl));

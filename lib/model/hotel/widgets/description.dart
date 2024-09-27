@@ -1,6 +1,7 @@
 import 'package:booking_app_r1/model/hotel/detail/navigate_tab_bar/navigation-tabs.dart';
 import 'package:flutter/material.dart';
 
+import '../../../theme/app_theme.dart';
 import '../../hotel.dart';
 
 class DescriptionWidget extends StatelessWidget {
@@ -30,20 +31,14 @@ class DescriptionWidget extends StatelessWidget {
             children: [
               const Text(
                 'Description',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTheme.headlineTextStyle,
               ),
               const SizedBox(height: 8), // Adjust the spacing as needed
               Text(
                 hotel.description,
                 maxLines: 3, // Adjust the maximum number of lines
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey.shade600,
-                ),
+                style:AppTheme.bodyTextStyle,
               ),
             ],
           ),
@@ -66,9 +61,8 @@ class DescriptionWidget extends StatelessWidget {
           },
           child: const Text(
             'Read more',
-            style: TextStyle(
-              color: Colors.blue, // Customize color of "Read more" text
-            ),
+            style:  AppTheme.linkTextStyle, // Customize color of "Read more" text
+
           ),
         ),
       ],

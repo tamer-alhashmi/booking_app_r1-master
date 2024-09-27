@@ -16,6 +16,7 @@ import 'package:booking_app_r1/model/hotel/widgets/icons_widget/reviews_box.dart
 import 'package:booking_app_r1/model/hotel/widgets/policy_widget.dart';
 import 'package:booking_app_r1/model/hotel/widgets/description.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../../features/user_auth/firebase_auth_impelmentation/auth_service.dart';
 import '../../amenities.dart';
 import '../reviews.dart';
 import 'navigate_tab_bar/navigation-tabs.dart';
@@ -195,7 +196,7 @@ class _HotelDetailState extends State<HotelDetail> {
                         },
                         itemBuilder: (context, index) {
                           final imagePath =
-                              'assets/images/${widget.hotel.name}/sliderpics/${widget.hotel.sliderpics[index]}';
+                              'assets/images/${widget.hotel.id}/sliderpics/${widget.hotel.sliderpics[index]}';
                           return GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -204,7 +205,7 @@ class _HotelDetailState extends State<HotelDetail> {
                                   builder: (context) => FullScreenImagePage(
                                     sliderpics: widget.hotel.sliderpics
                                         .map((imageName) =>
-                                            'assets/images/${widget.hotel.name}/sliderpics/$imageName')
+                                            'assets/images/${widget.hotel.id}/sliderpics/$imageName')
                                         .toList(),
                                     initialIndex: index,
                                     images: [],
@@ -247,12 +248,24 @@ class _HotelDetailState extends State<HotelDetail> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.hotel.name,
-                        style: GoogleFonts.almarai(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: Icon(
+                                Icons.hotel,
+                                color: AppTheme.accentColor),
+                          ),
+
+
+                          Text(
+                            widget.hotel.name,
+                            style: GoogleFonts.almarai(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       ReviewsBox(hotel: widget.hotel),
                       const SizedBox(height: 16),
@@ -372,8 +385,6 @@ class _HotelDetailState extends State<HotelDetail> {
                       ), // Most Popular Facilities
 
                       const SizedBox(height: 16),
-
-                      const SizedBox(height: 16),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -426,16 +437,12 @@ class _HotelDetailState extends State<HotelDetail> {
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              // color: Colors.blue,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Text(
                               'View Nearby Places',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppTheme.sectionTitleTextStyle,
                             ),
                           ),
                         ),
@@ -732,3 +739,7 @@ class HotelMapLocation extends StatelessWidget {
     );
   }
 }
+
+
+
+

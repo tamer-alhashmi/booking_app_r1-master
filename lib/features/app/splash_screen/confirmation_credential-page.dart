@@ -13,6 +13,7 @@ class ConfirmationCredentialPage extends StatefulWidget {
   final AuthService authService;
   final Hotel hotel;
   final String hotelId;
+
   // final String categoryId;
 
   const ConfirmationCredentialPage({
@@ -20,6 +21,7 @@ class ConfirmationCredentialPage extends StatefulWidget {
     required this.authService,
     required this.hotel,
     required this.hotelId,
+
     // required this.categoryId,
   }) : super(key: key);
 
@@ -31,16 +33,36 @@ class ConfirmationCredentialPage extends StatefulWidget {
 class _ConfirmationCredentialPageState
     extends State<ConfirmationCredentialPage> {
   late String _firstName = '';
+  late String _lastName = '';
+  late String _profilePhotoUrl = '';
+  late bool hasNotification = false;
   bool _isEmailVerified = false;
   bool _isLoading = true;
-  Category? category; // Make it nullable
+  late Category category; // Make it nullable
 
   Future<void> _loadUserData() async {
-    Map<String, dynamic> userDetails =
-    (await widget.authService.getUserDetails()) as Map<String, dynamic>;
-    setState(() {
-      _firstName = userDetails['firstname'] ?? '';
-    });
+    try {
+      final authService = AuthService();
+      final userDetails = await authService.getUserDetails();
+
+      setState(() {
+        _firstName = userDetails?.firstName ?? '';
+        _lastName = userDetails?.lastName ?? '';
+        _profilePhotoUrl = userDetails?.profilePhotoUrl ?? '';
+        hasNotification = userDetails?.hasNotification ?? false;
+      });
+    } catch (e) {
+      // Handle any errors that occur during the fetch
+      print("Error loading user data: $e");
+
+      // Optionally, set default values in case of error
+      setState(() {
+        _firstName = '';
+        _lastName = '';
+        _profilePhotoUrl = '';
+        hasNotification = false;
+      });
+    }
   }
 
   Future<void> _checkEmailVerification() async {
@@ -139,10 +161,10 @@ class _ConfirmationCredentialPageState
 
   //  _navigateToLoginPage
   void _navigateToHomeScreen() {
-    if (category != null) {
+
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(
             authService: widget.authService,
             hotel: widget.hotel,
             userDetails: const {},
@@ -150,18 +172,25 @@ class _ConfirmationCredentialPageState
             longitude: widget.hotel.lng,
             userId: '',
             policies: widget.hotel.policies,
-            category: category!,
+            category: category,
             hotelId: widget.hotelId,
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
         ),
             (route) => false,
       );
-    } else {
-      // Handle the case where category is null
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Category is not available')),
-      );
-    }
+
   }
 
   void _navigateToLoginPage() {
@@ -240,7 +269,7 @@ class _ConfirmationCredentialPageState
       body: Center(
         child: _isLoading
             ? const CircularProgressIndicator(
-          color: Colors.white,
+          color: AppTheme.accentColor,
         )
             : Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -258,10 +287,7 @@ class _ConfirmationCredentialPageState
               _isEmailVerified
                   ? 'Welcome, $_firstName'
                   : 'Please verify your email to continue',
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
+              style: AppTheme.headlineTextStyle,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),

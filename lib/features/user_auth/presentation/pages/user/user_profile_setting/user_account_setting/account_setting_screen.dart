@@ -137,8 +137,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => UserProfileUpdatePage(
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => UserProfileUpdatePage(
                             authService: widget.authService,
                             category: widget.category,
                             hotel: widget.hotel,
@@ -150,6 +150,18 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                             userId: widget.userId, hotelId: widget.hotelId,
                             // categoryId: widget.categoryId,
                           ),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(1.0, 0.0);
+                            const end = Offset.zero;
+                            const curve = Curves.ease;
+
+                            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
                         ),
                       );
                     },

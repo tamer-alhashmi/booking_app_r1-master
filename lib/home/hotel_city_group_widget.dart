@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 
 import '../model/hotel/detail/hotel_details.dart';
 import '../model/hotel/detail/policies.dart';
+import '../theme/app_theme.dart';
 
 class HotelGroupWidget extends StatelessWidget {
   final String city;
@@ -36,7 +37,7 @@ class HotelGroupWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Text(
             city,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: AppTheme.headlineTextStyle,
           ),
         ),
         SizedBox(
@@ -70,33 +71,51 @@ class HotelGroupWidget extends StatelessWidget {
                       children: [
                         AspectRatio(
                           aspectRatio: 16 / 9,
-                          child: hotel.profilePic.isNotEmpty
-                              ? Image.asset(
-                            hotel.profilePic,
-                            fit: BoxFit.cover,
-                          )
-                              : Image.asset(
-                            'assets/splash/3weby.webp',
-                            fit: BoxFit.cover,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                            child: hotel.profilePic.isNotEmpty
+                                ? Image.asset(
+                              hotel.profilePic,
+                              fit: BoxFit.cover,
+                            )
+                                : Image.asset(
+                              'assets/splash/3weby.webp',
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
+                        ), //Hotel Profile image
+                        //Hotel Profile image
                         const SizedBox(height: 8.0),
-                        Text(
-                          hotel.name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Row(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(right: 8),
+                              child: Icon(
+                                  Icons.hotel,
+                                  color: AppTheme.accentColor),),
+
+                            Text(
+                              hotel.name,
+                              style: AppTheme.cardHeadlineTextStyle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 4.0),
-                        Text(
-                          hotel.address,
-                          style: const TextStyle(fontSize: 14, color: Colors.grey),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        Row(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(right: 8),
+                              child: Icon(
+                                  Icons.location_city,
+                                  color: AppTheme.accentColor),
+                            ),
+                            Expanded(child: Text(
+                              hotel.address,
+                              style: AppTheme.addressTextStyle,),)
+                          ],
+                        )
                       ],
                     ),
                   ),

@@ -19,6 +19,12 @@ class AppTheme {
     color: textColor,
   );
 
+  static const TextStyle cardHeadlineTextStyle = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+    color: textColor,
+  );
+
   static const TextStyle subheadTextStyle = TextStyle(
     fontSize: 18.0,
     fontWeight: FontWeight.w600,
@@ -30,11 +36,52 @@ class AppTheme {
     fontWeight: FontWeight.normal,
     color: textColor,
   );
+  static const TextStyle linkTextStyle = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.normal,
+    color: secondaryColor,
+  );
 
   static const TextStyle chipLabelTextStyle = TextStyle(
     fontSize: 12.0,
     color: textColor,
   );
+
+  // Address TextStyle for professional use
+  static const TextStyle addressTextStyle = TextStyle(
+    fontSize: 15.0,
+    fontWeight: FontWeight.w500,  // Semi-bold for emphasis
+    color: Colors.black54,        // Darker color for formal readability
+  );
+
+  // Caption TextStyle for small informational text
+  static const TextStyle captionTextStyle = TextStyle(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w400,
+    color: Colors.grey,           // Lighter color for captions
+  );
+
+  // Professional emphasis for important text like phone numbers or contact info
+  static const TextStyle contactInfoTextStyle = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,  // Bold for emphasis
+    color: Colors.blueGrey,       // Neutral yet distinguished color
+  );
+
+  // Bold, large and emphasized for section titles in a professional context
+  static const TextStyle sectionTitleTextStyle = TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,          // Use black to maintain seriousness
+  );
+
+  // Subtle yet professional for disclaimers or small print
+  static  TextStyle disclaimerTextStyle = TextStyle(
+    fontSize: 12.0,
+    fontStyle: FontStyle.italic,  // Italic to show emphasis on subtlety
+    color: Colors.grey[600],
+  );
+
 
   // Light Theme
   static ThemeData lightTheme = ThemeData(

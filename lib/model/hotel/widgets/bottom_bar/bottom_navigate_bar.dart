@@ -153,6 +153,9 @@ import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/a
 import 'package:booking_app_r1/model/category/category.dart';
 import 'package:booking_app_r1/model/hotel.dart';
 import 'package:flutter/material.dart';
+import '../../../../features/user_auth/presentation/pages/user/bookings_screen.dart';
+import '../../../../features/user_auth/presentation/pages/user/user_profile_setting/profile_setting_screen.dart';
+import '../../../../theme/app_theme.dart';
 import 'navigation_manager.dart';
 
 // class CustomBottomBar extends StatelessWidget {
@@ -277,7 +280,6 @@ class CustomBottomBar extends StatelessWidget {
   final String firstName;
   File? _imageFile; // Store the selected image file
 
-
   CustomBottomBar({
     Key? key,
     required this.authService,
@@ -292,9 +294,6 @@ class CustomBottomBar extends StatelessWidget {
     required String userId,
   }) : super(key: key);
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -303,7 +302,7 @@ class CustomBottomBar extends StatelessWidget {
       items: _buildBottomNavBarItems(),
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
-      selectedItemColor: Colors.blue,
+      selectedItemColor: AppTheme.accentColor,
       unselectedItemColor: Colors.grey,
       selectedFontSize: 14,
       unselectedFontSize: 12,
@@ -314,14 +313,39 @@ class CustomBottomBar extends StatelessWidget {
 
   void _onBottomNavItemTapped(BuildContext context, int index) {
     onPageChanged(index);
+
+    // Corrected: Pass the two required positional arguments
     final navigationManager = NavigationManager(
-      authService: authService,
+      UserProfileSettingScreen(
+        currentPageIndex: index,
+        onPageChanged: onPageChanged,
+        category: category,
+        hotel: hotel,
+        userDetails: userDetails,
+        authService: authService,
+        latitude: hotel.lat,
+        longitude: hotel.lng,
+        userId: '',  // pass actual userId if necessary
+        hotelId: hotel.id,
+      ),
+      BookingHistoryScreen(
+        currentPageIndex: index,
+        onPageChanged: onPageChanged,
+        category: category,
+        hotel: hotel,
+        userDetails: userDetails,
+        authService: authService,
+        latitude: hotel.lat,
+        longitude: hotel.lng,
+      ),
+      currentPageIndex: index,
+      onPageChanged: onPageChanged,
       category: category,
       hotel: hotel,
       userDetails: userDetails,
-      currentPageIndex: currentPageIndex,
-      onPageChanged: onPageChanged,
+      authService: authService,
     );
+
     switch (index) {
       case 0:
         navigationManager.navigateToHome(context);
@@ -337,6 +361,7 @@ class CustomBottomBar extends StatelessWidget {
         break;
     }
   }
+
 
   List<BottomNavigationBarItem> _buildBottomNavBarItems() {
     return [
@@ -379,11 +404,9 @@ class CustomBottomBar extends StatelessWidget {
         backgroundImage: _imageFile != null
             ? FileImage(_imageFile!)
             : (userDetails['profilePhotoUrl'] != null)
-            ? NetworkImage(
-            userDetails['profilePhotoUrl'] as String)
-            : const AssetImage(
-            'assets/holder/user_photo_placeholder.jpeg')
-        as ImageProvider<Object>,
+                ? NetworkImage(userDetails['profilePhotoUrl'] as String)
+                : const AssetImage('assets/holder/user_photo_placeholder.jpeg')
+                    as ImageProvider<Object>,
       ),
     );
   }

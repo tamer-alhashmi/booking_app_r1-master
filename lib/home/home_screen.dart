@@ -113,17 +113,17 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ];
     hotelId = widget.hotelId;
-    _loadUserData();
     fetchHotel();
-    checkNotifications();
     fetchAndSetMarkers();
+    _loadUserData();
+    checkNotifications();
 
-    if (widget.userDetails['profilePhotoUrl'] != null) {
-      precacheImage(
-        NetworkImage(widget.userDetails['profilePhotoUrl'] as String),
-        context,
-      );
-    }
+    // if (widget.userDetails.profilePhotoUrl != null) {
+    //   precacheImage(
+    //     NetworkImage(widget.userDetails.profilePhotUrl),
+    //     context,
+    //   );
+    // }
   }
 
   void _onItemTapped(int index) {
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ],
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+        // extendBodyBehindAppBar: false,
         bottomNavigationBar: CustomBottomBar(
           currentPageIndex: _selectedIndex,
           onPageChanged: _onItemTapped,
@@ -188,28 +188,24 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // const SizedBox(height: 55),
-              _buildSearchAndFilterBar(),
+
               Expanded(
                 child: SingleChildScrollView(
                   controller: _scrollController,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const SizedBox(height: 80),
-                        const Text(
-                          'Explore United Kingdom',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        ..._buildHotelGroups(),
-                        _buildHotelList(),
-                      ],
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildSearchAndFilterBar(),
+                       Padding(
+                         padding: const EdgeInsets.all(8),
+                         child: Column(
+                           children: [
+                           ..._buildHotelGroups(),
+                           _buildHotelList(),
+                         ],
+                         ),
+                       )
+                    ],
                   ),
                 ),
               ),
@@ -221,88 +217,89 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSearchAndFilterBar() {
-    return Container(
-      height: 120,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        // color: AppTheme.primaryOpacityColor,
-        color: Colors.transparent,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 1,
-            offset: const Offset(0, 2),
-          )
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () {
-              // Handle filter icon tap
-            },
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.search),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: TextField(
-                      controller: _cityController,
-                      decoration: const InputDecoration.collapsed(
-                        hintText: 'Where to?',
-                      ),
-                      onChanged: (value) {
-                        searchHotelsByCity(value);
-                      },
-                    ),
-                  )
-                ],
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/homeBG/1.webp'),
+              fit: BoxFit.cover, // This ensures the image covers the container
             ),
           ),
-          Stack(
+          height: 320,
+          // padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
-                icon: const Icon(Icons.notifications),
+                icon: const Icon(Icons.filter_list),
                 onPressed: () {
-                  // Handle notification icon tap
+                  // Handle filter icon tap
                 },
               ),
-              if (widget.userHasNotification)
-                Positioned(
-                  right: 0,
-                  top: 4,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.search),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextField(
+                          controller: _cityController,
+                          decoration: const InputDecoration.collapsed(
+                            hintText: 'Where to?',
+                          ),
+                          onChanged: (value) {
+                            searchHotelsByCity(value);
+                          },
+                        ),
+                      )
+                    ],
                   ),
                 ),
+              ),
+              Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.notifications),
+                    onPressed: () {
+                      // Handle notification icon tap
+                    },
+                  ),
+                  if (widget.userHasNotification)
+                    Positioned(
+                      right: 0,
+                      top: 4,
+                      child: Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -335,8 +332,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => HotelDetail(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => HotelDetail(
                       hotel: hotel,
                       policies: widget.policies,
                       userDetails: widget.userDetails,
@@ -346,6 +343,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       hotelId: hotelId,
                       // categoryId: widget.categoryId,
                     ),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1.0, 0.0);
+                      const end = Offset.zero;
+                      const curve = Curves.ease;
+
+                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                      return SlideTransition(
+                        position: animation.drive(tween),
+                        child: child,
+                      );
+                    },
                   ),
                 );
               },

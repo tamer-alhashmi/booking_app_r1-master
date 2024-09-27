@@ -74,22 +74,22 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorite Screen'),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back),
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        // ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      bottomNavigationBar: CustomBottomBar(
-        currentPageIndex: currentPageIndex,
-        onPageChanged: widget.onPageChanged,
-        category: widget.category,
-        hotel: widget.hotel,
-        userDetails: widget.userDetails,
-        authService: widget.authService,
-        firstName: _firstName, longitude: widget.longitude, latitude: widget.latitude, userId: '',
-      ),
+      // bottomNavigationBar: CustomBottomBar(
+      //   currentPageIndex: currentPageIndex,
+      //   onPageChanged: widget.onPageChanged,
+      //   category: widget.category,
+      //   hotel: widget.hotel,
+      //   userDetails: widget.userDetails,
+      //   authService: widget.authService,
+      //   firstName: _firstName, longitude: widget.longitude, latitude: widget.latitude, userId: '',
+      // ),
       body: _favoriteHotels.isEmpty
           ? const Center(child: Text('No favorite hotels found.'))
           : ListView.builder(

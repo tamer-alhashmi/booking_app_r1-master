@@ -30,7 +30,7 @@ class _RoomsAndGuestsSelectorState extends State<RoomsAndGuestsSelector> {
         padding: const EdgeInsets.all(16),
         decoration:  BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: AppTheme.primaryVariantColor.withOpacity(0.1),
+          color: AppTheme.primaryColor.withOpacity(0.1),
         ),
         child: Column(
           children: [
@@ -50,17 +50,17 @@ class _RoomsAndGuestsSelectorState extends State<RoomsAndGuestsSelector> {
               children: [
                 Text(
                   '$userRoomSelected rooms',
-                  style: TextStyle(color: AppTheme.primaryVariantColor),
+                  style: TextStyle(color: AppTheme.primaryColor),
                 ),
                 const SizedBox(width: 8),
                 Text(
                   '$userAdultSelected adults',
-                  style: TextStyle(color: AppTheme.primaryVariantColor),
+                  style: TextStyle(color: AppTheme.primaryColor),
                 ),
                 const SizedBox(width: 8),
                 Text(
                   '$userChildrenSelected children',
-                  style: TextStyle(color: AppTheme.primaryVariantColor),
+                  style: TextStyle(color: AppTheme.primaryColor),
                 ),
               ],
             ),

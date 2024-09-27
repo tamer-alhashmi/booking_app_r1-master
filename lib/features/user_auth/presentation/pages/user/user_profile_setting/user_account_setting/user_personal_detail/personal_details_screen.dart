@@ -118,8 +118,8 @@ class _UserProfileUpdatePageState extends State<UserProfileUpdatePage> {
     // Navigate back to HomeScreen after updating profile
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => HomeScreen(
+      PageRouteBuilder(
+        pageBuilder: (_, animation, secondaryAnimation) => HomeScreen(
           authService: widget.authService,
           hotel: widget.hotel,
           userDetails: widget.userDetails,
@@ -131,6 +131,18 @@ class _UserProfileUpdatePageState extends State<UserProfileUpdatePage> {
           hotelId: widget.hotelId,
           // categoryId: widget.categoryId,
         ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
       ),
     );
   }

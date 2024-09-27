@@ -77,6 +77,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../theme/app_theme.dart';
 import '../../user_auth/firebase_auth_impelmentation/auth_service.dart';
 import '../../user_auth/presentation/pages/log_In_screen.dart';
 
@@ -165,10 +166,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   animatedTexts: [
                     ColorizeAnimatedText(
                       'H&H Hotels.',
-                      textStyle: GoogleFonts.roboto(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      textStyle: AppTheme.headlineTextStyle,
                       colors: [
                         Colors.white,
                         Colors.redAccent,

@@ -54,6 +54,8 @@ import 'package:booking_app_r1/model/hotel/detail/navigate_tab_bar/navigation-ta
 import 'package:booking_app_r1/model/hotel/detail/policies.dart';
 import 'package:flutter/material.dart';
 
+import '../../../theme/app_theme.dart';
+
 class PoliciesWidget extends StatelessWidget {
   final Hotel hotel;
 
@@ -65,43 +67,40 @@ class PoliciesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Policies:',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Policies:',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text('Check-in: ${policies.checkIn}'),
             ),
-          ),
-          const SizedBox(height: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Text('Check-in: ${policies.checkIn}'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Text('Check-out: ${policies.checkOut}'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child:
-                    Text('Accommodation Type: ${policies.accommodationType}'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Text('Pet Policy: ${policies.petPolicy}'),
-              ),
-            ],
-          ),
-        ],
-      ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text('Check-out: ${policies.checkOut}'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child:
+                  Text('Accommodation Type: ${policies.accommodationType}'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text('Pet Policy: ${policies.petPolicy}'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -125,21 +124,19 @@ class HotelPoliciesCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 5),
-      child: SizedBox(
-        width: double.infinity, // Extend to full width
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Policies:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Column(
+      padding: const EdgeInsets.only(top: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Policies:',
+            style: AppTheme.headlineTextStyle,
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -156,7 +153,7 @@ class HotelPoliciesCardWidget extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 4),
-                  child: Text('Pet Policy: ${policies.petPolicy}'),
+                  child: Text('Pet Policy: ${policies.petPolicy}', style: AppTheme.bodyTextStyle,),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 4),
@@ -179,17 +176,14 @@ class HotelPoliciesCardWidget extends StatelessWidget {
                     },
                     child: const Text(
                       'Read Policy',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: AppTheme.linkTextStyle,
                     ),
                   ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

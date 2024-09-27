@@ -1,4 +1,3 @@
-
 import 'package:booking_app_r1/features/user_auth/firebase_auth_impelmentation/auth_service.dart';
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/bookings_screen.dart';
 import 'package:booking_app_r1/features/user_auth/presentation/pages/user/favorite_screen.dart';
@@ -15,8 +14,11 @@ class NavigationManager {
   final int currentPageIndex;
   final Function(int) onPageChanged;
   final Map<String, dynamic> userDetails;
+  final UserProfileSettingScreen userProfileSettingScreen;
+  final BookingHistoryScreen bookingHistoryScreen;
 
-  NavigationManager({
+  NavigationManager(
+    this.userProfileSettingScreen, this.bookingHistoryScreen, {
     required this.currentPageIndex,
     required this.onPageChanged,
     required this.category,
@@ -26,56 +28,148 @@ class NavigationManager {
   });
 
   void navigateToHome(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      "/home",
-          (route) => false,
-      arguments: {
-        'authService': authService,
-        'category': category,
-        'hotel': hotel,
-        'userDetails': userDetails,
-      },
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(
+          authService: authService,
+          hotel: hotel,
+          userDetails: const {},
+          latitude: hotel.lat,
+          longitude: hotel.lng,
+          userId: '',
+          policies: hotel.policies,
+          category: category,
+          hotelId: hotel.id,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
     );
   }
 
   void navigateToUserFavorite(BuildContext context) {
-    Navigator.pushReplacementNamed(
+    Navigator.pushReplacement(
       context,
-      '/favorite',
-      arguments: {
-        'authService': authService,
-        'category': category,
-        'hotel': hotel,
-        'userDetails': userDetails,
-      },
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => FavoriteScreen(
+          currentPageIndex: currentPageIndex,
+          onPageChanged: (int) {},
+          category: category,
+          hotel: hotel,
+          userDetails: {},
+          authService: authService,
+          latitude: hotel.lat,
+          longitude: hotel.lng,
+        ), // Replace with your favorite screen widget
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0); // Slide in from the right
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+        settings: RouteSettings(
+          arguments: {
+            'authService': authService,
+            'category': category,
+            'hotel': hotel,
+            'userDetails': userDetails,
+          },
+        ),
+      ),
     );
   }
 
   void navigateToUserBooking(BuildContext context) {
-    Navigator.pushReplacementNamed(
+    Navigator.pushReplacement(
       context,
-      '/bookings',
-      arguments: {
-        'authService': authService,
-        'category': category,
-        'hotel': hotel,
-        'userDetails': userDetails,
-      },
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            BookingHistoryScreen(currentPageIndex: currentPageIndex,
+              onPageChanged: (int) {},
+              category: category,
+              hotel: hotel,
+              userDetails: {},
+              authService: authService,
+              latitude: hotel.lat,
+              longitude: hotel.lng,), // Replace with your bookings screen widget
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0); // Slide in from the right
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+        settings: RouteSettings(
+          arguments: {
+            'authService': authService,
+            'category': category,
+            'hotel': hotel,
+            'userDetails': userDetails,
+          },
+        ),
+      ),
     );
   }
 
   void navigateToUserProfileSettings(BuildContext context) {
-    Navigator.pushReplacementNamed(
+    Navigator.pushReplacement(
       context,
-      '/userProfileSettings',
-      arguments: {
-        'authService': authService,
-        'category': category,
-        'hotel': hotel,
-        'userDetails': userDetails,
-      },
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            UserProfileSettingScreen(currentPageIndex: currentPageIndex,
+              onPageChanged: (int) {},
+              category: category,
+              hotel: hotel,
+              userDetails: {},
+              authService: authService,
+              latitude: hotel.lat,
+              longitude: hotel.lng, userId: '', hotelId: '',), // Replace with your user profile settings screen widget
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0); // Slide in from the right
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+        settings: RouteSettings(
+          arguments: {
+            'authService': authService,
+            'category': category,
+            'hotel': hotel,
+            'userDetails': userDetails,
+          },
+        ),
+      ),
     );
   }
 }
-
-

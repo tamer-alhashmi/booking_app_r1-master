@@ -85,10 +85,7 @@ class HotelAmenitiesCard extends StatelessWidget {
           children: [
             const Text(
               'Most Popular Facilities:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTheme.headlineTextStyle,
             ),
             Wrap(
               direction: Axis.horizontal,
@@ -100,15 +97,13 @@ class HotelAmenitiesCard extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.check_circle, // You can use any icon you want
-                        color: Colors.green, // Customize icon color
+                        color: AppTheme.accentColor, // Customize icon color
                       ),
                       const SizedBox(
                           width: 4), // Add space between icon and text
                       Text(
                         amenity,
-                        style: const TextStyle(
-                          fontSize: 12, // Customize text size
-                        ),
+                        style:AppTheme.bodyTextStyle,
                       ),
                     ],
                   ),
@@ -132,11 +127,7 @@ class HotelAmenitiesCard extends StatelessWidget {
               },
               child: const Text(
                 'More Facilities',
-                style: TextStyle(
-                  color: Colors.blue, // Customize color of "Read more" text
-                  decoration:
-                      TextDecoration.none, // Add underline to "Read more" text
-                ),
+                style: AppTheme.linkTextStyle,
               ),
             ),
           ],

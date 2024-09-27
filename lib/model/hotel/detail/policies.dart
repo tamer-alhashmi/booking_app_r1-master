@@ -13,17 +13,17 @@ class HotelPolicies {
 
   factory HotelPolicies.fromJson(Map<String, dynamic> json) {
     return HotelPolicies(
-      checkIn: json['Check in'] ?? 'N/A',
-      checkOut: json['Check out'] ?? 'N/A',
-      accommodationType: json['Accommodation Type'] ?? 'N/A',
-      petPolicy: json['Pet Policy'] ?? 'N/A',
+      checkIn: json['check-In'] ?? 'N/A',
+      checkOut: json['check-Out'] ?? 'N/A',
+      accommodationType: json['accommodation-Type'] ?? 'N/A',
+      petPolicy: json['pet-Policy'] ?? 'Not Allowed',
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "Check in": checkIn,
-        "Check out": checkOut,
-        "Accommodation Type": accommodationType,
-        "Pet Policy": petPolicy,
+        "Check-In": checkIn,
+        "Check-Out": checkOut,
+        "accommodation-Type": accommodationType,
+        "Pet-Policy": petPolicy,
       };
 }

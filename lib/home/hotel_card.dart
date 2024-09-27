@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../theme/app_theme.dart';
+
 class HotelCard extends StatelessWidget {
   final Hotel hotel;
   final Category category;
@@ -47,15 +49,36 @@ class HotelCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  hotel.name,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: Icon(
+                          Icons.hotel,
+                          color: AppTheme.accentColor),),
+
+                    Text(
+                      hotel.name,
+                      style: AppTheme.cardHeadlineTextStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8.0),
-                Text(hotel.address),
+                const SizedBox(height: 4.0),
+                Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: Icon(
+                          Icons.location_city,
+                          color: AppTheme.accentColor),
+                    ),
+                    Expanded(child: Text(
+                      hotel.address,
+                      style: AppTheme.addressTextStyle,),)
+                  ],
+                ),
                 Text(
                   hotel.city,
                   style: const TextStyle(

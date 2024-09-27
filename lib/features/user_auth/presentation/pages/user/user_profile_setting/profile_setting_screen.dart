@@ -101,9 +101,10 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (_) => HomeScreen(
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, animation, secondaryAnimation) => HomeScreen(
                   authService: widget.authService,
                   hotel: widget.hotel,
                   userDetails: widget.userDetails,
@@ -115,6 +116,18 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                   hotelId: widget.hotelId,
                   // categoryId: widget.categoryId,
                 ),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.ease;
+
+                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
               ),
             );
           },
@@ -127,29 +140,29 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
             },
           ),
         ],
-        backgroundColor: _isDarkModeEnabled
-            ? MyAppBarTheme.darkAppBarTheme.backgroundColor
-            : MyAppBarTheme.lightAppBarTheme.backgroundColor,
-        elevation: _isDarkModeEnabled
-            ? MyAppBarTheme.darkAppBarTheme.elevation
-            : MyAppBarTheme.lightAppBarTheme.elevation,
-        centerTitle: true,
-        iconTheme: _isDarkModeEnabled
-            ? MyAppBarTheme.darkAppBarTheme.iconTheme
-            : MyAppBarTheme.lightAppBarTheme.iconTheme,
+        // backgroundColor: _isDarkModeEnabled
+        //     ? MyAppBarTheme.darkAppBarTheme.backgroundColor
+        //     : MyAppBarTheme.lightAppBarTheme.backgroundColor,
+        // elevation: _isDarkModeEnabled
+        //     ? MyAppBarTheme.darkAppBarTheme.elevation
+        //     : MyAppBarTheme.lightAppBarTheme.elevation,
+        // centerTitle: true,
+        // iconTheme: _isDarkModeEnabled
+        //     ? MyAppBarTheme.darkAppBarTheme.iconTheme
+        //     : MyAppBarTheme.lightAppBarTheme.iconTheme,
       ),
-      bottomNavigationBar: CustomBottomBar(
-        currentPageIndex: currentPageIndex,
-        onPageChanged: widget.onPageChanged,
-        category: widget.category,
-        hotel: widget.hotel,
-        userDetails: _userDetails,
-        authService: widget.authService,
-        firstName: '',
-        longitude: widget.longitude,
-        latitude: widget.latitude,
-        userId: '',
-      ),
+      // bottomNavigationBar: CustomBottomBar(
+      //   currentPageIndex: currentPageIndex,
+      //   onPageChanged: widget.onPageChanged,
+      //   category: widget.category,
+      //   hotel: widget.hotel,
+      //   userDetails: _userDetails,
+      //   authService: widget.authService,
+      //   firstName: '',
+      //   longitude: widget.longitude,
+      //   latitude: widget.latitude,
+      //   userId: '',
+      // ),
       body: SingleChildScrollView(
         key: const PageStorageKey('user-profile-scroll'),
         child: Column(
