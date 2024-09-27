@@ -86,8 +86,8 @@ class BookingApp extends StatelessWidget {
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'H&H Booking App',
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            // theme: ThemeData.light(),
+            // darkTheme: ThemeData.dark(),
             // themeMode: themeMode,
             home: SplashScreen(
               authService: authService,
