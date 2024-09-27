@@ -176,7 +176,7 @@ class _ConfirmationCredentialPageState
             hotelId: widget.hotelId,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(1.0, 0.0);
+            const begin = Offset(2.0, 0.0);
             const end = Offset.zero;
             const curve = Curves.ease;
 
@@ -234,29 +234,45 @@ class _ConfirmationCredentialPageState
   }
 
   Future<void> _loadCategory() async {
-    List<Category> categories = await fetchHotelCategories(widget.hotel.id);
+    try {
+      List<Category> categories = await fetchHotelCategories(widget.hotel.id);
 
-    // Check if categories list is not empty and assign the first category as an example
-    if (categories.isNotEmpty) {
       setState(() {
-        category = categories.first;
+        if (categories.isNotEmpty) {
+          category = categories.first;
+        } else {
+          // Provide a default category when no categories are found
+          category = Category(
+            id: 'sample_id',
+            catTitle: 'Sample Category',
+            catFullName: 'Sample Full Name',
+            catDescreption: 'Sample Description', // Fixed typo here
+            bedType: 'Queen',
+            capacity: 2,
+            amenities: ['WiFi', 'TV'],
+            galleryUrl: ['1.jpg', '2.jpg'],
+            roomSize: '30 sqm',
+            catProPicUrl: 'sample_tropic_url.jpg',
+            catHotelDescreption: 'Full Sample Description', // Fixed typo here
+          );
+        }
       });
-    } else {
-      // Handle case where no categories are found
-      // You can set a default category or handle this scenario differently
+    } catch (e) {
+      // Handle error fetching categories, optionally provide default data
+      print("Error loading categories: $e");
       setState(() {
         category = Category(
-          id: 'sample_id',
-          catTitle: 'Sample Category',
-          catFullName: 'Sample Full Name',
-          catDescreption: 'Sample Description',
-          bedType: 'Queen',
-          capacity: 2,
-          amenities: ['WiFi', 'TV'],
-          galleryUrl: ['1.jpg', '2.jpg'],
-          roomSize: '30 sqm',
-          catProPicUrl: 'sample_tropic_url.jpg',
-          catHotelDescreption: 'Full Sample Description',
+          id: 'error_id',
+          catTitle: 'Error Category',
+          catFullName: 'No Category Found',
+          catDescreption: 'Error fetching categories.',
+          bedType: 'N/A',
+          capacity: 0,
+          amenities: [],
+          galleryUrl: [],
+          roomSize: 'N/A',
+          catProPicUrl: '',
+          catHotelDescreption: 'No description available.',
         );
       });
     }

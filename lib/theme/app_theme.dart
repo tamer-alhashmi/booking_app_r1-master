@@ -5,6 +5,8 @@ class AppTheme {
   static const Color primaryColor = Color(0xFF00796B);
   static const Color secondaryColor = Color(0xFF24D876);
   static const Color accentColor = Color(0xFF009688);
+  static const Color iconBGColor = Color(0xFFb1e3df);
+  static const Color whatsAppColor = Color(0xFF25D366);
   static const Color backgroundColor = Color(0xFFF2F2F2);
   static const Color cardColor = Color(0xFFFFFFFF);
   static const Color chipBackgroundColor = Color(0xFFE0E0E0);

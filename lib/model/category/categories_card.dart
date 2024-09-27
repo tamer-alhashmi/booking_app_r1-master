@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../theme/app_theme.dart';
 import 'category.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -158,33 +159,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         const SizedBox(height: 16),
                         Text(
                           category.catTitle,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
+                          style: AppTheme.sectionTitleTextStyle,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           category.catFullName,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black54,
-                          ),
+                          style: AppTheme.sectionTitleTextStyle,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           category.catHotelDescreption,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                          ),
+                          style: AppTheme.bodyTextStyle,
                         ),
                         const SizedBox(height: 16),
                         Row(
                           children: [
-                            const Icon(Icons.bed, color: Colors.blueAccent),
+                            const Icon(Icons.bed, color: AppTheme.primaryColor),
                             const SizedBox(width: 8),
                             Text(
                               'Bed Type: ${category.bedType}',
@@ -198,7 +188,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.group, color: Colors.blueAccent),
+                            const Icon(Icons.group, color: AppTheme.primaryColor),
                             const SizedBox(width: 8),
                             Text(
                               'Capacity: ${category.capacity}',
@@ -213,7 +203,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         Row(
                           children: [
                             const Icon(Icons.square_foot,
-                                color: Colors.blueAccent),
+                                color: AppTheme.primaryColor),
                             const SizedBox(width: 8),
                             Text(
                               'Room Size: ${category.roomSize}',
@@ -227,67 +217,39 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         const SizedBox(height: 16),
                         const Text(
                           'Amenities:',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
+                          style: AppTheme.subheadTextStyle,
                         ),
                         const SizedBox(height: 8),
                         Wrap(
                           spacing: 8.0,
                           runSpacing: 4.0,
                           children: category.amenities.take(6).map((amenity) {
-                            return Chip(
-                              label: Text(amenity),
-                              backgroundColor: Colors.blueAccent.shade100,
-                              labelStyle: const TextStyle(color: Colors.white),
+                            return Row(
+                              mainAxisSize: MainAxisSize.min, // This ensures the row only takes the needed space
+                              children: [
+                                const Icon(
+                                  Icons.check, // Replace with any icon that matches the amenity
+                                  color: AppTheme.primaryColor,
+                                  size: 20.0, // Adjust the size of the icon
+                                ),
+                                const SizedBox(width: 4), // Add some space between icon and text
+                                Text(
+                                  amenity,
+                                  style: const TextStyle(
+                                    color: AppTheme.textColor,
+                                    fontSize: 14.0, // Adjust the font size if needed
+                                  ),
+                                ),
+                              ],
                             );
                           }).toList(),
                         ),
+                        const SizedBox(height: 20,)
+                        ,
                         ContactToolWidget(
                           hotel: widget.hotel,
                           category: category,
                         ),
-
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //     children: [
-                        //       IconButton(
-                        //         iconSize: 30,
-                        //         icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
-                        //         onPressed: () {
-                        //           final whatsappMessage = Uri.encodeComponent(
-                        //               'Hi, I am interested in your property at ${widget.hotel.name} Hotel,\nLocated at ${widget.hotel.address}.\nName: $_firstName $_lastName.'
-                        //           );
-                        //           final whatsappUrl = 'https://wa.me/${widget.hotel.whatsapp}?text=$whatsappMessage';
-                        //           launchUrl(Uri.parse(whatsappUrl));
-                        //         },
-                        //       ),
-                        //       IconButton(
-                        //         iconSize: 30,
-                        //         icon: Icon(Icons.email, color: Colors.blue),
-                        //         onPressed: () {
-                        //           final emailMessage = Uri.encodeComponent(
-                        //               'Hi, I am interested in your property at ${widget.hotel.name} Hotel,\nLocated at ${widget.hotel.address}.\nName: $_firstName $_lastName'
-                        //           );
-                        //           final emailUrl = 'mailto:${widget.hotel.email}?subject=Property Inquiry&body=$emailMessage';
-                        //           launchUrl(Uri.parse(emailUrl));
-                        //         },
-                        //       ),
-                        //       IconButton(
-                        //         iconSize: 30,
-                        //         icon: Icon(Icons.phone, color: Colors.black),
-                        //         onPressed: () {
-                        //           final phoneUrl = 'tel:${widget.hotel.phone}';
-                        //           launchUrl(Uri.parse(phoneUrl));
-                        //         },
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
