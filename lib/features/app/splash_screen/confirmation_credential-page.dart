@@ -38,7 +38,7 @@ class _ConfirmationCredentialPageState
   late bool hasNotification = false;
   bool _isEmailVerified = false;
   bool _isLoading = true;
-  late Category category; // Make it nullable
+  // late Category category; // Make it nullable
 
   Future<void> _loadUserData() async {
     try {
@@ -100,7 +100,7 @@ class _ConfirmationCredentialPageState
               const SizedBox(height: 10),
               const Text(
                 'Please check your email to verify your account. '
-                    'You need to verify your email to continue using the app.',
+                'You need to verify your email to continue using the app.',
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
@@ -136,7 +136,7 @@ class _ConfirmationCredentialPageState
         return AlertDialog(
           title: const Text('Email Not Verified'),
           content:
-          const Text('Please check your email to verify your account.'),
+              const Text('Please check your email to verify your account.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -161,36 +161,46 @@ class _ConfirmationCredentialPageState
 
   //  _navigateToLoginPage
   void _navigateToHomeScreen() {
-
-      Navigator.of(context).pushAndRemoveUntil(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(
-            authService: widget.authService,
-            hotel: widget.hotel,
-            userDetails: const {},
-            latitude: widget.hotel.lat,
-            longitude: widget.hotel.lng,
-            userId: '',
-            policies: widget.hotel.policies,
-            category: category,
-            hotelId: widget.hotelId,
-          ),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(2.0, 0.0);
-            const end = Offset.zero;
-            const curve = Curves.ease;
-
-            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-            return SlideTransition(
-              position: animation.drive(tween),
-              child: child,
-            );
-          },
+    Navigator.of(context).pushAndRemoveUntil(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(
+          authService: widget.authService,
+          hotel: widget.hotel,
+          userDetails: const {},
+          latitude: widget.hotel.lat,
+          longitude: widget.hotel.lng,
+          userId: '',
+          policies: widget.hotel.policies,
+          category: Category(
+              id: 'id',
+              catTitle: 'catTitle',
+              catFullName: 'catFullName',
+              catDescreption: 'catDescreption',
+              catHotelDescreption: 'catHotelDescreption',
+              bedType: 'bedType',
+              capacity: 1,
+              amenities: [],
+              galleryUrl: [],
+              roomSize: 'roomSize',
+              catProPicUrl: 'catProPicUrl'),
+          hotelId: widget.hotelId,
         ),
-            (route) => false,
-      );
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(2.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
 
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+      ),
+      (route) => false,
+    );
   }
 
   void _navigateToLoginPage() {
@@ -203,7 +213,7 @@ class _ConfirmationCredentialPageState
           // hotelId: widget.hotelId,
         ),
       ),
-          (route) => false,
+      (route) => false,
     );
   }
 
@@ -211,7 +221,7 @@ class _ConfirmationCredentialPageState
   void initState() {
     super.initState();
     _loadUserData();
-    _loadCategory();
+    // _loadCategory();
     _checkEmailVerification();
   }
 
@@ -233,50 +243,50 @@ class _ConfirmationCredentialPageState
     }
   }
 
-  Future<void> _loadCategory() async {
-    try {
-      List<Category> categories = await fetchHotelCategories(widget.hotel.id);
-
-      setState(() {
-        if (categories.isNotEmpty) {
-          category = categories.first;
-        } else {
-          // Provide a default category when no categories are found
-          category = Category(
-            id: 'sample_id',
-            catTitle: 'Sample Category',
-            catFullName: 'Sample Full Name',
-            catDescreption: 'Sample Description', // Fixed typo here
-            bedType: 'Queen',
-            capacity: 2,
-            amenities: ['WiFi', 'TV'],
-            galleryUrl: ['1.jpg', '2.jpg'],
-            roomSize: '30 sqm',
-            catProPicUrl: 'sample_tropic_url.jpg',
-            catHotelDescreption: 'Full Sample Description', // Fixed typo here
-          );
-        }
-      });
-    } catch (e) {
-      // Handle error fetching categories, optionally provide default data
-      print("Error loading categories: $e");
-      setState(() {
-        category = Category(
-          id: 'error_id',
-          catTitle: 'Error Category',
-          catFullName: 'No Category Found',
-          catDescreption: 'Error fetching categories.',
-          bedType: 'N/A',
-          capacity: 0,
-          amenities: [],
-          galleryUrl: [],
-          roomSize: 'N/A',
-          catProPicUrl: '',
-          catHotelDescreption: 'No description available.',
-        );
-      });
-    }
-  }
+  // Future<void> _loadCategory() async {
+  //   try {
+  //     List<Category> categories = await fetchHotelCategories(widget.hotel.id);
+  //
+  //     setState(() {
+  //       if (categories.isNotEmpty) {
+  //         category = categories.first;
+  //       } else {
+  //         // Provide a default category when no categories are found
+  //         category = Category(
+  //           id: 'sample_id',
+  //           catTitle: 'Sample Category',
+  //           catFullName: 'Sample Full Name',
+  //           catDescreption: 'Sample Description', // Fixed typo here
+  //           bedType: 'Queen',
+  //           capacity: 2,
+  //           amenities: ['WiFi', 'TV'],
+  //           galleryUrl: ['1.jpg', '2.jpg'],
+  //           roomSize: '30 sqm',
+  //           catProPicUrl: 'sample_tropic_url.jpg',
+  //           catHotelDescreption: 'Full Sample Description', // Fixed typo here
+  //         );
+  //       }
+  //     });
+  //   } catch (e) {
+  //     // Handle error fetching categories, optionally provide default data
+  //     print("Error loading categories: $e");
+  //     setState(() {
+  //       category = Category(
+  //         id: 'error_id',
+  //         catTitle: 'Error Category',
+  //         catFullName: 'No Category Found',
+  //         catDescreption: 'Error fetching categories.',
+  //         bedType: 'N/A',
+  //         capacity: 0,
+  //         amenities: [],
+  //         galleryUrl: [],
+  //         roomSize: 'N/A',
+  //         catProPicUrl: '',
+  //         catHotelDescreption: 'No description available.',
+  //       );
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -285,35 +295,35 @@ class _ConfirmationCredentialPageState
       body: Center(
         child: _isLoading
             ? const CircularProgressIndicator(
-          color: AppTheme.accentColor,
-        )
+                color: AppTheme.accentColor,
+              )
             : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (_isEmailVerified)
-              const AnimatedCheckLogo()
-            else
-              const Icon(
-                Icons.email_outlined,
-                color: Colors.white,
-                size: 100,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_isEmailVerified)
+                    const AnimatedCheckLogo()
+                  else
+                    const Icon(
+                      Icons.email_outlined,
+                      color: Colors.white,
+                      size: 100,
+                    ),
+                  const SizedBox(height: 20),
+                  Text(
+                    _isEmailVerified
+                        ? 'Welcome, $_firstName'
+                        : 'Please verify your email to continue',
+                    style: AppTheme.headlineTextStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  if (!_isEmailVerified)
+                    ElevatedButton(
+                      onPressed: _checkEmailVerification,
+                      child: const Text('I have verified my email'),
+                    ),
+                ],
               ),
-            const SizedBox(height: 20),
-            Text(
-              _isEmailVerified
-                  ? 'Welcome, $_firstName'
-                  : 'Please verify your email to continue',
-              style: AppTheme.headlineTextStyle,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            if (!_isEmailVerified)
-              ElevatedButton(
-                onPressed: _checkEmailVerification,
-                child: const Text('I have verified my email'),
-              ),
-          ],
-        ),
       ),
     );
   }
