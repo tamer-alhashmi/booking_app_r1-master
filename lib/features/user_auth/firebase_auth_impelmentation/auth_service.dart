@@ -293,26 +293,18 @@ class AuthService {
 
   Future<List<Hotel>> getFavoriteHotels(String userId) async {
     try {
-      final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .get();
+      final DocumentSnapshot userDoc =
+      await FirebaseFirestore.instance.collection('users').doc(userId).get();
       final dynamic userData = userDoc.data();
 
       if (userData != null && userData.containsKey('favorites')) {
-        final List<dynamic> favoriteHotelIds =
-            List<dynamic>.from(userData['favorites']);
-        final List<Hotel> favoriteHotels = [];
+        final List<dynamic> favoriteHotelIds = List<dynamic>.from(userData['favorites']);
 
-        // Fetch details of each favorite hotel
-        for (final dynamic hotelId in favoriteHotelIds) {
-          final DocumentSnapshot hotelDoc = await FirebaseFirestore.instance
-              .collection('hotels')
-              .doc(hotelId)
-              .get();
-          final Hotel hotel = Hotel.fromFirestore(hotelDoc);
-          favoriteHotels.add(hotel);
-        }
+        // Load hotels concurrently with Future.wait
+        final List<Hotel> favoriteHotels = await Future.wait(favoriteHotelIds.map((hotelId) async {
+          final DocumentSnapshot hotelDoc = await FirebaseFirestore.instance.collection('hotels').doc(hotelId).get();
+          return Hotel.fromFirestore(hotelDoc);
+        }));
 
         return favoriteHotels;
       } else {
@@ -320,26 +312,37 @@ class AuthService {
       }
     } catch (error) {
       print('Error fetching favorite hotels: $error');
-      throw error;
+      throw Exception('Failed to fetch favorite hotels. Please try again later.');
     }
   }
+
 
   // Get user details from Firestore
   Future<UserDetails?> getUserDetails() async {
-    if (currentUser == null) return null;
+    // Check if the current user is null or currentUserUid is null
+    if (currentUser == null || currentUserUid == null) {
+      return null;
+    }
+
     try {
-      final DocumentSnapshot userDoc =
-          await _firestore.collection('users').doc(currentUserUid).get();
-      if (userDoc.exists) {
-        return UserDetails.fromJson(userDoc.data() as Map<String, dynamic>);
+      final DocumentSnapshot<Map<String, dynamic>> userDoc =
+      await _firestore.collection('users').doc(currentUserUid).get();
+
+      if (userDoc.exists && userDoc.data() != null) {
+        // Safely pass both the user data and the non-null userId
+        return UserDetails.fromJson(userDoc.data()!, currentUserUid!);
+      } else {
+        print('User document does not exist.');
+        return null;
       }
     } catch (e) {
       print('Error getting user details: $e');
-
-      throw Exception('Failed to get user details. Please try again later.');
+      return null; // Return null here to handle errors gracefully
     }
-    return null;
   }
+
+
+
 
   // Add user to Firestore
   Future<void> addUserToFirestore(User user, String email, String firstName,
@@ -381,6 +384,7 @@ class AuthService {
   // Remove favorite hotel from user data
   Future<void> removeFavoriteHotel(String hotelId) async {
     if (currentUser == null) return;
+
     try {
       final userDocRef = _firestore.collection('users').doc(currentUserUid);
       await userDocRef.update({
@@ -388,10 +392,10 @@ class AuthService {
       });
     } catch (e) {
       print('Error removing favorite hotel: $e');
-      throw Exception(
-          'Failed to remove favorite hotel. Please try again later.');
+      throw Exception('Failed to remove favorite hotel. Please try again later.');
     }
   }
+
 
   // Add favorite hotel to user data
   Future<void> addFavoriteHotel(String hotelId) async {
@@ -407,32 +411,6 @@ class AuthService {
     }
   }
 
-  //
-  // static Future<NearbyPlaces?> fetchNearbyPlacesFromFirestore(
-  //     String hotelId) async {
-  //   try {
-  //     if (hotelId.isEmpty) {
-  //       print('Error: hotelId is empty or null');
-  //       return null;
-  //     }
-  //
-  //     print('Fetching nearby places for hotelId: $hotelId');
-  //     final querySnapshot = await FirebaseFirestore.instance
-  //         .collection('hotels')
-  //         .doc(hotelId)
-  //         .collection('nearby_places')
-  //         .get();
-  //
-  //     final placesList = querySnapshot.docs.map((doc) {
-  //       return Place.fromJson(doc.data() as Map<String, dynamic>, doc.id);
-  //     }).toList();
-  //
-  //     return NearbyPlaces(places: placesList);
-  //   } catch (e) {
-  //     print('Error getting nearby places from Firestore: $e');
-  //     return null;
-  //   }
-  // }
   Future<void> removeUserFavorite(String userId, String hotelId) async {
     try {
       await FirebaseFirestore.instance.collection('users').doc(userId).update({
@@ -440,8 +418,33 @@ class AuthService {
       });
     } catch (error) {
       print('Error removing favorite hotel: $error');
+      throw Exception('Failed to remove favorite hotel.');
     }
   }
+
+
+  // Fetch favorite hotels from user data
+  Future<List<String>> fetchFavoriteHotels() async {
+    if (currentUser == null) return [];
+
+    try {
+      final userDoc = await _firestore.collection('users').doc(currentUserUid).get();
+      final userData = userDoc.data() as Map<String, dynamic>?;
+
+      if (userData != null && userData.containsKey('favoriteHotels')) {
+        final List<String> favoriteHotels = List<String>.from(userData['favoriteHotels']);
+        return favoriteHotels;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print('Error fetching favorite hotels: $e');
+      throw Exception('Failed to fetch favorite hotels. Please try again later.');
+    }
+  }
+
+
+
 
   static Future<List<Category>> fetchHotelCategories(String hotelId) async {
     try {
@@ -458,23 +461,6 @@ class AuthService {
     } catch (e) {
       print("Error fetching categories: $e");
       return [];
-    }
-  }
-
-  // Fetch favorite hotels from user data
-  Future<List<String>> fetchFavoriteHotels() async {
-    if (currentUser == null) return [];
-    try {
-      final userDoc =
-          await _firestore.collection('users').doc(currentUserUid).get();
-      final userData = userDoc.data() as Map<String, dynamic>;
-      final List<String> favoriteHotels =
-          List<String>.from(userData['favoriteHotels'] ?? []);
-      return favoriteHotels;
-    } catch (e) {
-      print('Error fetching favorite hotels: $e');
-      throw Exception(
-          'Failed to fetch favorite hotels. Please try again later.');
     }
   }
 }

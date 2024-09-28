@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+import '../../../firebase_auth_impelmentation/auth_service.dart';
 
 
 class UserDetails {
-  late final String userId;
-  late final bool hasNotification;
-  late final String firstName;
-  late final String lastName;
-  late final String profilePhotoUrl;
+  final String userId;
+  final bool hasNotification;
+  final String firstName;
+  final String lastName;
+  final String profilePhotoUrl;
 
   UserDetails({
     required this.userId,
@@ -16,18 +19,21 @@ class UserDetails {
     required this.profilePhotoUrl,
   });
 
-  factory UserDetails.fromJson(Map<String, dynamic> json) {
+  factory UserDetails.fromJson(Map<String, dynamic> json, String userId) {
     return UserDetails(
+      userId: userId, // Use the passed userId, not from the JSON
       hasNotification: json['hasNotification'] ?? false,
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
       profilePhotoUrl: json['profilePhotoUrl'] ?? '',
-      userId: '',
     );
   }
 
+
+
   Map<String, dynamic> toJson() {
     return {
+      'userId': userId,
       'hasNotification': hasNotification,
       'firstName': firstName,
       'lastName': lastName,
@@ -42,24 +48,40 @@ class UserDetails {
     if (snapshot.exists) {
       final data = snapshot.data();
       if (data != null) {
-        return UserDetails.fromJson(data);
+        return UserDetails.fromJson(data, userId);  // Pass userId separately
       }
     }
 
     // Return default values if the document doesn't exist or data is null
     return UserDetails(
+      userId: userId,  // Return the correct userId
       hasNotification: false,
       firstName: '',
       lastName: '',
       profilePhotoUrl: '',
-      userId: '',
     );
   }
 
-  Future<void> saveUserData(String userId) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .set(toJson());
+
+
+
+  Future<void> saveUserData() async {
+    await FirebaseFirestore.instance.collection('users').doc(userId).set(toJson());
+  }
+}
+
+class UserDataService with ChangeNotifier {
+  Map<String, dynamic> _userDetails = {};
+
+  Map<String, dynamic> get userDetails => _userDetails;
+
+  Future<void> loadUserData(AuthService authService) async {
+    try {
+      _userDetails = (await authService.getUserDetails()) as Map<String, dynamic>;
+      notifyListeners();
+    } catch (e) {
+      // Add error handling here
+      print('Error loading user data: $e');
+    }
   }
 }
