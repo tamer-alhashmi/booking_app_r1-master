@@ -68,17 +68,6 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
           },
         ),
       ),
-      // bottomNavigationBar: CustomBottomBar(
-      //   currentPageIndex: currentPageIndex,
-      //   onPageChanged: widget.onPageChanged, // Use the onPageChanged directly
-      //   category: widget.category,
-      //   hotel: widget.hotel,
-      //   userDetails: widget.userDetails,
-      //   authService: widget.authService,
-      //   firstName: _firstName,
-      //   longitude: widget.longitude,
-      //   latitude: widget.latitude, userId: '',
-      // ),
       body: const Center(
         child: Text('Bookings Screen Content'),
       ),
