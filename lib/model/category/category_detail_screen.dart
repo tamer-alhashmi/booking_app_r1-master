@@ -9,14 +9,16 @@ class CategoryDetailScreen extends StatelessWidget {
   final Hotel hotel;
 
   const CategoryDetailScreen(
-      {Key? key, required this.category, required this.hotel})
+      {Key? key,
+        required this.category,
+        required this.hotel})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(category.catTitle),
+          title: Text(hotel.name),
         ),
         body: Stack(
           children: [
@@ -168,9 +170,7 @@ class CategoryDetailScreen extends StatelessWidget {
                 ),
               ),
             )
-
           ],
-
         )
     );
   }
