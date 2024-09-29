@@ -72,31 +72,35 @@ class PoliciesWidget extends StatelessWidget {
       children: [
         const Text(
           'Policies:',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTheme.sectionTitleTextStyle,
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Text('Check-in: ${policies.checkIn}'),
+             Row(
+               children: [
+                 const Text('Check-in: ',style: AppTheme.bodyTextStyle,),
+                 Text(policies.checkIn, style: AppTheme.bodyTextStyle,)
+               ],
+             ),
+            Row(
+              children: [
+                const Text('Check-out: ',style: AppTheme.bodyTextStyle,),
+                Text(policies.checkOut,style: AppTheme.bodyTextStyle,),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Text('Check-out: ${policies.checkOut}'),
+            Row(
+              children: [
+                const Text('Accommodation Type: ',style: AppTheme.bodyTextStyle,),
+                Text(policies.accommodationType,style: AppTheme.bodyTextStyle),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child:
-                  Text('Accommodation Type: ${policies.accommodationType}'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Text('Pet Policy: ${policies.petPolicy}'),
+            Row(
+              children: [
+                const Text('Pet Policy: ',style: AppTheme.bodyTextStyle),
+                Text( policies.petPolicy,style: AppTheme.bodyTextStyle),
+              ],
             ),
           ],
         ),
@@ -129,13 +133,13 @@ class HotelPoliciesCardWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Policies:',
             style: AppTheme.headlineTextStyle,
           ),
-          const SizedBox(height: 8),
+          // const SizedBox(height: 8),
           Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -155,32 +159,35 @@ class HotelPoliciesCardWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 4),
                   child: Text('Pet Policy: ${policies.petPolicy}', style: AppTheme.bodyTextStyle,),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NavigationTabs(
-                            hotel: hotel,
-                            initialTabIndex: 2,
-                            latitude: latitude,
-                            longitude: longitude,
-                            hotelId: hotelId,
-                            nearbyCategoryId: '',
-                            // categoryId: '', // Index of the Facilities tab
-                          ),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Read Policy',
-                      style: AppTheme.linkTextStyle,
+
+              ],
+
+            ),
+
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavigationTabs(
+                      hotel: hotel,
+                      initialTabIndex: 2,
+                      latitude: latitude,
+                      longitude: longitude,
+                      hotelId: hotelId,
+                      nearbyCategoryId: '',
+                      // categoryId: '', // Index of the Facilities tab
                     ),
                   ),
-                ),
-              ],
+                );
+              },
+              child: const Text(
+                'Read Policy',
+                style: AppTheme.linkTextStyle,
+              ),
             ),
           ),
         ],

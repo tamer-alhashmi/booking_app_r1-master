@@ -85,13 +85,13 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
     });
   }
 
-  Future<void> _toggleDarkMode(bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isDarkModeEnabled = value;
-    });
-    prefs.setBool('isDarkModeEnabled', value);
-  }
+  // Future<void> _toggleDarkMode(bool value) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     _isDarkModeEnabled = value;
+  //   });
+  //   prefs.setBool('isDarkModeEnabled', value);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +115,14 @@ class _UserProfileSettingScreenState extends State<UserProfileSettingScreen> {
                   category: widget.category,
                   hotelId: widget.hotelId,
                   // categoryId: widget.categoryId,
+                  // onLocaleChange: (String locale) {
+                  //   // Handle locale change here
+                  //   // For example, you can update the app's locale state
+                  //   setState(() {
+                  //     Locale newLocale = Locale(locale);
+                  //     // Update app with the new locale
+                  //   });
+                  // },
                 ),
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   const begin = Offset(1.0, 0.0);

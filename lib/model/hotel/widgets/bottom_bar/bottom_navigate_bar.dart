@@ -314,7 +314,6 @@ class CustomBottomBar extends StatelessWidget {
   void _onBottomNavItemTapped(BuildContext context, int index) {
     onPageChanged(index);
 
-    // Corrected: Pass the two required positional arguments
     final navigationManager = NavigationManager(
       UserProfileSettingScreen(
         currentPageIndex: index,
@@ -348,6 +347,7 @@ class CustomBottomBar extends StatelessWidget {
 
     switch (index) {
       case 0:
+      // Define a method _onLocaleChange or use a placeholder
         navigationManager.navigateToHome(context);
         break;
       case 1:
@@ -361,7 +361,6 @@ class CustomBottomBar extends StatelessWidget {
         break;
     }
   }
-
 
   List<BottomNavigationBarItem> _buildBottomNavBarItems() {
     return [
@@ -392,22 +391,27 @@ class CustomBottomBar extends StatelessWidget {
 
   Widget _buildProfileIcon() {
     final imageProvider = userDetails['profilePhotoUrl'] != null
-        ? NetworkImage(userDetails['profilePhotoUrl'] as String)
+        ? NetworkImage(userDetails['profilePhotoUrl'])
         : const AssetImage('assets/holder/user_photo_placeholder.jpeg')
-            as ImageProvider<Object>;
+    as ImageProvider<Object>;
 
     return Hero(
       tag: 'profile-image',
       child: CircleAvatar(
         radius: 15,
-        // Placeholder for user photo, you can replace it with actual user photo
         backgroundImage: _imageFile != null
             ? FileImage(_imageFile!)
             : (userDetails['profilePhotoUrl'] != null)
-                ? NetworkImage(userDetails['profilePhotoUrl'] as String)
-                : const AssetImage('assets/holder/user_photo_placeholder.jpeg')
-                    as ImageProvider<Object>,
+            ? NetworkImage(userDetails['profilePhotoUrl'])
+            : const AssetImage('assets/holder/user_photo_placeholder.jpeg')
+        as ImageProvider<Object>,
       ),
     );
   }
+
+  // Define _onLocaleChange or remove it if not needed
+  void _onLocaleChange(String locale) {
+    // Handle locale change logic here
+  }
 }
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Primary Colors
@@ -15,13 +16,18 @@ class AppTheme {
   static const Color errorColor = Color(0xFFFF5A5A);
 
   // Typography
-  static const TextStyle headlineTextStyle = TextStyle(
+  static TextStyle headlineTextStyle = GoogleFonts.almarai(
     fontSize: 24.0,
     fontWeight: FontWeight.bold,
     color: textColor,
   );
+  static TextStyle ultraHeadlineTextStyle = GoogleFonts.almarai(
+    fontSize: 70.0,
+    fontWeight: FontWeight.w900,
+    color: textColor,
+  );
 
-  static const TextStyle cardHeadlineTextStyle = TextStyle(
+  static TextStyle cardHeadlineTextStyle = GoogleFonts.almarai(
     fontSize: 16.0,
     fontWeight: FontWeight.bold,
     color: textColor,

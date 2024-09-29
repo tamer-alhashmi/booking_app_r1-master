@@ -252,12 +252,9 @@ class _HotelDetailState extends State<HotelDetail> {
                         children: [
                           const Padding(
                             padding: EdgeInsets.only(right: 10),
-                            child: Icon(
-                                Icons.hotel,
-                                color: AppTheme.accentColor),
+                            child:
+                                Icon(Icons.hotel, color: AppTheme.accentColor),
                           ),
-
-
                           Text(
                             widget.hotel.name,
                             style: GoogleFonts.almarai(
@@ -294,20 +291,22 @@ class _HotelDetailState extends State<HotelDetail> {
                         children: [
                           Text(
                             _nights > 0
-                                ? '${widget.hotel.nightPrice * _nights} USD'
-                                : '${widget.hotel.nightPrice} USD',
+                                ? '${(double.parse(widget.hotel.nightPrice) * _nights).toStringAsFixed(2)} USD' // Convert String to double
+                                : '${double.parse(widget.hotel.nightPrice).toStringAsFixed(2)} USD', // Format to 2 decimal places
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+
+
                           const SizedBox(width: 8),
                           const Text(
                             'Total Price',
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       DateSelectionWidget(
                         hotel: widget.hotel,
                         onDatesSelected: (checkInDate, checkOutDate, nights) {
@@ -316,7 +315,7 @@ class _HotelDetailState extends State<HotelDetail> {
                           });
                         },
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       RoomsAndGuestsSelector(
                         onSelectionChanged: (rooms, adults, children) {
                           setState(() {
@@ -327,11 +326,11 @@ class _HotelDetailState extends State<HotelDetail> {
                         },
                         hotel: widget.hotel,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       HotelMapLocation(
                         hotel: widget.hotel,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -354,10 +353,9 @@ class _HotelDetailState extends State<HotelDetail> {
                           latitude: widget.latitude,
                           longitude: widget.longitude,
                           hotelId: widget.hotelId,
-
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -384,37 +382,31 @@ class _HotelDetailState extends State<HotelDetail> {
                         ),
                       ), // Most Popular Facilities
 
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NavigationTabs(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NavigationTabs(
                                   hotel: widget.hotel,
                                   latitude: widget.latitude,
                                   longitude: widget.longitude,
                                   initialTabIndex: 2,
                                   hotelId: widget.hotelId, nearbyCategoryId: '',
-                                // categoryId: widget.categoryId,),
-                            ),
-                          ));
+                                  // categoryId: widget.categoryId,),
+                                ),
+                              ));
                         },
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: HotelPoliciesCardWidget(
-                            hotel: widget.hotel,
-                            policies: widget.hotel.policies,
-                            latitude: widget.hotel.lat,
-                            longitude: widget.hotel.lng,
-                            hotelId: widget.hotelId,
-                          ),
+                        child: HotelPoliciesCardWidget(
+                          hotel: widget.hotel,
+                          policies: widget.hotel.policies,
+                          latitude: widget.hotel.lat,
+                          longitude: widget.hotel.lng,
+                          hotelId: widget.hotelId,
                         ),
                       ), // HotelPoliciesCardWidget
+                      const SizedBox(height: 12),
 
                       GestureDetector(
                         onTap: () {
@@ -422,43 +414,48 @@ class _HotelDetailState extends State<HotelDetail> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NavigationTabs(
-                                  hotel: widget.hotel,
-                                  latitude: widget.latitude,
-                                  longitude: widget.longitude,
-                                  initialTabIndex: 4,
-                                  hotelId: widget.hotelId, nearbyCategoryId: '',
+                                hotel: widget.hotel,
+                                latitude: widget.latitude,
+                                longitude: widget.longitude,
+                                initialTabIndex: 4,
+                                hotelId: widget.hotelId, nearbyCategoryId: '',
                                 // categoryId: widget.categoryId,
                               ),
                             ),
                           );
                         },
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: double.infinity, // Extend to full width
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              // color: Colors.blue,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Text(
-                              'View Nearby Places',
-                              style: AppTheme.sectionTitleTextStyle,
-                            ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'View Nearby Places',
+                                style: AppTheme.sectionTitleTextStyle,
+                              ),
+                              SizedBox(width: 50,),
+                              Icon(Icons.keyboard_double_arrow_right, color: AppTheme.primaryColor,)
+                            ],
                           ),
                         ),
                       ), // View Nearby Places
 
+
+                      const SizedBox(height: 18),
+
+                      // Guest favorite
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => NavigationTabs(
-                                  hotel: widget.hotel,
-                                  latitude: widget.latitude,
-                                  longitude: widget.longitude,
-                                  initialTabIndex: 5,
-                                  hotelId: widget.hotelId, nearbyCategoryId: '',
+                                hotel: widget.hotel,
+                                latitude: widget.latitude,
+                                longitude: widget.longitude,
+                                initialTabIndex: 5,
+                                hotelId: widget.hotelId, nearbyCategoryId: '',
                                 // categoryId: widget.categoryId,
                               ),
                             ),
@@ -499,168 +496,165 @@ class _HotelDetailState extends State<HotelDetail> {
                                       .reduce((a, b) => a + b) /
                                   reviews.length;
 
-                              return Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      averageRating.toStringAsFixed(2),
-                                      style: const TextStyle(
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.bold,
+                              return Container(
+                                color: AppTheme.chipBackgroundColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        averageRating.toStringAsFixed(2),
+                                        style: AppTheme.ultraHeadlineTextStyle,
                                       ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    const Text(
-                                      'Guest favorite',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
+                                      // const SizedBox(height: 8),
+                                      const Text(
+                                        'Guest favorite',
+                                        style: AppTheme.sectionTitleTextStyle,
                                       ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    const Text(
-                                      'This hotel is in the top 10% based on ratings, reviews, and reliability.',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey,
+                                      const SizedBox(height: 8),
+                                      const Text(
+                                        'This hotel is in the top 10% based on ratings, reviews, and reliability.',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Container(
-                                      height: 150,
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: reviews.length,
-                                        itemBuilder: (context, index) {
-                                          final review = reviews[index];
+                                      const SizedBox(height: 16),
+                                      Container(
+                                        height: 150,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: reviews.length,
+                                          itemBuilder: (context, index) {
+                                            final review = reviews[index];
 
-                                          return FutureBuilder<UserDetails>(
-                                            future: UserDetails.loadUserData(
-                                                review.userId),
-                                            builder: (context, userSnapshot) {
-                                              if (userSnapshot
-                                                      .connectionState ==
-                                                  ConnectionState.waiting) {
-                                                return const Center(
-                                                    child:
-                                                        CircularProgressIndicator());
-                                              }
+                                            return FutureBuilder<UserDetails>(
+                                              future: UserDetails.loadUserData(
+                                                  review.userId),
+                                              builder: (context, userSnapshot) {
+                                                if (userSnapshot
+                                                        .connectionState ==
+                                                    ConnectionState.waiting) {
+                                                  return const Center(
+                                                      child:
+                                                          CircularProgressIndicator());
+                                                }
 
-                                              if (userSnapshot.hasError) {
-                                                return Text(
-                                                    'Error: ${userSnapshot.error}');
-                                              }
+                                                if (userSnapshot.hasError) {
+                                                  return Text(
+                                                      'Error: ${userSnapshot.error}');
+                                                }
 
-                                              if (userSnapshot.hasData) {
-                                                final userDetails =
-                                                    userSnapshot.data;
-                                                review.userDetails =
-                                                    userDetails; // Assigning nullable value
+                                                if (userSnapshot.hasData) {
+                                                  final userDetails =
+                                                      userSnapshot.data;
+                                                  review.userDetails =
+                                                      userDetails; // Assigning nullable value
 
-                                                return Container(
-                                                  margin: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 8.0),
-                                                  width: 300,
-                                                  child: Card(
-                                                    elevation: 2,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              16.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              if (userDetails
-                                                                      ?.profilePhotoUrl
-                                                                      .isNotEmpty ??
-                                                                  false)
-                                                                CircleAvatar(
-                                                                  backgroundImage:
-                                                                      NetworkImage(
-                                                                          userDetails!
-                                                                              .profilePhotoUrl),
+                                                  return Container(
+                                                    margin: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 8.0),
+                                                    width: 300,
+                                                    child: Card(
+                                                      elevation: 2,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                12),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets.all(
+                                                                16.0),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                if (userDetails
+                                                                        ?.profilePhotoUrl
+                                                                        .isNotEmpty ??
+                                                                    false)
+                                                                  CircleAvatar(
+                                                                    backgroundImage:
+                                                                        NetworkImage(
+                                                                            userDetails!
+                                                                                .profilePhotoUrl),
+                                                                  ),
+                                                                const SizedBox(
+                                                                    width: 8),
+                                                                const Icon(
+                                                                    Icons.star,
+                                                                    color: Colors
+                                                                        .amber),
+                                                                const SizedBox(
+                                                                    width: 4),
+                                                                Text(
+                                                                    '${review.rating}'),
+                                                                const Spacer(),
+                                                                Text(
+                                                                  '${review.timestamp.toLocal()}',
+                                                                  style:
+                                                                      const TextStyle(
+                                                                          fontSize:
+                                                                              12),
                                                                 ),
-                                                              const SizedBox(
-                                                                  width: 8),
-                                                              const Icon(
-                                                                  Icons.star,
-                                                                  color: Colors
-                                                                      .amber),
-                                                              const SizedBox(
-                                                                  width: 4),
-                                                              Text(
-                                                                  '${review.rating}'),
-                                                              const Spacer(),
-                                                              Text(
-                                                                '${review.timestamp.toLocal()}',
-                                                                style:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            12),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 8),
+                                                            Expanded(
+                                                              child: Text(
+                                                                review.comment,
+                                                                maxLines: 3,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
                                                               ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 8),
-                                                          Expanded(
-                                                            child: Text(
-                                                              review.comment,
-                                                              maxLines: 3,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 8),
-                                                          Text(
-                                                            'Show more',
-                                                            style: TextStyle(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                            const SizedBox(
+                                                                height: 8),
+                                                            Text(
+                                                              'Show more',
+                                                              style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                );
-                                              }
+                                                  );
+                                                }
 
-                                              return const Text(
-                                                  'No user data available');
-                                            },
-                                          );
-                                        },
+                                                return const Text(
+                                                    'No user data available');
+                                              },
+                                            );
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        // Action to navigate to the full review page
-                                      },
-                                      child: Text(
-                                          'Show all ${reviews.length} reviews'),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 16),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          // Action to navigate to the full review page
+                                        },
+                                        child: Text(
+                                            'Show all ${reviews.length} reviews'),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             }
@@ -739,7 +733,3 @@ class HotelMapLocation extends StatelessWidget {
     );
   }
 }
-
-
-
-

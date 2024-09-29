@@ -59,7 +59,7 @@ class NavigationManager {
   }
 
   void navigateToUserFavorite(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => FavoriteScreen(
@@ -98,7 +98,7 @@ class NavigationManager {
   }
 
   void navigateToUserBooking(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -136,7 +136,7 @@ class NavigationManager {
   }
 
   void navigateToUserProfileSettings(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>

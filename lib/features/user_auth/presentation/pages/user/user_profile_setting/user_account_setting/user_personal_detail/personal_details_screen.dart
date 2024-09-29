@@ -116,7 +116,7 @@ class _UserProfileUpdatePageState extends State<UserProfileUpdatePage> {
     });
 
     // Navigate back to HomeScreen after updating profile
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (_, animation, secondaryAnimation) => HomeScreen(

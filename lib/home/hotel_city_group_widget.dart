@@ -51,14 +51,35 @@ class HotelGroupWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => HotelDetail(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => HotelDetail(
                         hotel: hotel,
                         latitude: latitude,
                         longitude: longitude,
                         policies: policies, userId: userId, userDetails: {}, hotelId: hotelId,
                         // categoryId: categoryId,
                       ),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0); // Slide in from the right
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween =
+                        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                      // settings: RouteSettings(
+                      //   arguments: {
+                      //     'authService': authService,
+                      //     'category': category,
+                      //     'hotel': hotel,
+                      //     'userDetails': userDetails,
+                      //   },
+                      // ),
                     ),
                   );
                 },

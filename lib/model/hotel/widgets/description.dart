@@ -29,16 +29,19 @@ class DescriptionWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Description',
                 style: AppTheme.headlineTextStyle,
               ),
               const SizedBox(height: 8), // Adjust the spacing as needed
-              Text(
-                hotel.description,
-                maxLines: 3, // Adjust the maximum number of lines
-                overflow: TextOverflow.ellipsis,
-                style:AppTheme.bodyTextStyle,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  hotel.description,
+                  maxLines: 3, // Adjust the maximum number of lines
+                  overflow: TextOverflow.ellipsis,
+                  style:AppTheme.bodyTextStyle,
+                ),
               ),
             ],
           ),

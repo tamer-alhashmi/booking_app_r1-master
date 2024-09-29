@@ -16,28 +16,23 @@ class HotelAmenities extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Most Popular Facilities:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style:AppTheme.sectionTitleTextStyle,
             ),
             Wrap(
               direction: Axis.horizontal,
               children: hotel.facilities.map((amenity) {
                 return Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Chip(
                     label: Text(amenity),
-                    labelStyle: const TextStyle(
-                      fontSize: 14, // Customize text size
-                    ),
+                    labelStyle: AppTheme.bodyTextStyle,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                           10.0), // Customize border radius
@@ -83,7 +78,7 @@ class HotelAmenitiesCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Most Popular Facilities:',
               style: AppTheme.headlineTextStyle,
             ),

@@ -56,7 +56,7 @@ class _NavigationTabsState extends State<NavigationTabs>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.hotel.name} Hotel'),
+        title: Text('${widget.hotel.name} Hotel', style: AppTheme.headlineTextStyle,),
       ),
       body: Column(
         children: <Widget>[
@@ -64,12 +64,11 @@ class _NavigationTabsState extends State<NavigationTabs>
             constraints: const BoxConstraints(maxHeight: 150.0),
             child: Material(
               color: AppTheme.primaryColor, // Choose your desired color
-              child: TabBar(
+              child: TabBar(labelStyle: AppTheme.chipLabelTextStyle,
                 dividerColor: AppTheme.accentColor,
                 controller: _tabController,
                 isScrollable: true,
-                labelColor: Colors
-                    .white, // Set the color of the active tab label to white
+                labelColor: Colors.white, // Set the color of the active tab label to white
                 tabs: const [
                   Tab(text: 'Description'),
                   Tab(text: 'Facilities'),
@@ -118,7 +117,7 @@ class DescriptionTab extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text(hotel.description),
+        child: Text(hotel.description, style: AppTheme.bodyTextStyle,),
       ),
     );
   }
@@ -150,9 +149,12 @@ class PoliciesTab extends StatelessWidget {
   Widget build(BuildContext context) {
     // Implement the UI to display policies
     return Center(
-      child: PoliciesWidget(
-        policies: hotel.policies,
-        hotel: hotel,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: PoliciesWidget(
+          policies: hotel.policies,
+          hotel: hotel,
+        ),
       ),
     );
   }
